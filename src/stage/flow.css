@@ -8,9 +8,9 @@
   --fd-ease: cubic-bezier(0.45, 0, 0.1, 1);
   --fd-arrive: cubic-bezier(0.25, 0.8, 0.25, 1);
   --ss-raised: #ffffff;
-  --fd-hub: var(--ss-surface);
-  --fd-route: #d6d4cf;
-  --fd-merged: #57534e;
+  --fd-hub: #ffffff;
+  --fd-route: #c9cec5;
+  --fd-merged: #4b524b;
   overflow: hidden;
   background: transparent;
   color: var(--ss-text-strong);
@@ -18,10 +18,10 @@
 }
 
 .fd .ss-stage[data-theme="dark"] {
-  --ss-raised: #1a1a19;
-  --fd-hub: #222220;
-  --fd-route: #3a3a37;
-  --fd-merged: #b9b5ae;
+  --ss-raised: #111511;
+  --fd-hub: #161b16;
+  --fd-route: #2f362f;
+  --fd-merged: #b3bcb2;
 }
 
 .fd-scene {
@@ -106,7 +106,7 @@
   display: flex;
   flex-direction: column;
   width: 296px;
-  border-radius: 14px;
+  border-radius: 0;
   background: var(--fd-hub);
   box-shadow: var(--ss-shadow-hero);
 }
@@ -166,14 +166,14 @@
   isolation: isolate;
 }
 
-/* The row that changes in place gets a moment of light */
+/* The row that changes in place gets a moment of light, amber: it marks a pin */
 .fd-row::before {
   content: '';
   position: absolute;
   inset: 3px -8px 2px;
   z-index: -1;
-  border-radius: 7px;
-  background: var(--ss-accent-soft);
+  border-radius: 0;
+  background: var(--bd-pin-soft);
   opacity: 0;
   transition: opacity 0.7s ease;
 }
@@ -210,15 +210,16 @@
   font-size: 12.5px;
 }
 
+/* Pinned commits override main: amber */
 .fd-ref--pin svg {
-  color: var(--ss-accent);
+  color: var(--bd-pin);
 }
 
 .fd-sha {
   padding: 2px 7px;
-  border-radius: 6px;
-  background: var(--ss-accent-soft);
-  color: var(--ss-accent-text);
+  border-radius: 0;
+  background: var(--bd-pin-soft);
+  color: var(--bd-pin);
   font-weight: 600;
   line-height: 1.3;
 }
@@ -264,7 +265,7 @@
   gap: 6px;
   width: 244px;
   padding: 14px 16px;
-  border-radius: 10px;
+  border-radius: 0;
   background: var(--ss-raised);
   box-shadow: var(--ss-shadow-ground);
   font-size: 13px;
@@ -385,7 +386,7 @@
 }
 
 .fd-git .fd-node__line .fd-path {
-  border-radius: 4px;
+  border-radius: 0;
   box-shadow: 0 0 0 3px transparent;
   background: transparent;
   transition: color 0.25s ease, text-decoration-color 0.25s ease, background-color 0.6s ease, box-shadow 0.6s ease;

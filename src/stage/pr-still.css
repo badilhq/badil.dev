@@ -2,58 +2,72 @@
    tokens.css, set on this stage's own root so the shared file stays as is. */
 .ps .ss-stage {
   --gutter: 52px;
-  --ss-accent: #c2410c;
-  --ss-accent-soft: rgba(194, 65, 12, 0.1);
-  --ss-accent-text: #b13a0a;
-  --ss-canvas: #f7f7f6;
+  --ss-accent: #0a7a3a;
+  --ss-accent-soft: rgba(10, 122, 58, 0.1);
+  --ss-accent-text: #0a7a3a;
+  --ss-canvas: #f1f3ee;
   --ss-surface: #ffffff;
-  --ss-chrome: #f7f7f6;
-  --ss-line: #e7e6e3;
-  --ss-text: #6b6a66;
-  --ss-text-strong: #1c1b19;
-  --ss-text-faint: #9c9b97;
-  --ss-icon: #77766f;
-  --ss-icon-faint: #b6b5b0;
-  --ss-success: #1f9254;
-  --ss-success-soft: #e3f3e9;
-  --ss-success-text: #18784a;
-  --ss-font: system-ui, -apple-system, "Segoe UI", sans-serif;
-  --ss-mono: ui-monospace, "SF Mono", SFMono-Regular, Menlo, Consolas, monospace;
+  --ss-chrome: #f1f3ee;
+  --ss-line: #d9ddd5;
+  --ss-text: #4b524b;
+  --ss-text-strong: #111411;
+  --ss-text-faint: #757c75;
+  --ss-icon: #5f675f;
+  --ss-icon-faint: #a9afa6;
+  --ss-success: #0a7a3a;
+  --ss-success-soft: #e2f1e7;
+  --ss-success-text: #0a7a3a;
+  --ss-warning-soft: #f8ecd2;
+  --ss-warning-text: #975a00;
+  --ss-font: "IBM Plex Sans Variable", system-ui, -apple-system, "Segoe UI", sans-serif;
+  --ss-mono: "IBM Plex Mono", ui-monospace, "SF Mono", SFMono-Regular, Menlo, Consolas, monospace;
 
-  --ps-well: #f2f1ee;
+  /* Square corners and a hairline ring instead of the kit's radii and soft
+     shadow. Unlayered, so they win over the kit's layered values, in light
+     and in dark (this rule also matches the dark stage). */
+  --ss-radius-sm: 0;
+  --ss-radius-md: 0;
+  --ss-radius-lg: 0;
+  --ss-radius-window: 0;
+  --ss-radius-pill: 0;
+  --ss-shadow-hero: 0 0 0 1px var(--ss-line);
+
+  --ps-well: #f1f3ee;
   --ps-page: #ffffff;
-  --ps-card-head: #fafaf9;
-  --ps-code: #f2f1ef;
-  --ps-bot: #e7e6e3;
+  --ps-card-head: #f6f7f3;
+  --ps-code: #eceee8;
+  --ps-bot: #d9ddd5;
 
   overflow: hidden;
-  border-radius: 16px;
+  border-radius: 0;
   background: var(--ps-well);
   font-family: var(--ss-font);
 }
 
 .ps .ss-stage[data-theme="dark"] {
-  --ss-accent: #f0732a;
-  --ss-accent-soft: rgba(240, 115, 42, 0.16);
-  --ss-accent-text: #f58a4b;
-  --ss-canvas: #121211;
-  --ss-surface: #1e1e1c;
-  --ss-chrome: #1e1e1c;
-  --ss-line: #2e2e2c;
-  --ss-text: #9a9994;
-  --ss-text-strong: #ecebe8;
-  --ss-text-faint: #6c6b67;
-  --ss-icon: #9a9994;
-  --ss-icon-faint: #4f4e4b;
-  --ss-success: #3fb975;
-  --ss-success-soft: rgba(63, 185, 117, 0.14);
-  --ss-success-text: #5fcf8f;
+  --ss-accent: #3ddc84;
+  --ss-accent-soft: rgba(61, 220, 132, 0.14);
+  --ss-accent-text: #3ddc84;
+  --ss-canvas: #0b0d0b;
+  --ss-surface: #111511;
+  --ss-chrome: #161a16;
+  --ss-line: #232823;
+  --ss-text: #98a297;
+  --ss-text-strong: #e4e9e3;
+  --ss-text-faint: #6b746a;
+  --ss-icon: #98a297;
+  --ss-icon-faint: #434a43;
+  --ss-success: #3ddc84;
+  --ss-success-soft: rgba(61, 220, 132, 0.14);
+  --ss-success-text: #3ddc84;
+  --ss-warning-soft: rgba(242, 178, 62, 0.14);
+  --ss-warning-text: #f2b23e;
 
-  --ps-well: #1a1a19;
-  --ps-page: #1e1e1c;
-  --ps-card-head: #232321;
-  --ps-code: #2a2a28;
-  --ps-bot: #353533;
+  --ps-well: #111511;
+  --ps-page: #111511;
+  --ps-card-head: #161a16;
+  --ps-code: #1c211c;
+  --ps-bot: #2a302a;
 }
 
 .ps {
@@ -67,7 +81,7 @@
     flex-direction: column;
     height: 640px;
     padding: 0 24px;
-    border-radius: 12px;
+    border-radius: 0;
     background: var(--ps-page);
     box-shadow: var(--ss-shadow-hero);
     color: var(--ss-text-strong);
@@ -80,7 +94,7 @@
   & [data-layout="compact"] .ps-page {
     height: 700px;
     padding: 0 14px;
-    border-radius: 10px;
+    border-radius: 0;
   }
 
   /* ---- Header ---- */
@@ -193,7 +207,7 @@
 
   .ps-card {
     border: 1px solid var(--ss-line);
-    border-radius: 10px;
+    border-radius: 0;
     background: var(--ps-page);
     overflow: hidden;
   }
@@ -202,13 +216,14 @@
     display: flex;
     align-items: center;
     gap: 8px;
-    height: 40px;
+    height: 42px;
     padding: 0 14px 0 10px;
     border-bottom: 1px solid var(--ss-line);
     background: var(--ps-card-head);
   }
 
   & [data-layout="compact"] .ps-card__head {
+    height: 40px;
     padding: 0 12px;
   }
 
@@ -310,7 +325,7 @@
 
   .ps-code {
     padding: 1px 5px;
-    border-radius: 5px;
+    border-radius: 0;
     background: var(--ps-code);
     color: var(--ss-text-strong);
     font-size: 11.5px;

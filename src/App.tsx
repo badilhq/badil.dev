@@ -112,7 +112,7 @@ export function App() {
             <ol className="steps">
               {STEPS.map((s, i) => (
                 <li key={s.title} className="step">
-                  <span className="step__num">{i + 1}</span>
+                  <span className="step__num">{String(i + 1).padStart(2, '0')}</span>
                   <h3>{s.title}</h3>
                   <p>{s.body}</p>
                 </li>
