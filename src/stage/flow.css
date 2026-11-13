@@ -9,8 +9,8 @@
   --fd-arrive: cubic-bezier(0.25, 0.8, 0.25, 1);
   --ss-raised: #ffffff;
   --fd-hub: #ffffff;
-  --fd-route: #c9cec5;
-  --fd-merged: #4b524b;
+  --fd-route: #cfd3d8;
+  --fd-merged: #55595f;
   overflow: hidden;
   background: transparent;
   color: var(--ss-text-strong);

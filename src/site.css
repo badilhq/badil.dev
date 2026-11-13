@@ -5,16 +5,16 @@
   --accent: #0a7a3a;
   --accent-hover: #08672f;
   --accent-text: #0a7a3a;
-  --bg: #fafaf7;
-  --canvas: #f1f3ee;
-  --line: #d9ddd5;
-  --grid: #e9ece5;
-  --text: #4b524b;
-  --text-strong: #111411;
-  --text-faint: #757c75;
-  --code: #eceee8;
-  --btn: #fafaf7;
-  --btn-hover: #eceee8;
+  --bg: #ffffff;
+  --canvas: #f4f5f6;
+  --line: #e3e5e8;
+  --grid: #f2f3f5;
+  --text: #55595f;
+  --text-strong: #16181b;
+  --text-faint: #737880;
+  --code: #f1f2f4;
+  --btn: #ffffff;
+  --btn-hover: #f1f2f4;
   --font: "IBM Plex Sans Variable", system-ui, -apple-system, "Segoe UI", sans-serif;
   --mono: "IBM Plex Mono", ui-monospace, "SF Mono", SFMono-Regular, Menlo, Consolas, monospace;
   --radius: 0;
@@ -127,10 +127,14 @@ a {
   display: flex;
   align-items: center;
   justify-content: space-between;
+  gap: 16px;
   height: 68px;
 }
 
 .wordmark {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.4em;
   color: var(--text-strong);
   font-family: var(--mono);
   font-size: 18px;
@@ -139,15 +143,17 @@ a {
   text-decoration: none;
 }
 
-/* The mark: a static block cursor after the name */
-.wordmark::after {
-  content: "";
-  display: inline-block;
-  width: 0.6em;
-  height: 1.1em;
-  margin-left: 0.12em;
-  vertical-align: -0.18em;
-  background: var(--accent);
+/* The mark: three services, the middle one swapped in (green), the others
+   on main (the text color) */
+.wordmark__mark {
+  flex: none;
+  width: 1.3em;
+  height: 1.3em;
+  fill: currentColor;
+}
+
+.wordmark__mark .wordmark__swap {
+  fill: var(--accent);
 }
 
 .wordmark--small {
@@ -590,6 +596,12 @@ h3 {
   .nav__links,
   .nav__end {
     gap: 16px;
+  }
+
+  /* The header keeps the mark alone so the links and the theme control fit;
+     the link's aria-label still names it */
+  .nav .wordmark__name {
+    display: none;
   }
 
   .hero {

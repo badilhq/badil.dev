@@ -75,12 +75,23 @@ function ThemeControl() {
   )
 }
 
+/** badil's mark: three services, the middle one swapped in, the others on main. */
+function Mark() {
+  return (
+    <svg className="wordmark__mark" viewBox="0 0 32 32" aria-hidden="true" focusable="false">
+      <rect x="3" y="5" width="21" height="6" />
+      <rect className="wordmark__swap" x="8" y="13" width="21" height="6" />
+      <rect x="3" y="21" width="21" height="6" />
+    </svg>
+  )
+}
+
 export function App() {
   return (
     <>
       <header className="nav">
         <div className="wrap nav__inner">
-          <a className="wordmark" href="/" aria-label="badil home">badil</a>
+          <a className="wordmark" href="/" aria-label="badil home"><Mark /><span className="wordmark__name">badil</span></a>
           <div className="nav__end">
             <nav className="nav__links" aria-label="Main">
               <a href={INSTALL}>Install guide</a>
@@ -171,7 +182,7 @@ export function App() {
 
       <footer className="footer">
         <div className="wrap footer__inner">
-          <span className="wordmark wordmark--small">badil</span>
+          <span className="wordmark wordmark--small"><Mark />badil</span>
           <ul className="footer__links">
             <li>Apache-2.0</li>
             <li><a href={REPO}>GitHub</a></li>

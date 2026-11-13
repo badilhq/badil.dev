@@ -5,20 +5,20 @@
   --ss-accent: #0a7a3a;
   --ss-accent-soft: rgba(10, 122, 58, 0.1);
   --ss-accent-text: #0a7a3a;
-  --ss-canvas: #f1f3ee;
+  --ss-canvas: #f4f5f6;
   --ss-surface: #ffffff;
-  --ss-chrome: #f1f3ee;
-  --ss-line: #d9ddd5;
-  --ss-text: #4b524b;
-  --ss-text-strong: #111411;
-  --ss-text-faint: #757c75;
-  --ss-icon: #5f675f;
-  --ss-icon-faint: #a9afa6;
+  --ss-chrome: #f4f5f6;
+  --ss-line: #e3e5e8;
+  --ss-text: #55595f;
+  --ss-text-strong: #16181b;
+  --ss-text-faint: #737880;
+  --ss-icon: #6b7078;
+  --ss-icon-faint: #b4b8be;
   --ss-success: #0a7a3a;
-  --ss-success-soft: #e2f1e7;
+  --ss-success-soft: #e3f4ea;
   --ss-success-text: #0a7a3a;
-  --ss-warning-soft: #f8ecd2;
-  --ss-warning-text: #975a00;
+  --ss-warning-soft: #fdf1d8;
+  --ss-warning-text: #8a5300;
   --ss-font: "IBM Plex Sans Variable", system-ui, -apple-system, "Segoe UI", sans-serif;
   --ss-mono: "IBM Plex Mono", ui-monospace, "SF Mono", SFMono-Regular, Menlo, Consolas, monospace;
 
@@ -32,11 +32,11 @@
   --ss-radius-pill: 0;
   --ss-shadow-hero: 0 0 0 1px var(--ss-line);
 
-  --ps-well: #f1f3ee;
+  --ps-well: #f4f5f6;
   --ps-page: #ffffff;
-  --ps-card-head: #f6f7f3;
-  --ps-code: #eceee8;
-  --ps-bot: #d9ddd5;
+  --ps-card-head: #f8f9fa;
+  --ps-code: #f1f2f4;
+  --ps-bot: #e3e5e8;
 
   overflow: hidden;
   border-radius: 0;
