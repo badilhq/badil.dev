@@ -28,7 +28,7 @@ npm run deploy           # builds, then wrangler deploy
 
 ## The illustrations
 
-The hero (`src/stage/FlowDemo.tsx`) and the pull request still (`src/stage/PrStill.tsx`) are built with the [Stageshow](https://benji.org/stageshow) kit, copied into `src/kit`. Their look is set by the tokens in `src/stage/tokens.css`, which the page shares.
+The hero (`src/stage/FlowDemo.tsx`) and the pull request still (`src/stage/PrStill.tsx`) are built with the [Stageshow](https://benji.org/stageshow) kit, copied into `src/kit`. Their look (colors, square corners, hairline rings, IBM Plex) is set in `src/stage/tokens.css` and `src/stage/flow.css` for the hero and `src/stage/pr-still.css` for the pull request still, with the same values as the page's `src/site.css`.
 
 After changing one, rehearse it against the dev server, not the built page: the checks tell the kit's CSS from the page's by file. Start it on the address the commands use, `npm run dev -- --host 127.0.0.1` (Vite listens on `localhost` only by default).
 

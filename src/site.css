@@ -1,38 +1,41 @@
-/* The page around the hero: the stage's tokens (src/stage/tokens.css), so
-   type, radii, grays and the accent are one system. */
+/* The page around the hero: the same values as the stage's tokens
+   (src/stage/tokens.css), so type, shapes, neutrals and the accent are one
+   system. Green is the accent and means live. */
 :root {
-  --accent: #c2410c;
-  --accent-hover: #a8380a;
-  --accent-text: #b13a0a;
+  --accent: #0a7a3a;
+  --accent-hover: #08672f;
+  --accent-text: #0a7a3a;
   --bg: #ffffff;
-  --canvas: #f7f7f6;
-  --line: #e7e6e3;
-  --text: #6b6a66;
-  --text-strong: #1c1b19;
-  --text-faint: #9c9b97;
-  --code: #f2f1ef;
+  --canvas: #f4f5f6;
+  --line: #e3e5e8;
+  --grid: #f2f3f5;
+  --text: #55595f;
+  --text-strong: #16181b;
+  --text-faint: #737880;
+  --code: #f1f2f4;
   --btn: #ffffff;
-  --btn-hover: #f3f2f0;
-  --font: system-ui, -apple-system, "Segoe UI", sans-serif;
-  --mono: ui-monospace, "SF Mono", SFMono-Regular, Menlo, Consolas, monospace;
-  --radius: 8px;
+  --btn-hover: #f1f2f4;
+  --font: "IBM Plex Sans Variable", system-ui, -apple-system, "Segoe UI", sans-serif;
+  --mono: "IBM Plex Mono", ui-monospace, "SF Mono", SFMono-Regular, Menlo, Consolas, monospace;
+  --radius: 0;
   --gutter: 24px;
-  --on-accent: #fff;
+  --on-accent: #ffffff;
 
   /* The dark values, declared once. The two rules below switch to them. */
-  --dark-accent: #f0732a;
-  --dark-accent-hover: #f58a4b;
-  --dark-accent-text: #f58a4b;
-  --dark-bg: #121211;
-  --dark-canvas: #181817;
-  --dark-line: #2b2b29;
-  --dark-text: #9a9994;
-  --dark-text-strong: #ecebe8;
-  --dark-text-faint: #6c6b67;
-  --dark-code: #252523;
-  --dark-btn: #1e1e1c;
-  --dark-btn-hover: #262624;
-  --dark-on-accent: #1a0d05;
+  --dark-accent: #3ddc84;
+  --dark-accent-hover: #62e59c;
+  --dark-accent-text: #3ddc84;
+  --dark-bg: #0b0d0b;
+  --dark-canvas: #111511;
+  --dark-line: #232823;
+  --dark-grid: #151915;
+  --dark-text: #98a297;
+  --dark-text-strong: #e4e9e3;
+  --dark-text-faint: #6b746a;
+  --dark-code: #1c211c;
+  --dark-btn: #111511;
+  --dark-btn-hover: #1c211c;
+  --dark-on-accent: #04140a;
 
   color-scheme: light;
 }
@@ -46,6 +49,7 @@
   --bg: var(--dark-bg);
   --canvas: var(--dark-canvas);
   --line: var(--dark-line);
+  --grid: var(--dark-grid);
   --text: var(--dark-text);
   --text-strong: var(--dark-text-strong);
   --text-faint: var(--dark-text-faint);
@@ -64,6 +68,7 @@
     --bg: var(--dark-bg);
     --canvas: var(--dark-canvas);
     --line: var(--dark-line);
+    --grid: var(--dark-grid);
     --text: var(--dark-text);
     --text-strong: var(--dark-text-strong);
     --text-faint: var(--dark-text-faint);
@@ -100,7 +105,7 @@ a {
 /* Prose rules never reach into the stage */
 :where(main) code:not(:where(.ss-stage *)) {
   padding: 0 4px;
-  border-radius: 4px;
+  border-radius: 0;
   background: var(--code);
   color: var(--text-strong);
   font-family: var(--mono);
@@ -122,25 +127,44 @@ a {
   display: flex;
   align-items: center;
   justify-content: space-between;
+  gap: 16px;
   height: 68px;
 }
 
 .wordmark {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.4em;
   color: var(--text-strong);
-  font-size: 20px;
-  font-weight: 700;
-  letter-spacing: -0.03em;
+  font-family: var(--mono);
+  font-size: 18px;
+  font-weight: 600;
+  letter-spacing: 0;
   text-decoration: none;
 }
 
+/* The mark: three services, the middle one swapped in (green), the others
+   on main (the text color) */
+.wordmark__mark {
+  flex: none;
+  width: 1.3em;
+  height: 1.3em;
+  fill: currentColor;
+}
+
+.wordmark__mark .wordmark__swap {
+  fill: var(--accent);
+}
+
 .wordmark--small {
-  font-size: 16px;
+  font-size: 15px;
 }
 
 .nav__links {
   display: flex;
   gap: 24px;
-  font-size: 14px;
+  font-family: var(--mono);
+  font-size: 13px;
   font-weight: 500;
 }
 
@@ -186,6 +210,7 @@ a {
 
 .theme__btn[aria-pressed="true"] {
   background: var(--code);
+  box-shadow: inset 0 0 0 1px var(--line);
   color: var(--text-strong);
 }
 
@@ -197,36 +222,57 @@ a {
 /* ---- Hero ---- */
 
 .hero {
+  position: relative;
   padding-top: 72px;
+}
+
+/* A faint 32px grid behind the hero, faded out over its last 160px. On its
+   own layer under the content, so the mask never reaches the copy or the
+   stage. */
+.hero::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  z-index: -1;
+  background-image:
+    linear-gradient(to right, var(--grid) 1px, transparent 1px),
+    linear-gradient(to bottom, var(--grid) 1px, transparent 1px);
+  background-size: 32px 32px;
+  -webkit-mask-image: linear-gradient(to bottom, #000 calc(100% - 160px), transparent);
+  mask-image: linear-gradient(to bottom, #000 calc(100% - 160px), transparent);
+  pointer-events: none;
 }
 
 .hero__copy {
   display: flex;
   flex-direction: column;
-  align-items: center;
-  text-align: center;
+  align-items: flex-start;
+  text-align: left;
 }
 
 h1 {
-  max-width: 860px;
+  max-width: 900px;
   margin: 0;
   color: var(--text-strong);
-  font-size: clamp(32px, 4.6vw, 54px);
-  font-weight: 700;
-  line-height: 1.1;
-  letter-spacing: -0.032em;
+  font-family: var(--mono);
+  font-size: clamp(28px, 3.4vw, 44px);
+  font-weight: 600;
+  line-height: 1.15;
+  letter-spacing: -0.01em;
   text-wrap: balance;
 }
 
 .hero__sub {
   margin: 20px 0 0;
-  font-size: 16px;
+  color: var(--text);
+  font-family: var(--mono);
+  font-size: 14px;
 }
 
 .actions {
   display: flex;
   flex-wrap: wrap;
-  justify-content: center;
+  justify-content: flex-start;
   gap: 12px;
   margin-top: 32px;
 }
@@ -234,14 +280,15 @@ h1 {
 .btn {
   display: inline-flex;
   align-items: center;
-  height: 42px;
+  height: 40px;
   padding: 0 16px;
   border-radius: var(--radius);
   background: var(--btn);
-  box-shadow: inset 0 0 0 1px var(--line), 0 1px 2px rgba(0, 0, 0, 0.04);
+  box-shadow: inset 0 0 0 1px var(--text-strong);
   color: var(--text-strong);
+  font-family: var(--mono);
   font-size: 14px;
-  font-weight: 600;
+  font-weight: 500;
   text-decoration: none;
   transition: background-color 0.15s ease-out;
 }
@@ -309,65 +356,76 @@ a:focus-visible {
 h2 {
   margin: 0;
   color: var(--text-strong);
-  font-size: clamp(24px, 2.6vw, 32px);
+  font-family: var(--mono);
+  font-size: clamp(22px, 2.2vw, 28px);
   font-weight: 600;
   line-height: 1.2;
-  letter-spacing: -0.022em;
+  letter-spacing: 0;
 }
 
 h3 {
   margin: 0;
   color: var(--text-strong);
-  font-size: 16px;
+  font-family: var(--mono);
+  font-size: 15px;
   font-weight: 600;
   line-height: 1.4;
-  letter-spacing: -0.005em;
+  letter-spacing: 0;
 }
 
+/* Steps and points: one bordered panel per list, its cells ruled apart like
+   the panes of a terminal or an editor */
 .steps,
 .points {
   display: grid;
+  gap: 0;
   margin: 40px 0 0;
   padding: 0;
+  border: 1px solid var(--line);
+  background: var(--bg);
   list-style: none;
 }
 
 .steps {
   grid-template-columns: repeat(4, minmax(0, 1fr));
-  gap: 32px;
 }
 
-.step {
+.step,
+.point {
   display: flex;
   flex-direction: column;
   gap: 8px;
-  padding-top: 20px;
-  border-top: 1px solid var(--line);
+  padding: 24px;
+}
+
+/* One row: a rule between columns */
+.step + .step,
+.point + .point {
+  border-left: 1px solid var(--line);
 }
 
 .step__num {
-  color: var(--text);
+  color: var(--accent-text);
   font-family: var(--mono);
-  font-size: 14px;
+  font-size: 13px;
   font-weight: 600;
 }
 
 .step p,
 .point p {
   margin: 0;
-  font-size: 16px;
+  font-family: var(--font);
+  font-size: 15px;
   line-height: 1.6;
 }
 
 .points {
   grid-template-columns: repeat(3, minmax(0, 1fr));
-  gap: 40px;
 }
 
-.point {
-  display: flex;
-  flex-direction: column;
-  gap: 8px;
+.point h3 {
+  padding-left: 10px;
+  border-left: 2px solid var(--accent);
 }
 
 /* On the pull request: copy beside the still, the still on the wider side
@@ -421,17 +479,19 @@ h3 {
   max-width: 640px;
   margin: 0;
   color: var(--text-strong);
-  font-size: 20px;
+  font-family: var(--mono);
+  font-size: 18px;
   font-weight: 500;
   line-height: 1.4;
-  letter-spacing: -0.012em;
+  letter-spacing: 0;
 }
 
 .link {
   flex: none;
   color: var(--accent-text);
-  font-size: 16px;
-  font-weight: 600;
+  font-family: var(--mono);
+  font-size: 15px;
+  font-weight: 500;
   text-decoration: none;
 }
 
@@ -462,7 +522,9 @@ h3 {
   margin: 0;
   padding: 0;
   list-style: none;
-  font-size: 14px;
+  font-family: var(--mono);
+  font-size: 13px;
+  font-weight: 500;
 }
 
 .footer__links a {
@@ -495,14 +557,27 @@ h3 {
 }
 
 @media (max-width: 960px) {
+  /* Steps in two columns: a rule between the columns and between the rows */
   .steps {
     grid-template-columns: repeat(2, minmax(0, 1fr));
-    gap: 40px 32px;
   }
 
+  .step:nth-child(2n + 1) {
+    border-left: 0;
+  }
+
+  .step:nth-child(n + 3) {
+    border-top: 1px solid var(--line);
+  }
+
+  /* Points in one column: a rule between the rows */
   .points {
     grid-template-columns: minmax(0, 1fr);
-    gap: 28px;
+  }
+
+  .point + .point {
+    border-top: 1px solid var(--line);
+    border-left: 0;
   }
 
   .compare {
@@ -523,6 +598,12 @@ h3 {
     gap: 16px;
   }
 
+  /* The header keeps the mark alone so the links and the theme control fit;
+     the link's aria-label still names it */
+  .nav .wordmark__name {
+    display: none;
+  }
+
   .hero {
     padding-top: 40px;
   }
@@ -541,9 +622,19 @@ h3 {
     padding: 64px 0;
   }
 
+  /* Steps in one column: a rule between the rows */
   .steps {
     grid-template-columns: minmax(0, 1fr);
-    gap: 28px;
+  }
+
+  .step + .step {
+    border-top: 1px solid var(--line);
+    border-left: 0;
+  }
+
+  .step,
+  .point {
+    padding: 20px;
   }
 
   .pr {
