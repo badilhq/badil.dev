@@ -1,0 +1,565 @@
+@import './tokens.css';
+
+/* badil as a small diagram: its card in the middle (the hero), three small
+   nodes it coordinates, four thin lines with a word each and a dot that
+   travels its line during its beat. Placement per design at the end. */
+
+.fd .ss-stage {
+  --fd-ease: cubic-bezier(0.45, 0, 0.1, 1);
+  --fd-arrive: cubic-bezier(0.25, 0.8, 0.25, 1);
+  --ss-raised: #ffffff;
+  --fd-hub: var(--ss-surface);
+  --fd-route: #d6d4cf;
+  --fd-merged: #57534e;
+  overflow: hidden;
+  background: transparent;
+  color: var(--ss-text-strong);
+  font-family: var(--ss-font);
+}
+
+.fd .ss-stage[data-theme="dark"] {
+  --ss-raised: #1a1a19;
+  --fd-hub: #222220;
+  --fd-route: #3a3a37;
+  --fd-merged: #b9b5ae;
+}
+
+.fd-scene {
+  position: absolute;
+  inset: 0;
+}
+
+/* ---- A placeholder and its words share one cell ---- */
+
+.fd-slot {
+  display: inline-grid;
+  align-items: center;
+  justify-items: start;
+  min-width: 0;
+}
+
+.fd-slot > * {
+  grid-area: 1 / 1;
+}
+
+.fd-slot__bar {
+  display: flex;
+  align-items: center;
+  transition: opacity 0.3s ease 0.1s;
+}
+
+.fd-slot__real {
+  display: inline-flex;
+  align-items: center;
+  gap: 7px;
+  min-width: 0;
+  opacity: 0;
+  transform: translateY(3px);
+  will-change: transform;
+  transition: opacity 0.22s ease, transform 0.3s ease;
+}
+
+.fd-slot[data-on] > .fd-slot__bar {
+  opacity: 0;
+  transition: opacity 0.25s ease;
+}
+
+.fd-slot[data-on] > .fd-slot__real {
+  opacity: 1;
+  transform: none;
+  transition: opacity 0.4s ease 0.08s, transform 0.6s var(--fd-arrive) 0.08s;
+}
+
+/* Marks sharing one cell, crossfaded */
+.fd-marks {
+  display: grid;
+  flex: none;
+  place-items: center;
+  width: 14px;
+  height: 14px;
+}
+
+.fd-mark {
+  display: grid;
+  grid-area: 1 / 1;
+  place-items: center;
+  opacity: 0;
+  transition: opacity 0.2s ease;
+}
+
+.fd-mark[data-on] {
+  opacity: 1;
+}
+
+.fd-ok {
+  width: 8px;
+  height: 8px;
+  border-radius: 50%;
+  background: var(--ss-success);
+}
+
+/* ---- badil, the hero ---- */
+
+.fd-hub {
+  position: absolute;
+  z-index: 2;
+  display: flex;
+  flex-direction: column;
+  width: 296px;
+  border-radius: 14px;
+  background: var(--fd-hub);
+  box-shadow: var(--ss-shadow-hero);
+}
+
+.fd-hub__title {
+  display: flex;
+  flex: none;
+  align-items: center;
+  height: 50px;
+  padding: 0 18px;
+  border-bottom: 1px solid var(--ss-line);
+  color: var(--ss-text-strong);
+  font-size: 15px;
+  font-weight: 650;
+  letter-spacing: -0.01em;
+}
+
+.fd-hub__body {
+  padding: 14px 18px 0;
+}
+
+.fd-hub__head {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  height: 26px;
+  margin-bottom: 10px;
+  font-size: 18px;
+  font-weight: 650;
+  letter-spacing: -0.015em;
+  white-space: nowrap;
+}
+
+.fd-hub__kind {
+  color: var(--ss-text);
+  font-weight: 500;
+}
+
+.fd-rows {
+  display: grid;
+}
+
+.fd-row {
+  display: grid;
+  grid-template-columns: 92px minmax(0, 1fr) 8px;
+  align-items: center;
+  gap: 10px;
+  height: 38px;
+  padding-right: 6px;
+  border-top: 1px solid var(--ss-line);
+  font-size: 13.5px;
+  white-space: nowrap;
+}
+
+.fd-row {
+  position: relative;
+  isolation: isolate;
+}
+
+/* The row that changes in place gets a moment of light */
+.fd-row::before {
+  content: '';
+  position: absolute;
+  inset: 3px -8px 2px;
+  z-index: -1;
+  border-radius: 7px;
+  background: var(--ss-accent-soft);
+  opacity: 0;
+  transition: opacity 0.7s ease;
+}
+
+.fd-row[data-flash]::before {
+  opacity: 1;
+  transition: opacity 0.3s ease;
+}
+
+.fd-row__name .fd-slot__real {
+  font-weight: 600;
+}
+
+.fd-row__ref .fd-slot__real {
+  transition-delay: 0.16s;
+}
+
+.fd-ref {
+  display: inline-flex;
+  align-items: center;
+  height: 20px;
+  gap: 6px;
+  color: var(--ss-text);
+  font-size: 13px;
+}
+
+.fd-ref svg {
+  flex: none;
+  color: var(--ss-icon-faint);
+}
+
+.fd-ref code {
+  font-family: var(--ss-mono);
+  font-size: 12.5px;
+}
+
+.fd-ref--pin svg {
+  color: var(--ss-accent);
+}
+
+.fd-sha {
+  padding: 2px 7px;
+  border-radius: 6px;
+  background: var(--ss-accent-soft);
+  color: var(--ss-accent-text);
+  font-weight: 600;
+  line-height: 1.3;
+}
+
+/* The row's status: faint until the service is in the preview, green once
+   Argo CD reports it healthy */
+.fd-row__dot {
+  width: 8px;
+  height: 8px;
+  border-radius: 50%;
+  background: var(--ss-line);
+  transition: background-color 0.25s ease;
+}
+
+.fd-row__dot[data-d="set"] {
+  background: var(--ss-icon-faint);
+}
+
+.fd-row__dot[data-d="ok"] {
+  background: var(--ss-success);
+}
+
+.fd-hub__foot {
+  display: flex;
+  align-items: center;
+  height: 50px;
+  border-top: 1px solid var(--ss-line);
+  font-size: 13.5px;
+  white-space: nowrap;
+}
+
+.fd-hub__ready .fd-slot__real {
+  color: var(--ss-text-strong);
+  font-weight: 600;
+}
+
+/* ---- The three nodes: small, quiet, a name and one line ---- */
+
+.fd-node {
+  position: absolute;
+  z-index: 1;
+  display: grid;
+  gap: 6px;
+  width: 244px;
+  padding: 14px 16px;
+  border-radius: 10px;
+  background: var(--ss-raised);
+  box-shadow: var(--ss-shadow-ground);
+  font-size: 13px;
+}
+
+.fd-node__name {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  min-width: 0;
+  height: 20px;
+  color: var(--ss-text-strong);
+  font-weight: 600;
+  white-space: nowrap;
+}
+
+.fd-node__name > svg {
+  flex: none;
+  color: var(--ss-icon);
+}
+
+.fd-node__line {
+  display: flex;
+  align-items: center;
+  height: 18px;
+  padding-left: 22px;
+  color: var(--ss-text);
+  font-size: 12.5px;
+  white-space: nowrap;
+}
+
+.fd-node__line .fd-marks {
+  margin-left: -21px;
+  color: var(--ss-icon);
+}
+
+/* The pull request */
+.fd-pr {
+  gap: 8px;
+}
+
+.fd-pr__icon {
+  display: grid;
+  flex: none;
+  color: var(--ss-success);
+  transition: color 0.2s ease;
+}
+
+.fd-pr__icon[data-merged] {
+  color: var(--fd-merged);
+}
+
+.fd-pr__num {
+  color: var(--ss-text-faint);
+  font-size: 12.5px;
+  font-weight: 400;
+}
+
+.fd-pr__branch {
+  color: var(--ss-text);
+  font-family: var(--ss-mono);
+  font-size: 11.5px;
+}
+
+.fd-scene[data-v="wide"] .fd-pr__num--labels,
+.fd-scene:not([data-v="wide"]) .fd-pr__num--name,
+.fd-scene:not([data-v="wide"]) .fd-pr__branch {
+  display: none;
+}
+
+.fd-pr__labels {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  height: 22px;
+  padding-left: 22px;
+}
+
+.fd-pr__chip {
+  display: inline-flex;
+  opacity: 0;
+  transform: scale(0.88);
+  transform-origin: left center;
+  will-change: transform;
+  transition: opacity 0.2s ease, transform 0.3s ease;
+}
+
+.fd-pr__chip[data-on] {
+  opacity: 1;
+  transform: none;
+  transition: opacity 0.35s ease, transform 0.5s var(--fd-arrive);
+}
+
+.fd-pr .fd-node__line[data-k="success"] {
+  color: var(--ss-success-text);
+}
+
+.fd-pr .fd-node__line[data-k="merged"] {
+  color: var(--ss-text-strong);
+}
+
+.fd-pr .fd-node__line[data-k="merged"] .fd-marks {
+  color: var(--fd-merged);
+}
+
+/* The gitops repo: the file's path, struck as badil deletes it */
+.fd-path {
+  font-size: 12px;
+  overflow: hidden;
+  text-overflow: clip;
+  text-decoration: line-through transparent;
+  transition: color 0.25s ease, text-decoration-color 0.25s ease;
+}
+
+.fd-git .fd-node__line {
+  padding-left: 0;
+  color: var(--ss-text-strong);
+}
+
+.fd-git .fd-node__line .fd-path {
+  border-radius: 4px;
+  box-shadow: 0 0 0 3px transparent;
+  background: transparent;
+  transition: color 0.25s ease, text-decoration-color 0.25s ease, background-color 0.6s ease, box-shadow 0.6s ease;
+}
+
+/* The same file written again: a brief light on its line, nothing new */
+.fd-git .fd-node__line[data-touch] .fd-path {
+  background: var(--ss-accent-soft);
+  box-shadow: 0 0 0 3px var(--ss-accent-soft);
+  transition: background-color 0.2s ease, box-shadow 0.2s ease;
+}
+
+.fd-git .fd-node__line[data-del] .fd-path {
+  color: var(--ss-text-faint);
+  text-decoration-color: currentColor;
+}
+
+/* Argo CD */
+.fd-argo .fd-node__line[data-k="healthy"] {
+  color: var(--ss-success-text);
+}
+
+.fd-argo .fd-marks .ss-spinner {
+  color: var(--ss-text-faint);
+}
+
+/* ---- Flows: a fixed route, a word, a dot that travels during its beat ---- */
+
+.fd-flows {
+  position: absolute;
+  inset: 0;
+  z-index: 3;
+  pointer-events: none;
+}
+
+.fd-route {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  overflow: visible;
+}
+
+.fd-route path {
+  fill: none;
+  stroke: var(--fd-route);
+  stroke-width: 1.25;
+  stroke-linecap: round;
+}
+
+.fd-label {
+  position: absolute;
+  display: inline-flex;
+  color: var(--ss-text);
+  font-size: 11.5px;
+  font-weight: 500;
+  line-height: 16px;
+  white-space: nowrap;
+  transition: color 0.25s ease;
+}
+
+.fd-label[data-side="above"] {
+  transform: translate(-50%, calc(-100% - 7px));
+}
+
+.fd-label[data-side="right"] {
+  transform: translate(10px, -50%);
+}
+
+.fd-label[data-side="left"] {
+  transform: translate(-100%, -50%);
+}
+
+.fd-label[data-live] {
+  color: var(--ss-accent-text);
+}
+
+/* A trip: the outer box rides the route, the inner dot carries the color.
+   At rest (no animation, reduced motion) it sits at its end, neutral. */
+.fd-trip {
+  position: absolute;
+  left: 0;
+  top: 0;
+  width: 8px;
+  height: 8px;
+  offset-rotate: 0deg;
+  offset-anchor: 50% 50%;
+  offset-distance: var(--fd-to);
+  animation: fd-travel var(--fd-travel) cubic-bezier(0.45, 0, 0.1, 1) both;
+  transition: opacity 0.35s ease;
+}
+
+.fd-trip[data-old] {
+  opacity: 0;
+}
+
+.fd-dot {
+  display: block;
+  width: 8px;
+  height: 8px;
+  border-radius: 50%;
+  background: var(--ss-icon-faint);
+  box-shadow: 0 0 0 2px var(--bd-page);
+  animation:
+    fd-dot-in 0.2s ease both,
+    fd-dot-rest 0.4s ease var(--fd-travel) both;
+}
+
+@keyframes fd-travel {
+  from { offset-distance: var(--fd-from); }
+  to { offset-distance: var(--fd-to); }
+}
+
+@keyframes fd-dot-in {
+  from { opacity: 0; transform: scale(0.5); background: var(--ss-accent); }
+  to { opacity: 1; transform: none; background: var(--ss-accent); }
+}
+
+@keyframes fd-dot-rest {
+  from { background: var(--ss-accent); }
+  to { background: var(--ss-icon-faint); }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .fd-trip,
+  .fd-dot {
+    animation: none;
+  }
+}
+
+/* ---- Wide 1100 x 352: the two PRs | badil | repo over Argo CD ---- */
+
+.fd-scene[data-v="wide"] .fd-pr--1 { left: 32px; top: 56px; }
+.fd-scene[data-v="wide"] .fd-pr--2 { left: 32px; top: 192px; }
+.fd-scene[data-v="wide"] .fd-hub { left: 402px; top: 44px; }
+.fd-scene[data-v="wide"] .fd-git { left: 824px; top: 72px; }
+.fd-scene[data-v="wide"] .fd-argo { left: 824px; top: 208px; }
+
+/* ---- Mid 768 x 352 (tablets): the same lane, tightened ---- */
+
+.fd-scene[data-v="mid"] .fd-node { width: 176px; padding: 14px; }
+.fd-scene[data-v="mid"] .fd-hub { width: 248px; }
+.fd-scene[data-v="mid"] .fd-hub__title { padding: 0 16px; }
+.fd-scene[data-v="mid"] .fd-hub__body { padding: 14px 16px 0; }
+.fd-scene[data-v="mid"] .fd-hub__head { font-size: 17px; }
+.fd-scene[data-v="mid"] .fd-row { grid-template-columns: 70px minmax(0, 1fr) 8px; }
+.fd-scene[data-v="mid"] .fd-node__line { font-size: 12px; }
+.fd-scene[data-v="mid"] .fd-git .fd-node__line { height: auto; }
+.fd-scene[data-v="mid"] .fd-path { font-size: 11.5px; line-height: 16px; white-space: normal; }
+.fd-scene[data-v="mid"] .fd-pr--1 { left: 16px; top: 56px; }
+.fd-scene[data-v="mid"] .fd-pr--2 { left: 16px; top: 192px; }
+.fd-scene[data-v="mid"] .fd-hub { left: 260px; top: 44px; }
+.fd-scene[data-v="mid"] .fd-git { left: 576px; top: 58px; }
+.fd-scene[data-v="mid"] .fd-argo { left: 576px; top: 208px; }
+
+/* ---- Phone 358 x 692: the two PRs side by side, then the chain ---- */
+
+.fd-scene[data-v="phone"] .fd-node { width: 262px; }
+.fd-scene[data-v="phone"] .fd-pr { width: 163px; padding: 12px; }
+.fd-scene[data-v="phone"] .fd-pr .fd-node__line { padding-left: 20px; font-size: 11px; }
+.fd-scene[data-v="phone"] .fd-pr .fd-node__line .fd-marks { margin-left: -20px; }
+.fd-scene[data-v="phone"] .fd-pr__labels { padding-left: 20px; }
+.fd-scene[data-v="phone"] .fd-pr .fd-node__name { gap: 6px; }
+.fd-scene[data-v="phone"] .fd-hub { width: 290px; }
+.fd-scene[data-v="phone"] .fd-pr--1 { left: 12px; top: 12px; }
+.fd-scene[data-v="phone"] .fd-pr--2 { left: 183px; top: 12px; }
+.fd-scene[data-v="phone"] .fd-hub { left: 12px; top: 164px; }
+.fd-scene[data-v="phone"] .fd-git { left: 12px; top: 484px; }
+.fd-scene[data-v="phone"] .fd-argo { left: 12px; top: 608px; }
+
+/* Without offset-path a dot cannot follow its line: hide the dots and let the
+   nodes and the card tell the story on their own. */
+@supports not (offset-path: path("M0 0 L1 1")) {
+  .fd-trip {
+    display: none;
+  }
+}

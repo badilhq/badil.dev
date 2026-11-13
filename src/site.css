@@ -1,0 +1,569 @@
+/* The page around the hero: the stage's tokens (src/stage/tokens.css), so
+   type, radii, grays and the accent are one system. */
+:root {
+  --accent: #c2410c;
+  --accent-hover: #a8380a;
+  --accent-text: #b13a0a;
+  --bg: #ffffff;
+  --canvas: #f7f7f6;
+  --line: #e7e6e3;
+  --text: #6b6a66;
+  --text-strong: #1c1b19;
+  --text-faint: #9c9b97;
+  --code: #f2f1ef;
+  --btn: #ffffff;
+  --btn-hover: #f3f2f0;
+  --font: system-ui, -apple-system, "Segoe UI", sans-serif;
+  --mono: ui-monospace, "SF Mono", SFMono-Regular, Menlo, Consolas, monospace;
+  --radius: 8px;
+  --gutter: 24px;
+  --on-accent: #fff;
+
+  /* The dark values, declared once. The two rules below switch to them. */
+  --dark-accent: #f0732a;
+  --dark-accent-hover: #f58a4b;
+  --dark-accent-text: #f58a4b;
+  --dark-bg: #121211;
+  --dark-canvas: #181817;
+  --dark-line: #2b2b29;
+  --dark-text: #9a9994;
+  --dark-text-strong: #ecebe8;
+  --dark-text-faint: #6c6b67;
+  --dark-code: #252523;
+  --dark-btn: #1e1e1c;
+  --dark-btn-hover: #262624;
+  --dark-on-accent: #1a0d05;
+
+  color-scheme: light;
+}
+
+/* Dark: chosen with the theme control (data-theme on <html>), or the
+   system's setting while nothing is chosen. */
+:root[data-theme="dark"] {
+  --accent: var(--dark-accent);
+  --accent-hover: var(--dark-accent-hover);
+  --accent-text: var(--dark-accent-text);
+  --bg: var(--dark-bg);
+  --canvas: var(--dark-canvas);
+  --line: var(--dark-line);
+  --text: var(--dark-text);
+  --text-strong: var(--dark-text-strong);
+  --text-faint: var(--dark-text-faint);
+  --code: var(--dark-code);
+  --btn: var(--dark-btn);
+  --btn-hover: var(--dark-btn-hover);
+  --on-accent: var(--dark-on-accent);
+  color-scheme: dark;
+}
+
+@media (prefers-color-scheme: dark) {
+  :root:not([data-theme="light"]) {
+    --accent: var(--dark-accent);
+    --accent-hover: var(--dark-accent-hover);
+    --accent-text: var(--dark-accent-text);
+    --bg: var(--dark-bg);
+    --canvas: var(--dark-canvas);
+    --line: var(--dark-line);
+    --text: var(--dark-text);
+    --text-strong: var(--dark-text-strong);
+    --text-faint: var(--dark-text-faint);
+    --code: var(--dark-code);
+    --btn: var(--dark-btn);
+    --btn-hover: var(--dark-btn-hover);
+    --on-accent: var(--dark-on-accent);
+    color-scheme: dark;
+  }
+}
+
+*,
+*::before,
+*::after {
+  box-sizing: border-box;
+}
+
+html {
+  -webkit-text-size-adjust: 100%;
+}
+
+body {
+  margin: 0;
+  background: var(--bg);
+  color: var(--text);
+  font: 16px/1.6 var(--font);
+  -webkit-font-smoothing: antialiased;
+}
+
+a {
+  color: inherit;
+}
+
+/* Prose rules never reach into the stage */
+:where(main) code:not(:where(.ss-stage *)) {
+  padding: 0 4px;
+  border-radius: 4px;
+  background: var(--code);
+  color: var(--text-strong);
+  font-family: var(--mono);
+  font-size: 0.86em;
+  /* An identifier never breaks across lines (preview:<name>) */
+  white-space: nowrap;
+}
+
+.wrap {
+  width: 100%;
+  max-width: 1120px;
+  margin: 0 auto;
+  padding: 0 var(--gutter);
+}
+
+/* ---- Nav ---- */
+
+.nav__inner {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  height: 68px;
+}
+
+.wordmark {
+  color: var(--text-strong);
+  font-size: 20px;
+  font-weight: 700;
+  letter-spacing: -0.03em;
+  text-decoration: none;
+}
+
+.wordmark--small {
+  font-size: 16px;
+}
+
+.nav__links {
+  display: flex;
+  gap: 24px;
+  font-size: 14px;
+  font-weight: 500;
+}
+
+.nav__links a {
+  color: var(--text);
+  text-decoration: none;
+  transition: color 0.15s ease-out;
+}
+
+.nav__links a:hover {
+  color: var(--text-strong);
+}
+
+/* The links and the theme control, grouped at the right of the header */
+.nav__end {
+  display: flex;
+  align-items: center;
+  gap: 24px;
+}
+
+.theme {
+  display: flex;
+  gap: 4px;
+}
+
+.theme__btn {
+  display: grid;
+  place-items: center;
+  width: 28px;
+  height: 28px;
+  padding: 0;
+  border: 0;
+  border-radius: var(--radius);
+  background: none;
+  color: var(--text);
+  cursor: pointer;
+  transition: color 0.15s ease-out, background-color 0.15s ease-out;
+}
+
+.theme__btn:hover {
+  color: var(--text-strong);
+}
+
+.theme__btn[aria-pressed="true"] {
+  background: var(--code);
+  color: var(--text-strong);
+}
+
+.theme__btn svg {
+  width: 16px;
+  height: 16px;
+}
+
+/* ---- Hero ---- */
+
+.hero {
+  padding-top: 72px;
+}
+
+.hero__copy {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  text-align: center;
+}
+
+h1 {
+  max-width: 860px;
+  margin: 0;
+  color: var(--text-strong);
+  font-size: clamp(32px, 4.6vw, 54px);
+  font-weight: 700;
+  line-height: 1.1;
+  letter-spacing: -0.032em;
+  text-wrap: balance;
+}
+
+.hero__sub {
+  margin: 20px 0 0;
+  font-size: 16px;
+}
+
+.actions {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  gap: 12px;
+  margin-top: 32px;
+}
+
+.btn {
+  display: inline-flex;
+  align-items: center;
+  height: 42px;
+  padding: 0 16px;
+  border-radius: var(--radius);
+  background: var(--btn);
+  box-shadow: inset 0 0 0 1px var(--line), 0 1px 2px rgba(0, 0, 0, 0.04);
+  color: var(--text-strong);
+  font-size: 14px;
+  font-weight: 600;
+  text-decoration: none;
+  transition: background-color 0.15s ease-out;
+}
+
+.btn:hover {
+  background: var(--btn-hover);
+}
+
+.btn--primary {
+  background: var(--accent);
+  box-shadow: none;
+  color: var(--on-accent);
+}
+
+.btn--primary:hover {
+  background: var(--accent-hover);
+}
+
+.btn:focus-visible,
+.theme__btn:focus-visible,
+a:focus-visible {
+  outline: 2px solid var(--accent);
+  outline-offset: 2px;
+}
+
+/* The stage runs off its bottom into the next section's edge: the page is
+   its ground, no plate */
+.hero__stage {
+  width: 100%;
+  max-width: 1184px;
+  margin: 56px auto 0;
+  padding: 0;
+}
+
+@media (max-width: 1183px) {
+  .hero__stage {
+    padding: 0 var(--gutter);
+  }
+}
+
+@media (max-width: 599px) {
+  .hero__stage {
+    padding: 0 16px;
+  }
+}
+
+/* ---- Sections ---- */
+
+.band {
+  position: relative;
+  z-index: 1;
+  border-top: 1px solid var(--line);
+  background: var(--canvas);
+  padding: 88px 0 96px;
+}
+
+.section {
+  padding: 88px 0;
+}
+
+.section--rule {
+  border-top: 1px solid var(--line);
+}
+
+h2 {
+  margin: 0;
+  color: var(--text-strong);
+  font-size: clamp(24px, 2.6vw, 32px);
+  font-weight: 600;
+  line-height: 1.2;
+  letter-spacing: -0.022em;
+}
+
+h3 {
+  margin: 0;
+  color: var(--text-strong);
+  font-size: 16px;
+  font-weight: 600;
+  line-height: 1.4;
+  letter-spacing: -0.005em;
+}
+
+.steps,
+.points {
+  display: grid;
+  margin: 40px 0 0;
+  padding: 0;
+  list-style: none;
+}
+
+.steps {
+  grid-template-columns: repeat(4, minmax(0, 1fr));
+  gap: 32px;
+}
+
+.step {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+  padding-top: 20px;
+  border-top: 1px solid var(--line);
+}
+
+.step__num {
+  color: var(--text);
+  font-family: var(--mono);
+  font-size: 14px;
+  font-weight: 600;
+}
+
+.step p,
+.point p {
+  margin: 0;
+  font-size: 16px;
+  line-height: 1.6;
+}
+
+.points {
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: 40px;
+}
+
+.point {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+
+/* On the pull request: copy beside the still, the still on the wider side
+   at its design width (680) so it reads at 1:1 */
+.pr {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) 680px;
+  gap: 56px;
+  align-items: center;
+}
+
+.pr__copy {
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+}
+
+.pr__copy p {
+  margin: 0;
+  color: var(--text);
+  font-size: 16px;
+  line-height: 1.65;
+}
+
+.pr__still {
+  min-width: 0;
+}
+
+.compare {
+  display: grid;
+  grid-template-columns: minmax(0, 5fr) minmax(0, 7fr);
+  gap: 48px;
+  align-items: start;
+}
+
+.compare p {
+  margin: 0;
+  color: var(--text);
+  font-size: 16px;
+  line-height: 1.65;
+}
+
+.install {
+  display: flex;
+  align-items: baseline;
+  justify-content: space-between;
+  gap: 24px;
+}
+
+.install__need {
+  max-width: 640px;
+  margin: 0;
+  color: var(--text-strong);
+  font-size: 20px;
+  font-weight: 500;
+  line-height: 1.4;
+  letter-spacing: -0.012em;
+}
+
+.link {
+  flex: none;
+  color: var(--accent-text);
+  font-size: 16px;
+  font-weight: 600;
+  text-decoration: none;
+}
+
+.link:hover {
+  text-decoration: underline;
+  text-underline-offset: 3px;
+}
+
+/* ---- Footer ---- */
+
+.footer {
+  border-top: 1px solid var(--line);
+  padding: 32px 0 40px;
+}
+
+.footer__inner {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 16px 24px;
+  flex-wrap: wrap;
+}
+
+.footer__links {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px 24px;
+  margin: 0;
+  padding: 0;
+  list-style: none;
+  font-size: 14px;
+}
+
+.footer__links a {
+  text-decoration: none;
+  transition: color 0.15s ease-out;
+}
+
+.footer__links a:hover {
+  color: var(--text-strong);
+}
+
+/* ---- Tablet ---- */
+
+/* Stacked: the copy over the still, the still at its design width or the
+   column's, whichever is narrower */
+@media (max-width: 1119px) {
+  .pr {
+    grid-template-columns: minmax(0, 1fr);
+    gap: 40px;
+  }
+
+  .pr__copy {
+    max-width: 640px;
+  }
+
+  .pr__still {
+    width: 100%;
+    max-width: 680px;
+  }
+}
+
+@media (max-width: 960px) {
+  .steps {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: 40px 32px;
+  }
+
+  .points {
+    grid-template-columns: minmax(0, 1fr);
+    gap: 28px;
+  }
+
+  .compare {
+    grid-template-columns: minmax(0, 1fr);
+    gap: 20px;
+  }
+}
+
+/* ---- Phone ---- */
+
+@media (max-width: 599px) {
+  :root {
+    --gutter: 20px;
+  }
+
+  .nav__links,
+  .nav__end {
+    gap: 16px;
+  }
+
+  .hero {
+    padding-top: 40px;
+  }
+
+
+  .actions {
+    margin-top: 28px;
+  }
+
+  .hero__stage {
+    margin-top: 40px;
+  }
+
+  .band,
+  .section {
+    padding: 64px 0;
+  }
+
+  .steps {
+    grid-template-columns: minmax(0, 1fr);
+    gap: 28px;
+  }
+
+  .pr {
+    gap: 32px;
+  }
+
+
+  .install {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 16px;
+  }
+}
+
+/* Hover feedback is the only page motion outside the stage; drop it on request */
+@media (prefers-reduced-motion: reduce) {
+  .btn,
+  .theme__btn,
+  .nav__links a,
+  .footer__links a {
+    transition: none;
+  }
+}

@@ -1,0 +1,38 @@
+# Rehearsal: badil hero
+
+## FlowDemo
+
+Brief (round 2): badil builds one preview across apps and across commits. Two pull requests in two repos (`acme/backend` #42, `acme/front` #17, both on `feature/pricing`) land in the same preview `feature-pricing`, each pinning its own service; Argo CD deploys it; on merge it is gone. Round 1 (one PR, four services) is replaced in place.
+
+Gold: `annotations` (filmed `collect`, `flow`, `branch`, `stream`; also `story`, `subscriptions`, `payout-flow`). Kept from it: nodes placed per layout and measured with `rect()`, every route derived from the measured edges (6px short of the node), a fixed thin neutral route under a moving phase (`stream`), short plain labels beside the line (`stream`'s rate label), white nodes with a hairline and a ground shadow. Changed: the phase is one dot per beat (accent in flight, neutral where it lands, so the poster still shows each line's last direction); no plate; badil's warm grays and orange accent; badil's card (bars resolve to words in place, pinned shas in the accent) is the hero with `--ss-shadow-hero`, the nodes take `--ss-shadow-ground`.
+
+Composition: one hero (badil: `badil`, `Preview feature-pricing`, three rows `backend` / `front` / `postgres` with a status dot each, `ready in 3m 28s`), four small nodes symmetric around it (the two pull requests left; gitops repo over Argo CD right), five lines, nothing else.
+
+Lines (none cross, none pass under a node): each pull request → badil `label` (`merged` on merge), badil → gitops repo `writes the preview` (`writes` on the tablet; `deletes` on merge), gitops repo → Argo CD `syncs`, Argo CD → badil `healthy`. Labels hold the footprint of their longer word (`States`), the label of the line in flight turns accent. The dot is CSS `offset-path` on the measured route, keyed per trip; the previous trip's dot fades where it rested.
+
+Beats (loop 15.6s, measured between `rest` marks 0.06s → 15.68s):
+1. label 0.36s: `preview` on `acme/backend`, dot into badil; compose 1.5s (brisk): `feature-pricing`, `backend` pinned `a1b2c3d4`, `front` and `postgres` on `main`; write 2.9s: dot `writes the preview`, the file appears in the repo.
+2. second 4.0s: `preview` on `acme/front`, dot into badil; pin 5.2s: the `front` row lights (accent fill) and its ref crossfades in place from `main` to pinned `9f8e7d6c`, held 1.2s; dot `writes the preview` again, the existing file line lights briefly (an update, not a new file).
+3. deploy 7.9s: dot `syncs`, Argo CD `Syncing` then `Synced · Healthy`; dot `healthy` into badil; rows green (70ms stagger), `ready in 3m 28s`, both pull requests `Deployment · Success` 90ms apart. Poster from `ready` 10.9s, held 1.6s (shortened from 2s to keep the second pull request whole).
+4. merge 12.5s: both `Merged`, dots `merged` on both PR lines, dot `deletes`; the path is struck, then leaves with Argo CD's line and `ready`; rows clear bottom-up; chips, PR lines and resting dots fade. Rest at 15.7s; no fade reset.
+
+Designs (switched by media query, keyed; all 1:1):
+- wide 1100×352 (≥1148px): PRs stacked left (244 wide), badil centre (296), repo over Argo CD right; the PR line heights match the repo and Argo CD lines, so the lane is symmetric. The PR nodes carry `acme/<repo> #NN`, then `feature/pricing` and the `preview` chip, then the status line.
+- mid 768×352 (600–1147px: 1024 and 820): badil in the middle fits now. Nodes 176, badil 248, lines 56px; shorter word `writes` on the write line; the branch is left out (repo name and label first; `#NN` moves beside the chip); the path wraps after a slash.
+- phone 358×692 (<600px): the two PRs side by side (163 each, status at 11px), then badil, repo, Argo CD with vertical lines; `healthy` returns up a lane on the right. Gutter 12 on this design.
+
+Gate (film.mjs `--gate` on the real page `/`, `--select .hero__stage`; loop every 500ms × 34, poster `--reduced --still`):
+- 1440 loop: `rehearsal passed` · poster: `rehearsal passed`
+- 1024 loop: `rehearsal passed` · poster: `rehearsal passed`
+- 820 loop: `rehearsal passed` · poster: `rehearsal passed`
+- 390 loop: `rehearsal passed` · poster: `rehearsal passed`
+- 1440 dark loop: `rehearsal passed` · poster: `rehearsal passed`
+No candidate lines printed (film still says `inconclusive` for sampling gaps over 27ms). Two loop runs (1440, 820) stalled at 0% CPU when film inherited the shell's stdin under a 150s timeout; rerun with stdin from /dev/null they passed in about 45s.
+
+Fixed during rehearsal (round 2): PR status running into the node's right padding on the phone (nodes 163, gutter 12, status 11px); loop 16.4s → 15.6s (holds shortened, the second pull request kept whole).
+
+Round 1 fixes still in: `tight inset` on the title, `tight mark` on row dots, hub padding, `vanishes with no exit` on node marks, `settle snap` on status lines (States instead of Roll), `jump` on a weight change, the loop-seam warning (trip counters snapped back once their dots have faded), dark: badil's card lighter than the nodes.
+
+Real strings at the poster (wide): `badil`, `Preview`, `feature-pricing`, `backend`, `a1b2c3d4`, `front`, `9f8e7d6c`, `postgres`, `main`, `ready in 3m 28s`, `acme/backend`, `#42`, `acme/front`, `#17`, `feature/pricing` (×2), `preview` (×2), `Deployment · Success` (×2), `Gitops repo`, `previews/feature-pricing/values.yaml`, `Argo CD`, `Synced · Healthy`, `label` (×2), `writes the preview`, `syncs`, `healthy`: 25 distinct (29 on screen counting the repeats).
+
+Not checked: real iPad and phone, Safari and Firefox (`offset-path: path()` carries the dots), dark in motion below 1440, reduced motion toggled mid-loop, a resize across a breakpoint mid-loop, a separate fresh-eye review.

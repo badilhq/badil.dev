@@ -1,0 +1,71 @@
+/* badil's look on the hero stage: quiet warm-neutral grays, one orange accent,
+   the system font. The page around it (src/site.css) uses the same values. */
+.fd .ss-stage {
+  --gutter: 56px;
+  --ss-accent: #c2410c;
+  --ss-accent-soft: rgba(194, 65, 12, 0.1);
+  --ss-accent-text: #b13a0a;
+  --ss-canvas: #f7f7f6;
+  --ss-surface: #ffffff;
+  --ss-chrome: #f7f7f6;
+  --ss-line: #e7e6e3;
+  --ss-text: #6b6a66;
+  --ss-text-strong: #1c1b19;
+  --ss-text-faint: #9c9b97;
+  --ss-icon: #77766f;
+  --ss-icon-faint: #b6b5b0;
+  --ss-success: #1f9254;
+  --ss-success-soft: #e3f3e9;
+  --ss-success-text: #18784a;
+  --ss-warning-soft: #fbf0d9;
+  --ss-warning-text: #92590a;
+  --ss-font: system-ui, -apple-system, "Segoe UI", sans-serif;
+  --ss-mono: ui-monospace, "SF Mono", SFMono-Regular, Menlo, Consolas, monospace;
+
+  --bd-card-head: #fafaf9;
+  --bd-code: #f2f1ef;
+  --bd-merged: #3a3936;
+  --bd-merged-text: #ffffff;
+  --bd-open: #1f9254;
+  --bd-inactive-soft: #efeeec;
+  --bd-swatch-red: #d4523f;
+  --bd-swatch-blue: #3f7bd4;
+  --bd-swatch-gray: #9c9b97;
+  --bd-hover: #f3f2f0;
+  --bd-bot: #e7e6e3;
+  --bd-page: #ffffff;
+
+  overflow: hidden;
+  background: transparent;
+  font-family: var(--ss-font);
+}
+
+.fd .ss-stage[data-theme="dark"] {
+  --ss-accent: #f0732a;
+  --ss-accent-soft: rgba(240, 115, 42, 0.16);
+  --ss-accent-text: #f58a4b;
+  --ss-canvas: #121211;
+  --ss-surface: #181817;
+  --ss-chrome: #1e1e1c;
+  --ss-line: #2b2b29;
+  --ss-text: #9a9994;
+  --ss-text-strong: #ecebe8;
+  --ss-text-faint: #6c6b67;
+  --ss-icon: #9a9994;
+  --ss-icon-faint: #4f4e4b;
+  --ss-success: #3fb975;
+  --ss-success-soft: rgba(63, 185, 117, 0.14);
+  --ss-success-text: #5fcf8f;
+  --ss-warning-soft: rgba(230, 160, 40, 0.16);
+  --ss-warning-text: #e8b04c;
+
+  --bd-card-head: #1d1d1b;
+  --bd-code: #252523;
+  --bd-merged: #e4e3df;
+  --bd-merged-text: #181817;
+  --bd-open: #3fb975;
+  --bd-inactive-soft: #262624;
+  --bd-hover: #232321;
+  --bd-bot: #2e2e2c;
+  --bd-page: #121211;
+}
