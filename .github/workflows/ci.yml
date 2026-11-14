@@ -1,0 +1,90 @@
+name: ci
+
+on:
+  pull_request:
+    branches: [main]
+  push:
+    branches: [main]
+
+permissions:
+  contents: read
+
+concurrency:
+  group: ci-${{ github.ref }}
+  cancel-in-progress: true
+
+jobs:
+  build:
+    name: build
+    runs-on: ubuntu-24.04
+    timeout-minutes: 10
+    steps:
+      - uses: actions/checkout@v7
+      - uses: actions/setup-node@v7
+        with:
+          node-version: '26'
+          cache: npm
+      - run: npm ci
+      - run: npm run build
+      - name: wrangler deploy --dry-run
+        run: npx wrangler deploy --dry-run --outdir "$RUNNER_TEMP/wrangler-dry-run"
+        env:
+          WRANGLER_SEND_METRICS: "false"
+
+  rehearsal:
+    name: rehearsal (${{ matrix.variant.name }})
+    runs-on: ubuntu-24.04
+    timeout-minutes: 30
+    strategy:
+      fail-fast: false
+      matrix:
+        variant:
+          - { name: '1440', args: '--width 1440' }
+          - { name: '1024', args: '--width 1024' }
+          - { name: '820', args: '--width 820' }
+          - { name: '390', args: '--width 390' }
+          - { name: '1440 dark', args: '--width 1440 --dark' }
+    steps:
+      - uses: actions/checkout@v7
+      - uses: actions/setup-node@v7
+        with:
+          node-version: '26'
+          cache: npm
+      - run: npm ci
+      - name: Start the dev server
+        run: |
+          mkdir -p "$RUNNER_TEMP/film"
+          nohup npm run dev -- --host 127.0.0.1 --strictPort > "$RUNNER_TEMP/film/vite.log" 2>&1 &
+      - name: Wait for the dev server
+        id: devserver
+        run: |
+          for _ in $(seq 1 60); do
+            if curl -sf -o /dev/null http://127.0.0.1:5173/; then exit 0; fi
+            sleep 1
+          done
+          echo "::error title=dev server::http://127.0.0.1:5173/ did not answer within 60s"
+          cat "$RUNNER_TEMP/film/vite.log"
+          exit 1
+      - name: Hero poster
+        if: ${{ !cancelled() && steps.devserver.outcome == 'success' }}
+        env:
+          FILM_OUT_DIR: ${{ runner.temp }}/film
+        run: .github/scripts/gate.sh hero-poster --select .hero__stage --reduced --still --gate ${{ matrix.variant.args }}
+      - name: Hero loop
+        if: ${{ !cancelled() && steps.devserver.outcome == 'success' }}
+        env:
+          FILM_OUT_DIR: ${{ runner.temp }}/film
+        run: .github/scripts/gate.sh hero-loop --select .hero__stage --every 500 --count 34 --gate ${{ matrix.variant.args }}
+      - name: PR still poster
+        if: ${{ !cancelled() && steps.devserver.outcome == 'success' }}
+        env:
+          FILM_OUT_DIR: ${{ runner.temp }}/film
+        run: .github/scripts/gate.sh pr-poster --select .pr__still --reduced --still --gate ${{ matrix.variant.args }}
+      - name: Upload films and logs
+        if: always()
+        uses: actions/upload-artifact@v7
+        with:
+          name: rehearsal-${{ matrix.variant.name == '1440 dark' && '1440-dark' || matrix.variant.name }}
+          path: ${{ runner.temp }}/film
+          if-no-files-found: warn
+          retention-days: 14
