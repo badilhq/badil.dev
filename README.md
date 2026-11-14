@@ -15,6 +15,8 @@ npm run build      # typecheck, then dist/
 npm run preview    # serves dist/ with Vite
 ```
 
+CI (`.github/workflows/ci.yml`) runs on every pull request and push to `main`: the build (typecheck and Vite build), `wrangler deploy --dry-run`, and the rehearsal gates of the hero and the PR still at 1440, 1024, 820, 390 and 1440 dark against the dev server. A still gate passes when film exits 0 and prints `rehearsal passed`; the loop gate also passes on exit 2 (`inconclusive`) when its only `incomplete:` reasons are sampling gaps. The films and the dev server log are attached to the run as `rehearsal-<variant>` artifacts.
+
 The header's theme control (System, Light, Dark) applies to the page and the illustrations and remembers the visitor's choice in `localStorage` under `badil-theme`; `src/theme.ts` holds it.
 
 ## Deploy
