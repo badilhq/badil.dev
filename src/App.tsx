@@ -2,6 +2,9 @@ import FlowDemo from './stage/FlowDemo'
 import PrStill from './stage/PrStill'
 import { Monitor, Moon, Sun } from 'lucide-react'
 import { setThemeChoice, useTheme, type ThemeChoice } from './theme'
+// The official Kubernetes icon (cncf/artwork, projects/kubernetes/icon/color), used
+// under the Linux Foundation trademark guidelines to show previews run on Kubernetes.
+import kubernetesIcon from './logos/kubernetes-icon.svg'
 
 // The landing page. The hero is the live preview loop (FlowDemo), set in a
 // panel under the headline; the pull request section shows badil's comment
@@ -208,6 +211,7 @@ export function App() {
                 <div className="evidence__ui" aria-hidden="true">
                   <div className="ui-row ui-row--wrap"><code className="ui-faint">50ea4e0</code><span>chore(preview): create feature-pricing preview</span></div>
                   <div className="ui-row"><span className="ui-strong">feature-pricing-backend</span><span className="ui-dot ui-dot--ok" /><span className="ui-ok">Synced · Healthy</span></div>
+                  <div className="ui-row"><img className="ui-logo" src={kubernetesIcon} width={14} height={14} alt="" /><span className="ui-note">namespace</span><code className="ui-faint">feature-pricing</code></div>
                 </div>
                 <dt>Your Argo CD deploys from git</dt>
                 <dd>{WHY[2].body}</dd>

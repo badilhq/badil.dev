@@ -496,6 +496,15 @@ h3 {
   margin: 48px 0 0;
 }
 
+/* Each item spans three rows of the row's grid, so mockups of different heights
+   share one height and the terms beside them stay on one line */
+.evidence__item {
+  display: grid;
+  grid-row: span 3;
+  grid-template-rows: subgrid;
+  row-gap: 0;
+}
+
 .evidence__item dt {
   margin-top: 20px;
   color: var(--text-strong);
@@ -566,6 +575,11 @@ h3 {
   width: 8px;
   height: 8px;
   border-radius: 50%;
+}
+
+.ui-logo {
+  flex: none;
+  object-fit: contain;
 }
 
 .ui-dot--ok {
