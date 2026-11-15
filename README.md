@@ -15,7 +15,7 @@ npm run build      # typecheck, then dist/
 npm run preview    # serves dist/ with Vite
 ```
 
-CI (`.github/workflows/ci.yml`) runs on every pull request and push to `main`: the build (typecheck and Vite build), `wrangler deploy --dry-run`, and the rehearsal gates of the hero and the PR still at 1440, 1024, 820, 390 and 1440 dark against the dev server. A still gate passes when film exits 0 and prints `rehearsal passed`; the loop gate also passes on exit 2 (`inconclusive`) when its only `incomplete:` reasons are sampling gaps. The films and the dev server log are attached to the run as `rehearsal-<variant>` artifacts.
+CI (`.github/workflows/ci.yml`) runs on every pull request and push to `main`: the build (typecheck and Vite build), `wrangler deploy --dry-run`, and the rehearsal gates of the hero and the PR still at 1440, 1024, 820, 390 and 1440 dark against the dev server. A still gate passes when film exits 0 and prints `rehearsal passed`; the loop gate also passes on exit 2 (`inconclusive`) when its only `incomplete:` reasons are sampling gaps. The films and the dev server log are attached to the run as `rehearsal-<variant>` artifacts. A push to `main` that passes the build and every rehearsal gate deploys to `badil.dev` through the `production` environment; `www.badil.dev` redirects to it.
 
 The header's theme control (System, Light, Dark) applies to the page and the illustrations and remembers the visitor's choice in `localStorage` under `badil-theme`; `src/theme.ts` holds it.
 
@@ -26,7 +26,9 @@ npm run preview:worker   # serves dist/ with wrangler, as Cloudflare will
 npm run deploy           # builds, then wrangler deploy
 ```
 
-`wrangler.jsonc` declares the Worker. The first deploy needs `wrangler login`.
+`wrangler.jsonc` declares the Worker. CI deploys from `main` with the `production` environment's `CLOUDFLARE_API_TOKEN` (built from the "Edit Cloudflare Workers" template, Account Resources limited to the badil.dev account, Zone Resources limited to the badil.dev zone) and `CLOUDFLARE_ACCOUNT_ID`. A local `npm run deploy` needs the same two variables, or `wrangler login` on that account.
+
+To roll back, revert the commit on `main`; CI redeploys the previous version.
 
 ## The illustrations
 
