@@ -1,5 +1,8 @@
 import { useEffect, useState, type CSSProperties, type ReactNode } from 'react'
-import { Boxes, FolderGit2, GitBranch, GitMerge, GitPullRequest, Pin } from 'lucide-react'
+import { GitBranch, GitMerge, GitPullRequest, Pin } from 'lucide-react'
+// The official Argo icon (cncf/artwork, projects/argo/icon/color), used under the
+// Linux Foundation trademark guidelines to show badil works with Argo CD.
+import argoIcon from './argo-icon.svg'
 // Imported part by part rather than from kit/index, so the build carries
 // only what the scene uses
 import { Stage } from '../kit/stage'
@@ -285,10 +288,23 @@ function Marks({ value, marks }: { value: string; marks: Record<string, ReactNod
 
 const I = { size: 14, strokeWidth: 2 } as const
 
+/** badil's mark, as in the page's wordmark: production (solid) and its double,
+ * the preview (dashed), knocked out of the hub card. */
+function BadilMark() {
+  const twin = 'M126.00 245.83 Q126.00 205.83 162.49 189.44L369.51 96.40 Q406.00 80.00 406.00 120.00L406.00 270.00 Q406.00 310.00 369.51 326.40L162.49 419.44 Q126.00 435.83 126.00 395.83Z'
+  return (
+    <svg className="fd-badil" viewBox="0 0 414 444" aria-hidden="true" focusable="false">
+      <path className="fd-badil__prod" d="M8.00 173.83 Q8.00 133.83 44.49 117.44L251.51 24.40 Q288.00 8.00 288.00 48.00L288.00 198.00 Q288.00 238.00 251.51 254.40L44.49 347.44 Q8.00 363.83 8.00 323.83Z" />
+      <path className="fd-badil__knock" d={twin} />
+      <path className="fd-badil__twin" d={twin} />
+    </svg>
+  )
+}
+
 function Hub({ s }: { s: S }) {
   return (
     <section className="fd-hub" data-target="hub">
-      <div className="fd-hub__title"><span>badil</span></div>
+      <div className="fd-hub__title"><BadilMark /><span>badil</span></div>
       <div className="fd-hub__body">
         <div className="fd-hub__head">
           <span className="fd-hub__kind">Preview</span>
@@ -358,10 +374,20 @@ function PullRequest({ s, i }: { s: S; i: 0 | 1 }) {
   )
 }
 
+/** GitHub's Invertocat (brand.github.com, GitHub_Logos.zip), unmodified, in black
+ * or white, to show the gitops repo lives on GitHub. */
+function GitHubMark() {
+  return (
+    <svg className="fd-github" viewBox="0 0 98 96" width={I.size} height={I.size} aria-hidden="true" focusable="false">
+      <path d="M41.4395 69.3848C28.8066 67.8535 19.9062 58.7617 19.9062 46.9902C19.9062 42.2051 21.6289 37.0371 24.5 33.5918C23.2559 30.4336 23.4473 23.7344 24.8828 20.959C28.7109 20.4805 33.8789 22.4902 36.9414 25.2656C40.5781 24.1172 44.4062 23.543 49.0957 23.543C53.7852 23.543 57.6133 24.1172 61.0586 25.1699C64.0254 22.4902 69.2891 20.4805 73.1172 20.959C74.457 23.543 74.6484 30.2422 73.4043 33.4961C76.4668 37.1328 78.0937 42.0137 78.0937 46.9902C78.0937 58.7617 69.1934 67.6621 56.3691 69.2891C59.623 71.3945 61.8242 75.9883 61.8242 81.252L61.8242 91.2051C61.8242 94.0762 64.2168 95.7031 67.0879 94.5547C84.4102 87.9512 98 70.6289 98 49.1914C98 22.1074 75.9883 6.69539e-07 48.9043 4.309e-07C21.8203 1.92261e-07 -1.9479e-07 22.1074 -4.3343e-07 49.1914C-6.20631e-07 70.4375 13.4941 88.0469 31.6777 94.6504C34.2617 95.6074 36.75 93.8848 36.75 91.3008L36.75 83.6445C35.4102 84.2188 33.6875 84.6016 32.1562 84.6016C25.8398 84.6016 22.1074 81.1563 19.4277 74.7441C18.375 72.1602 17.2266 70.6289 15.0254 70.3418C13.877 70.2461 13.4941 69.7676 13.4941 69.1934C13.4941 68.0449 15.4082 67.1836 17.3223 67.1836C20.0977 67.1836 22.4902 68.9063 24.9785 72.4473C26.8926 75.2227 28.9023 76.4668 31.2949 76.4668C33.6875 76.4668 35.2187 75.6055 37.4199 73.4043C39.0469 71.7773 40.291 70.3418 41.4395 69.3848Z" />
+    </svg>
+  )
+}
+
 function Gitops({ s }: { s: S }) {
   return (
     <section className="fd-node fd-git" data-target="git">
-      <div className="fd-node__name"><FolderGit2 {...I} /><span>Gitops repo</span></div>
+      <div className="fd-node__name"><GitHubMark /><span>Gitops repo</span></div>
       <div className="fd-node__line" data-del={s.del || undefined} data-touch={s.touch || undefined}>
         <Slot on={s.file} bar={<Bar w={150} h={7} r={3.5} tone={2} />}>
           <span className="fd-path">previews/<wbr />feature-pricing/<wbr />values.yaml</span>
@@ -374,7 +400,7 @@ function Gitops({ s }: { s: S }) {
 function ArgoCD({ s }: { s: S }) {
   return (
     <section className="fd-node fd-argo" data-target="argo">
-      <div className="fd-node__name"><Boxes {...I} /><span>Argo CD</span></div>
+      <div className="fd-node__name"><img className="fd-logo" src={argoIcon} width={I.size} height={I.size} alt="" /><span>Argo CD</span></div>
       <div className="fd-node__line" data-k={s.argo}>
         <Slot on={s.argo !== 'idle'} bar={<Bar w={92} h={7} r={3.5} tone={2} />}>
           <Marks value={s.argo} marks={{ syncing: <Spinner size={12} />, healthy: <i className="fd-ok" /> }} />

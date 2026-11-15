@@ -9,6 +9,7 @@
   --fd-arrive: cubic-bezier(0.25, 0.8, 0.25, 1);
   --ss-raised: #ffffff;
   --fd-hub: #ffffff;
+  --fd-github: #000000;
   --fd-route: #cfd3d8;
   --fd-merged: #4b5158;
   overflow: hidden;
@@ -20,6 +21,7 @@
 .fd .ss-stage[data-theme="dark"] {
   --ss-raised: #111511;
   --fd-hub: #161b16;
+  --fd-github: #ffffff;
   --fd-route: #2f362f;
   --fd-merged: #b3bcb2;
 }
@@ -115,6 +117,7 @@
   display: flex;
   flex: none;
   align-items: center;
+  gap: 0.4em;
   height: 50px;
   padding: 0 18px;
   border-bottom: 1px solid var(--ss-line);
@@ -122,6 +125,33 @@
   font-size: 15px;
   font-weight: 650;
   letter-spacing: -0.01em;
+}
+
+/* The mark beside the name, sized and spaced as the page's wordmark */
+
+.fd-badil {
+  flex: none;
+  width: auto;
+  height: 1.3em;
+}
+
+.fd-badil__prod {
+  fill: var(--ss-text-strong);
+}
+
+.fd-badil__knock {
+  fill: var(--fd-hub);
+  stroke: var(--fd-hub);
+  stroke-width: 52;
+  stroke-linejoin: round;
+}
+
+.fd-badil__twin {
+  fill: none;
+  stroke: var(--ss-accent);
+  stroke-width: 30;
+  stroke-linecap: round;
+  stroke-dasharray: 58 44;
 }
 
 .fd-hub__body {
@@ -285,6 +315,15 @@
 .fd-node__name > svg {
   flex: none;
   color: var(--ss-icon);
+}
+
+.fd-node__name > .fd-github {
+  fill: var(--fd-github);
+}
+
+.fd-node__name > .fd-logo {
+  flex: none;
+  object-fit: contain;
 }
 
 .fd-node__line {
