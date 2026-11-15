@@ -14,7 +14,7 @@ const ADVISORY = 'https://github.com/badilhq/badil/security/advisories/new'
 
 const STEPS = [
   {
-    title: 'CI builds, a label asks',
+    title: 'Label the pull request',
     body: <>Your CI builds and pushes the image as it does today. Adding the <code>preview</code> label to a pull request asks for a preview.</>,
   },
   {
@@ -26,7 +26,7 @@ const STEPS = [
     body: <>A pull request on the same branch in another repo, or with the same <code>preview:&lt;name&gt;</code> label, pins its own service in the same preview.</>,
   },
   {
-    title: 'Argo CD deploys, merge removes',
+    title: 'Deploy and clean up',
     body: <>Argo CD deploys each preview to its own namespace. Merging or closing a pull request, or removing its label, removes its pin; the preview goes with its last pull request, and a sweep clears stale ones.</>,
   },
 ]
@@ -150,7 +150,7 @@ export function App() {
           <div className="wrap split split--file">
             <div className="split__lead">
               <h2>How it works</h2>
-              <p>Everything runs in tools you already operate. badil adds a label, a file and a comment.</p>
+              <p>Trigger a preview with a label on the pull request. badil commits it to your gitops repo and your Argo CD deploys it.</p>
               <figure className="file">
                 <figcaption className="file__path">acme/gitops · previews/feature-pricing/values.yaml</figcaption>
                 <pre className="file__code"><code>{VALUES}</code></pre>
@@ -185,8 +185,8 @@ export function App() {
 
         <section className="section" id="why">
           <div className="wrap">
-            <h2 className="why__title">Built on what you already run</h2>
-            <p className="why__lead">No new control plane, no image builds, no access to your cluster.</p>
+            <h2 className="why__title">What badil does, and what it leaves to you</h2>
+            <p className="why__lead">badil only writes to git. Your CI builds the images and your Argo CD deploys them.</p>
             <dl className="evidence">
               <div className="evidence__item">
                 <div className="evidence__ui" aria-hidden="true">
