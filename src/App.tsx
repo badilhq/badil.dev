@@ -22,7 +22,7 @@ const STEPS = [
   },
   {
     title: 'badil composes the stack',
-    body: <>It pins the pull request's service at its commit, keeps every other service on <code>main</code>, commits <code>previews/&lt;slug&gt;/values.yaml</code> to your gitops repo and comments the links.</>,
+    body: <>It pins the pull request's service at its commit, keeps every other service on its branch from <code>badil.yaml</code> (<code>main</code> by default), commits <code>previews/&lt;slug&gt;/values.yaml</code> to your gitops repo and comments the links.</>,
   },
   {
     title: 'More pull requests can join',
@@ -30,14 +30,14 @@ const STEPS = [
   },
   {
     title: 'Deploy and clean up',
-    body: <>Argo CD deploys each preview to its own namespace. Merging or closing a pull request, or removing its label, removes its pin; the preview goes with its last pull request, and a sweep clears stale ones.</>,
+    body: <>Argo CD deploys each preview to its own namespace. Merging or closing a pull request, or removing its label, removes its pin; the preview goes with its last pull request, and a sweep, hourly by default, clears stale ones and keeps every preview in sync with <code>badil.yaml</code> (services added or removed, branches, hosts).</>,
   },
 ]
 
 const WHY = [
   {
     title: 'One preview across repos',
-    body: <>Pull requests from several repos share one preview. Each pins its own service at its own commit, and every other service runs on <code>main</code>. Use the same branch name, or a <code>preview:&lt;name&gt;</code> label.</>,
+    body: <>Pull requests from several repos share one preview. Each pins its own service at its own commit, and every other service runs on its branch from <code>badil.yaml</code>, <code>main</code> by default. Use the same branch name, or a <code>preview:&lt;name&gt;</code> label.</>,
   },
   {
     title: 'Your CI builds the images',
@@ -51,22 +51,37 @@ const WHY = [
 
 // The file badil writes for the preview in the hero, as it lands in the gitops
 // repo (same shape as a real one; neutral names, illustrative commits).
-const VALUES = `services:
+const VALUES = `apiVersion: badil.dev/v1beta1
+services:
   - name: backend
+    repoURL: https://github.com/acme/backend.git
+    branch: main
     commitSha: a1b2c3d4e5f60718293a4b5c6d7e8f9012345678
     host: backend-feature-pricing.example.com
     metadata:
-      pr-number: "42"
+      pr-author: dana
       pr-url: https://github.com/acme/backend/pull/42
+      pr-number: "42"
+      created-at: "2026-11-14T09:12:00Z"
+      updated-at: "2026-11-14T10:41:00Z"
       vcs.ref.name: feature/pricing
+      cicd.pipeline.run.url: https://github.com/acme/backend/actions/runs/2071
   - name: front
+    repoURL: https://github.com/acme/front.git
+    branch: main
     commitSha: 9f8e7d6c5b4a39281706f5e4d3c2b1a098765432
     host: front-feature-pricing.example.com
     metadata:
-      pr-number: "17"
+      pr-author: dana
       pr-url: https://github.com/acme/front/pull/17
+      pr-number: "17"
+      created-at: "2026-11-14T09:40:00Z"
+      updated-at: "2026-11-14T10:58:00Z"
       vcs.ref.name: feature/pricing
-  - name: postgres`
+      cicd.pipeline.run.url: https://github.com/acme/front/actions/runs/2088
+  - name: postgres
+    repoURL: https://github.com/acme/postgres.git
+    branch: main`
 
 const THEMES: { choice: ThemeChoice; label: string; Icon: typeof Sun }[] = [
   { choice: 'system', label: 'System theme', Icon: Monitor },
@@ -178,7 +193,7 @@ export function App() {
                 badil comments once with every service in the preview, the commit each one runs and its link, and keeps the comment current as pull requests
                 join. Agents and reviewers start their QA from there.
               </p>
-              <p>With Argo CD notifications, the pull request also shows the deployment once its service is healthy.</p>
+              <p>With Argo CD notifications, the pull request also shows its service's deployment: success once it is healthy, failure when it is Degraded, and error when its sync fails.</p>
             </div>
             <div className="pr__still" role="img" aria-label={still}>
               <PrStill />
@@ -221,7 +236,7 @@ export function App() {
               <h3>Why not Argo CD's Pull Request generator?</h3>
               <p>
                 It creates an Application for each open pull request of one repository. badil builds on Argo CD to preview the whole stack: the pull
-                request's service at its commit and every other service at <code>main</code>, in one namespace. Pull requests from several repos can share a
+                request's service at its commit and every other service at its branch from <code>badil.yaml</code> (<code>main</code> by default), in one namespace. Pull requests from several repos can share a
                 preview, badil posts the links on each one, and previews are torn down on merge and swept when stale.
               </p>
             </div>
