@@ -127,7 +127,7 @@ export function App() {
       <main>
         <section className="hero">
           <div className="wrap hero__copy">
-            <h1>Every pull request gets a full-stack preview your AI agents can test.</h1>
+            <h1>Give your AI agents a full-stack preview to run and test every pull request.</h1>
             <p className="lede">
               badil writes each preview to your gitops repo and your Argo CD deploys it, so agents and reviewers run QA against the real stack before you
               merge. Open source and self-hosted.
