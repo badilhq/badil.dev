@@ -1,0 +1,159 @@
+{
+  "schemaVersion": 2,
+  "generatedAt": "2026-11-14T00:00:00Z",
+  "title": "Design System: badil",
+  "extensions": {
+    "colorMeta": {
+      "paper": { "role": "neutral", "displayName": "Paper", "canonical": "#ffffff", "darkCounterpart": "night", "tonalRamp": ["#1b1d20", "#33373b", "#4b5158", "#6b7178", "#9aa0a7", "#cfd3d8", "#e3e5e8", "#ffffff"] },
+      "canvas-gray": { "role": "neutral", "displayName": "Canvas Gray", "canonical": "#f6f7f8", "darkCounterpart": "night-canvas", "tonalRamp": ["#1b1d20", "#33373b", "#4b5158", "#6b7178", "#9aa0a7", "#cfd3d8", "#e3e5e8", "#f6f7f8"] },
+      "hairline": { "role": "neutral", "displayName": "Hairline", "canonical": "#e3e5e8", "darkCounterpart": "night-hairline", "tonalRamp": ["#1b1d20", "#33373b", "#4b5158", "#6b7178", "#9aa0a7", "#cfd3d8", "#e3e5e8", "#f6f7f8"] },
+      "hairline-strong": { "role": "neutral", "displayName": "Hairline Strong", "canonical": "#cfd3d8", "darkCounterpart": "night-hairline-strong", "tonalRamp": ["#1b1d20", "#33373b", "#4b5158", "#6b7178", "#9aa0a7", "#cfd3d8", "#e3e5e8", "#f6f7f8"] },
+      "slate-text": { "role": "neutral", "displayName": "Slate Text", "canonical": "#4b5158", "darkCounterpart": "night-text", "tonalRamp": ["#111315", "#2a2d31", "#4b5158", "#6b7178", "#9aa0a7", "#cfd3d8", "#e3e5e8", "#f6f7f8"] },
+      "ink": { "role": "neutral", "displayName": "Ink", "canonical": "#111315", "darkCounterpart": "night-ink", "tonalRamp": ["#111315", "#2a2d31", "#4b5158", "#6b7178", "#9aa0a7", "#cfd3d8", "#e3e5e8", "#f6f7f8"] },
+      "faint-slate": { "role": "neutral", "displayName": "Faint Slate", "canonical": "#6b7178", "darkCounterpart": "night-faint", "tonalRamp": ["#111315", "#2a2d31", "#4b5158", "#6b7178", "#9aa0a7", "#cfd3d8", "#e3e5e8", "#f6f7f8"] },
+      "status-green": { "role": "primary", "displayName": "Status Green", "canonical": "#0a7a3a", "darkCounterpart": "terminal-green", "tonalRamp": ["#04301a", "#064d26", "#0a7a3a", "#1f9a52", "#3ddc84", "#8eeab7", "#c9f3da", "#e3f4ea"] },
+      "selection-green": { "role": "primary", "displayName": "Selection Green", "canonical": "rgba(10, 122, 58, 0.16)", "darkCounterpart": "rgba(61, 220, 132, 0.22)" },
+      "code-well": { "role": "neutral", "displayName": "Code Well", "canonical": "#f1f2f4", "darkCounterpart": "night-code-well", "tonalRamp": ["#1b1d20", "#33373b", "#4b5158", "#6b7178", "#9aa0a7", "#cfd3d8", "#e3e5e8", "#f1f2f4"] },
+      "pin-amber": { "role": "secondary", "displayName": "Pin Amber", "canonical": "#8a5300", "darkCounterpart": "night-pin-amber", "tonalRamp": ["#3a2300", "#5e3800", "#8a5300", "#b87400", "#f2b23e", "#f7cf85", "#fbe5bd", "#fdf1d8"] },
+      "pin-amber-soft": { "role": "secondary", "displayName": "Pin Amber Soft", "canonical": "#fdf1d8", "darkCounterpart": "rgba(242, 178, 62, 0.14)" },
+      "ink-hover": { "role": "neutral", "displayName": "Ink Hover", "canonical": "#2a2d31", "darkCounterpart": "#ffffff" },
+      "night": { "role": "neutral", "displayName": "Night", "canonical": "#0b0d0b", "tonalRamp": ["#0b0d0b", "#111511", "#1c211c", "#232823", "#343a34", "#7d867c", "#a3aca2", "#e8ece7"] },
+      "night-canvas": { "role": "neutral", "displayName": "Night Canvas", "canonical": "#111511", "tonalRamp": ["#0b0d0b", "#111511", "#1c211c", "#232823", "#343a34", "#7d867c", "#a3aca2", "#e8ece7"] },
+      "night-hairline": { "role": "neutral", "displayName": "Night Hairline", "canonical": "#232823" },
+      "night-hairline-strong": { "role": "neutral", "displayName": "Night Hairline Strong", "canonical": "#343a34" },
+      "night-text": { "role": "neutral", "displayName": "Night Text", "canonical": "#a3aca2" },
+      "night-ink": { "role": "neutral", "displayName": "Night Ink", "canonical": "#e8ece7" },
+      "night-faint": { "role": "neutral", "displayName": "Night Faint", "canonical": "#7d867c" },
+      "terminal-green": { "role": "primary", "displayName": "Terminal Green", "canonical": "#3ddc84", "tonalRamp": ["#04301a", "#064d26", "#0a7a3a", "#1f9a52", "#3ddc84", "#8eeab7", "#c9f3da", "#e3f4ea"] },
+      "night-code-well": { "role": "neutral", "displayName": "Night Code Well", "canonical": "#1c211c" },
+      "night-pin-amber": { "role": "secondary", "displayName": "Night Pin Amber", "canonical": "#f2b23e" }
+    },
+    "typographyMeta": {
+      "display": { "displayName": "Display", "purpose": "The hero headline only; max 30ch, balanced wrap." },
+      "headline": { "displayName": "Headline", "purpose": "One per section." },
+      "title": { "displayName": "Title", "purpose": "Step titles, evidence terms, the comparison heading." },
+      "lede": { "displayName": "Lede", "purpose": "The hero sentence; 18px on phones." },
+      "body": { "displayName": "Body", "purpose": "All copy; measures between 26em and 78ch." },
+      "label": { "displayName": "Label", "purpose": "Nav and footer links." },
+      "mono": { "displayName": "Mono", "purpose": "Code, paths and SHAs only; inline identifiers never wrap." },
+      "wordmark": { "displayName": "Wordmark", "purpose": "The wordmark in the nav." },
+      "wordmark-small": { "displayName": "Wordmark Small", "purpose": "The small wordmark." },
+      "button": { "displayName": "Button", "purpose": "Buttons." },
+      "ui": { "displayName": "UI", "purpose": "The evidence panel." },
+      "ui-small": { "displayName": "UI Small", "purpose": "The file path and the evidence code, in mono." },
+      "chip": { "displayName": "Chip", "purpose": "The status chip." }
+    },
+    "shadows": [
+      { "name": "product-panel", "value": "0 1px 2px rgba(16, 20, 24, 0.04), 0 24px 48px -28px rgba(16, 20, 24, 0.22)", "purpose": "The hero's product panel only, at 1148px and up. The page's one shadow." },
+      { "name": "product-panel-dark", "value": "inset 0 1px 0 rgba(255, 255, 255, 0.05), 0 24px 48px -28px rgba(0, 0, 0, 0.9)", "purpose": "The same panel in dark." },
+      { "name": "hairline-ring", "value": "0 0 0 1px var(--ss-line)", "purpose": "Illustration windows and cards, instead of soft shadows." }
+    ],
+    "motion": [
+      { "name": "hover", "value": "0.15s ease-out", "purpose": "Color and background changes on links, buttons and the theme control; the page's only motion outside the illustrations. Removed under prefers-reduced-motion." },
+      { "name": "press", "value": "translateY(1px)", "purpose": "Button :active nudge." }
+    ],
+    "breakpoints": [
+      { "name": "hero-frame", "value": "1148px", "purpose": "The hero panel's frame applies at this width and up." },
+      { "name": "pr-stack", "value": "1119px", "purpose": "The pull request section stacks below this." },
+      { "name": "split-stack", "value": "960px", "purpose": "Splits and the evidence row collapse to one column below this." },
+      { "name": "phone", "value": "599px", "purpose": "20px gutter, mark-only wordmark in the nav, 18px lede." }
+    ],
+    "focus": { "value": "outline: 2px solid var(--text-strong); outline-offset: 3px; border-radius: 4px", "purpose": "Every focusable element." }
+  },
+  "components": [
+    {
+      "name": "Primary Button",
+      "kind": "button",
+      "refersTo": "button-primary",
+      "description": "The ink pill; one per section, always the install guide.",
+      "html": "<a class=\"ds-btn-primary\" href=\"#\">Read the install guide</a>",
+      "css": ".ds-btn-primary { display: inline-flex; align-items: center; height: 46px; padding: 0 22px; border-radius: 999px; background: var(--ink-btn, #111315); color: var(--on-ink, #ffffff); font: 600 16px/1 'Schibsted Grotesk Variable', system-ui, sans-serif; letter-spacing: -0.005em; text-decoration: none; transition: background-color 0.15s ease-out, transform 0.15s ease-out; } .ds-btn-primary:hover { background: var(--ink-btn-hover, #2a2d31); } .ds-btn-primary:active { transform: translateY(1px); } .ds-btn-primary:focus-visible { outline: 2px solid var(--text-strong, #111315); outline-offset: 3px; }"
+    },
+    {
+      "name": "Quiet Button",
+      "kind": "button",
+      "refersTo": "button-quiet",
+      "description": "The secondary destination beside the primary: ink text, underline on hover.",
+      "html": "<a class=\"ds-btn-quiet\" href=\"#\">View on GitHub</a>",
+      "css": ".ds-btn-quiet { display: inline-flex; align-items: center; height: 46px; padding: 0 6px; border-radius: 999px; color: var(--text-strong, #111315); font: 600 16px/1 'Schibsted Grotesk Variable', system-ui, sans-serif; letter-spacing: -0.005em; text-decoration: none; text-underline-offset: 0.2em; text-decoration-thickness: 1px; } .ds-btn-quiet:hover { text-decoration: underline; } .ds-btn-quiet:focus-visible { outline: 2px solid var(--text-strong, #111315); outline-offset: 3px; border-radius: 4px; }"
+    },
+    {
+      "name": "Navigation",
+      "kind": "nav",
+      "refersTo": "nav-link",
+      "description": "Sticky translucent bar: wordmark left, links and the theme control right.",
+      "html": "<header class=\"ds-nav\"><a class=\"ds-wordmark\" href=\"#\"><svg viewBox=\"0 0 32 32\" width=\"23\" height=\"23\" fill=\"currentColor\" aria-hidden=\"true\"><rect x=\"3\" y=\"5\" width=\"21\" height=\"6\"/><rect x=\"8\" y=\"13\" width=\"21\" height=\"6\" fill=\"#0a7a3a\"/><rect x=\"3\" y=\"21\" width=\"21\" height=\"6\"/></svg>badil</a><nav class=\"ds-nav-links\"><a href=\"#\">Install guide</a><a href=\"#\">GitHub</a></nav></header>",
+      "css": ".ds-nav { display: flex; align-items: center; justify-content: space-between; height: 64px; padding: 0 32px; background: color-mix(in srgb, var(--bg, #fff) 92%, transparent); backdrop-filter: saturate(1.4) blur(10px); border-bottom: 1px solid var(--line, #e3e5e8); font-family: 'Schibsted Grotesk Variable', system-ui, sans-serif; } .ds-wordmark { display: inline-flex; align-items: center; gap: 0.4em; color: var(--text-strong, #111315); font-size: 19px; font-weight: 650; letter-spacing: -0.02em; text-decoration: none; } .ds-nav-links { display: flex; gap: 24px; font-size: 15px; font-weight: 500; } .ds-nav-links a { color: var(--text, #4b5158); text-decoration: none; transition: color 0.15s ease-out; } .ds-nav-links a:hover { color: var(--text-strong, #111315); } .ds-nav-links a:focus-visible { outline: 2px solid var(--text-strong, #111315); outline-offset: 3px; border-radius: 4px; }"
+    },
+    {
+      "name": "Theme Control",
+      "kind": "custom",
+      "refersTo": "theme-toggle",
+      "description": "System, Light, Dark: three icon buttons in a hairline pill; the pressed one sits on the code well.",
+      "html": "<div class=\"ds-theme\" role=\"group\" aria-label=\"Theme\"><button class=\"ds-theme-btn\" aria-pressed=\"true\" aria-label=\"System theme\"><svg viewBox=\"0 0 24 24\" width=\"15\" height=\"15\" fill=\"none\" stroke=\"currentColor\" stroke-width=\"2\" stroke-linecap=\"round\" stroke-linejoin=\"round\"><rect x=\"2\" y=\"3\" width=\"20\" height=\"14\" rx=\"2\"/><path d=\"M8 21h8M12 17v4\"/></svg></button><button class=\"ds-theme-btn\" aria-pressed=\"false\" aria-label=\"Light theme\"><svg viewBox=\"0 0 24 24\" width=\"15\" height=\"15\" fill=\"none\" stroke=\"currentColor\" stroke-width=\"2\" stroke-linecap=\"round\"><circle cx=\"12\" cy=\"12\" r=\"4\"/><path d=\"M12 2v2M12 20v2M4.9 4.9l1.4 1.4M17.7 17.7l1.4 1.4M2 12h2M20 12h2M6.3 17.7l-1.4 1.4M19.1 4.9l-1.4 1.4\"/></svg></button><button class=\"ds-theme-btn\" aria-pressed=\"false\" aria-label=\"Dark theme\"><svg viewBox=\"0 0 24 24\" width=\"15\" height=\"15\" fill=\"none\" stroke=\"currentColor\" stroke-width=\"2\" stroke-linecap=\"round\" stroke-linejoin=\"round\"><path d=\"M12 3a6 6 0 0 0 9 9 9 9 0 1 1-9-9Z\"/></svg></button></div>",
+      "css": ".ds-theme { display: inline-flex; gap: 2px; padding: 2px; border: 1px solid var(--line, #e3e5e8); border-radius: 999px; } .ds-theme-btn { display: grid; place-items: center; width: 28px; height: 28px; padding: 0; border: 0; border-radius: 999px; background: none; color: var(--text-faint, #6b7178); cursor: pointer; transition: color 0.15s ease-out, background-color 0.15s ease-out; } .ds-theme-btn:hover { color: var(--text-strong, #111315); } .ds-theme-btn[aria-pressed='true'] { background: var(--code, #f1f2f4); color: var(--text-strong, #111315); } .ds-theme-btn:focus-visible { outline: 2px solid var(--text-strong, #111315); outline-offset: 3px; }"
+    },
+    {
+      "name": "Status Chip",
+      "kind": "chip",
+      "refersTo": "status-chip",
+      "description": "Green pill for a label or live state; amber code for a pinned SHA.",
+      "html": "<span class=\"ds-chip\">preview</span> <code class=\"ds-pin\">a1b2c3d4</code>",
+      "css": ".ds-chip { display: inline-block; padding: 0 8px; border-radius: 999px; background: color-mix(in srgb, var(--accent, #0a7a3a) 12%, transparent); color: var(--accent, #0a7a3a); font: 600 12px/20px 'Schibsted Grotesk Variable', system-ui, sans-serif; } .ds-pin { padding: 0 6px; border-radius: 5px; background: var(--pin-soft, #fdf1d8); color: var(--pin, #8a5300); font: 12.5px ui-monospace, 'SF Mono', Menlo, monospace; }"
+    },
+    {
+      "name": "File Card",
+      "kind": "card",
+      "refersTo": "file-card",
+      "description": "A file as it lands in the gitops repo: canvas path bar over mono code, 10px hairline panel.",
+      "html": "<figure class=\"ds-file\"><figcaption class=\"ds-file-path\">acme/gitops · previews/feature-pricing/values.yaml</figcaption><pre class=\"ds-file-code\">services:\n  - name: backend\n    commitSha: a1b2c3d4\n  - name: postgres</pre></figure>",
+      "css": ".ds-file { margin: 0; border: 1px solid var(--line, #e3e5e8); border-radius: 10px; background: var(--panel, #fff); overflow: hidden; } .ds-file-path { padding: 10px 14px; border-bottom: 1px solid var(--line, #e3e5e8); background: var(--canvas, #f6f7f8); color: var(--text, #4b5158); font: 12.5px ui-monospace, 'SF Mono', Menlo, monospace; } .ds-file-code { margin: 0; padding: 14px; color: var(--text-strong, #111315); font: 11.5px/1.7 ui-monospace, 'SF Mono', Menlo, monospace; }"
+    },
+    {
+      "name": "Evidence Card",
+      "kind": "card",
+      "refersTo": "evidence-card",
+      "description": "A small recreation of the artifact that proves a claim, above its term and description.",
+      "html": "<div class=\"ds-evidence\"><div class=\"ds-row\"><span class=\"ds-strong\">feature-pricing-backend</span><span class=\"ds-dot\"></span><span class=\"ds-ok\">Synced · Healthy</span></div></div>",
+      "css": ".ds-evidence { display: grid; align-content: center; gap: 8px; min-height: 104px; padding: 14px; border: 1px solid var(--line, #e3e5e8); border-radius: 10px; background: var(--panel, #fff); color: var(--text, #4b5158); font: 13.5px 'Schibsted Grotesk Variable', system-ui, sans-serif; } .ds-row { display: flex; align-items: center; gap: 8px; } .ds-strong { color: var(--text-strong, #111315); font-weight: 600; } .ds-dot { width: 8px; height: 8px; border-radius: 50%; background: var(--accent, #0a7a3a); } .ds-ok { color: var(--accent, #0a7a3a); }"
+    },
+    {
+      "name": "Hero Panel",
+      "kind": "card",
+      "refersTo": "hero-panel",
+      "description": "The frame around the live loop at 1148px and up; the page's only shadow. Below that width the loop sits unframed on the ground.",
+      "html": "<div class=\"ds-hero-panel\"><div class=\"ds-hero-stage\">live preview loop</div></div>",
+      "css": ".ds-hero-panel { padding: 28px 0; border: 1px solid var(--line, #e3e5e8); border-radius: 16px; background: var(--panel, #fff); box-shadow: var(--panel-shadow, 0 1px 2px rgba(16,20,24,0.04), 0 24px 48px -28px rgba(16,20,24,0.22)); } .ds-hero-stage { display: grid; place-items: center; min-height: 160px; color: var(--text-faint, #6b7178); font: 15px 'Schibsted Grotesk Variable', system-ui, sans-serif; } @media (max-width: 1147px) { .ds-hero-panel { padding: 0; border: 0; border-radius: 0; background: none; box-shadow: none; } }"
+    }
+  ],
+  "narrative": {
+    "northStar": "The Category Standard",
+    "overview": "badil's site is a product page at the craft of the infrastructure tools its readers already trust: white ground, ink type, hairline borders, and the product itself shown at real scale. The page is the quiet frame; the illustrations (the live preview loop and the pull request still) are where the product's colour and detail live. Nothing on the page dresses up as a terminal or a dashboard: there is no mono costume, no grid background, no numbered panels.\n\nDensity is generous. Sections breathe on a large vertical rhythm, one idea per section, with a heading and its lead on the left and the evidence on the right. Depth is almost absent: everything is flat and separated by 1px hairlines, with one soft shadow reserved for the product panel in the hero.\n\nLight and dark are equal citizens. Light is neutral gray on white; dark is green-tinted near-black, so the terminal green reads as native to the ground. A three-way theme control (System, Light, Dark) switches the page and every illustration together.",
+    "keyCharacteristics": [
+      "White ground (dark: green-tinted near-black), ink text, 1px hairlines.",
+      "One green, meaning live/healthy/ready; one amber, meaning a pinned commit.",
+      "One face, Schibsted Grotesk, for all text; the system mono for code only.",
+      "Pill buttons and chips, 10px panels, a 16px stage frame.",
+      "Flat everywhere except the hero's product panel."
+    ],
+    "rules": [
+      { "name": "The Product Owns the Green Rule", "body": "Green is a status, not a brand fill. It appears where the product would show it (ready, healthy, labelled, linked) and on the mark's dashed twin (the preview, the double of production); it never fills a button, a section or a heading.", "section": "colors" },
+      { "name": "The Amber Means Pinned Rule", "body": "Amber marks a pinned commit and nothing else. No warnings, no highlights.", "section": "colors" },
+      { "name": "The Mono Is Code Rule", "body": "Mono is set only on text that is literally code or a git identifier. Headings, labels and UI chrome are always in the grotesk.", "section": "typography" },
+      { "name": "The One Shadow Rule", "body": "The hero's product panel carries the page's only shadow. Every other surface is flat, bordered by a hairline.", "section": "elevation" }
+    ],
+    "dos": [
+      "Do keep the page on paper/night with hairline (`#e3e5e8` / `#232823`) borders and let the illustrations carry the colour.",
+      "Do use green only for live, healthy, ready, labelled or linked states, and amber only for pinned commits.",
+      "Do use the ink pill for the single primary action and a quiet text link beside it.",
+      "Do set every text in Schibsted Grotesk and reserve mono for code, paths and SHAs.",
+      "Do switch the page and every illustration together when the theme changes."
+    ],
+    "donts": [
+      "Don't add a second shadow; the hero product panel owns the only one.",
+      "Don't fill buttons, sections or headings with green.",
+      "Don't put eyebrows or kickers above headings, grid backgrounds, numbered decorative panels, or mono-set UI chrome.",
+      "Don't frame the loop below 1148px; the smaller designs sit on the page ground."
+    ]
+  }
+}
