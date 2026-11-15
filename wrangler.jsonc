@@ -1,6 +1,7 @@
 {
   // A Worker with static assets only: no script, the built page is served from dist/.
-  // It serves badil.dev and www.badil.dev as Custom Domains; CI deploys it from main.
+  // It serves badil.dev as a Custom Domain; CI deploys it from main. www.badil.dev
+  // redirects to it with a zone Redirect Rule, outside this file.
   "name": "badil-dev",
   "compatibility_date": "2026-11-12",
   "assets": {
@@ -8,7 +9,6 @@
     "not_found_handling": "404-page"
   },
   "routes": [
-    { "pattern": "badil.dev", "custom_domain": true },
-    { "pattern": "www.badil.dev", "custom_domain": true }
+    { "pattern": "badil.dev", "custom_domain": true }
   ]
 }
