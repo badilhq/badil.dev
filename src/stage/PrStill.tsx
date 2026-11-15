@@ -2,7 +2,7 @@ import { GitPullRequest, Rocket } from 'lucide-react'
 // Imported part by part, as the other stages do (the kit index also pulls in
 // the brand artwork)
 import { Stage } from '../kit/stage'
-import { Bar, Text } from '../kit/window'
+import { Text } from '../kit/window'
 import { Avatar } from '../kit/parts/Avatar'
 import { Button } from '../kit/controls/Button'
 import type { Layout } from '../kit/looks'
@@ -14,18 +14,21 @@ import './pr-still.css'
 //
 // Plan. A feature card beside copy (pinned, bottom bleed, from the
 // static-card gold): a generic code host's pull request page, chromeless,
-// inset a gutter from the top and sides of a warm well, running off the
-// bottom. The focal object is badil's comment; under it the deployment row,
-// then the merge box's filler, which the crop cuts. No cursor, no motion.
+// inset a gutter from the top and sides, running off the bottom under a
+// fade. The focal object is badil's comment; under it the deployment row,
+// then the merge box, which the fade takes. No cursor, no motion.
 //
 // Real strings: the repo, the title and number, the preview label, badil's
-// comment (author, bot tag, heading, three services, the note) and the
-// deployment row. Everything else is placeholder lines.
+// comment (author, bot tag, heading, the service table, the note, the gitops
+// commit) and the deployment row. Everything else is placeholder lines.
 
+// badil's comment as it renders on the code host: a markdown table, one row
+// per service (pinned at its commit, with the pull request that pinned it, or
+// on main), then the note and the gitops commit that wrote the preview.
 const SERVICES = [
-  { name: 'backend', pinned: true, ref: 'a1b2c3d4', link: 'backend-feature-pricing.example.com' },
-  { name: 'front', pinned: true, ref: '9f8e7d6c', link: 'front-feature-pricing.example.com' },
-  { name: 'postgres', pinned: false, ref: 'main', link: null },
+  { name: 'backend', ref: 'a1b2c3d4', from: '#42', link: 'backend-feature-pricing.example.com' },
+  { name: 'front', ref: '9f8e7d6c', from: 'acme/front#17', link: 'front-feature-pricing.example.com' },
+  { name: 'postgres', ref: 'main', from: null, link: null },
 ]
 
 function Header({ compact }: { compact: boolean }) {
@@ -42,8 +45,7 @@ function Header({ compact }: { compact: boolean }) {
       </div>
       <div className="ps-meta">
         <span className="ps-state"><GitPullRequest size={14} strokeWidth={2} /></span>
-        <Avatar size={18} plain />
-        <Bar w={compact ? 96 : 150} h={6} tone={2} />
+        <span className="ps-meta__text">{compact ? 'dana wants to merge into main' : 'dana wants to merge 3 commits into main from feature/pricing'}</span>
         <span className="ps-label">preview</span>
       </div>
     </div>
@@ -57,22 +59,31 @@ function Comment({ compact }: { compact: boolean }) {
         {!compact && <Avatar name="badil" tone="accent" size={22} className="ps-bot-avatar" />}
         <Text className="ps-card__name">badil</Text>
         <span className="ps-bot">bot</span>
-        <Bar w={compact ? 40 : 54} h={5} tone={2} />
+        <span className="ps-card__when">commented 2 minutes ago</span>
       </div>
       <div className="ps-card__body">
-        <div className="ps-comment__title">Preview: feature-pricing</div>
-        <div className="ps-services">
+        <div className="ps-comment__title">Preview <code className="ps-code ps-code--title">feature-pricing</code></div>
+        <div className="ps-services" role="table" aria-label="Services in the preview">
+          {!compact && (
+            <div className="ps-svc ps-svc--head" role="row">
+              <span role="columnheader">Service</span>
+              <span role="columnheader">Runs</span>
+              <span role="columnheader">Link</span>
+            </div>
+          )}
           {SERVICES.map((v) => (
-            <div key={v.name} className="ps-svc">
-              <code className="ps-svc__name">{v.name}</code>
-              <span className="ps-svc__ref">
-                {v.pinned ? 'pinned at' : 'tracking'} <code className="ps-code">{v.ref}</code>
+            <div key={v.name} className="ps-svc" role="row">
+              <span className="ps-svc__name" role="cell">{v.name}</span>
+              <span className="ps-svc__ref" role="cell">
+                <code className={v.from ? 'ps-code ps-code--pin' : 'ps-code'}>{v.ref}</code>
+                {v.from && <span className="ps-link">{v.from}</span>}
               </span>
-              {v.link && <span className="ps-link">{v.link}</span>}
+              <span role="cell">{v.link && <span className="ps-link">{v.link}</span>}</span>
             </div>
           ))}
         </div>
-        <div className="ps-note">A pinned service starts once CI has pushed the image for its commit.</div>
+        <div className="ps-note">Pinned services start once CI has pushed their image. Until then their link may not respond.</div>
+        <div className="ps-written">Written in <span className="ps-link">acme/gitops@50ea4e0</span></div>
       </div>
     </div>
   )
@@ -90,8 +101,8 @@ function MergeBox({ compact }: { compact: boolean }) {
         </span>
       </div>
       <div className="ps-merge">
-        <Bar w={compact ? 132 : 220} h={6} tone={3} />
-        <Bar w={compact ? 96 : 160} h={5} tone={2} />
+        <span className="ps-merge__title">This branch has no conflicts with the base branch</span>
+        <span className="ps-merge__sub">Merging removes its pin; the preview goes with its last pull request.</span>
       </div>
     </div>
   )
@@ -115,8 +126,8 @@ export default function PrStill() {
   return (
     <Stage
       width={680}
-      height={540}
-      compact={{ below: 600, width: 350, height: 570 }}
+      height={660}
+      compact={{ below: 600, width: 350, height: 640 }}
       theme={dark ? 'dark' : 'light'}
       className="ps"
     >

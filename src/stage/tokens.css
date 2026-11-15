@@ -1,7 +1,7 @@
 /* badil's look on the hero stage: neutral grays in light, green-tinted
    near-blacks in dark, terminal
    green as the one accent (it also means live), amber for pinned commits,
-   square corners and hairline rings, IBM Plex. The page around it
+   rounded panels and hairline rings, Schibsted Grotesk. The page around it
    (src/site.css) and the pull request still (pr-still.css) use the same
    values. */
 .fd .ss-stage {
@@ -9,13 +9,13 @@
   --ss-accent: #0a7a3a;
   --ss-accent-soft: rgba(10, 122, 58, 0.1);
   --ss-accent-text: #0a7a3a;
-  --ss-canvas: #f4f5f6;
+  --ss-canvas: #f6f7f8;
   --ss-surface: #ffffff;
-  --ss-chrome: #f4f5f6;
+  --ss-chrome: #f6f7f8;
   --ss-line: #e3e5e8;
-  --ss-text: #55595f;
-  --ss-text-strong: #16181b;
-  --ss-text-faint: #737880;
+  --ss-text: #4b5158;
+  --ss-text-strong: #111315;
+  --ss-text-faint: #6b7178;
   --ss-icon: #6b7078;
   --ss-icon-faint: #b4b8be;
   --ss-success: #0a7a3a;
@@ -23,18 +23,13 @@
   --ss-success-text: #0a7a3a;
   --ss-warning-soft: #fdf1d8;
   --ss-warning-text: #8a5300;
-  --ss-font: "IBM Plex Sans Variable", system-ui, -apple-system, "Segoe UI", sans-serif;
-  --ss-mono: "IBM Plex Mono", ui-monospace, "SF Mono", SFMono-Regular, Menlo, Consolas, monospace;
+  --ss-font: "Schibsted Grotesk Variable", system-ui, -apple-system, "Segoe UI", sans-serif;
+  --ss-mono: ui-monospace, "SF Mono", SFMono-Regular, Menlo, Consolas, monospace;
 
-  /* Square corners and hairline rings instead of the kit's radii and soft
-     shadows. Unlayered, so they win over the kit's layered values, in light
-     and in dark (this rule also matches the dark stage). */
-  --ss-radius-sm: 0;
-  --ss-radius-md: 0;
-  --ss-radius-lg: 0;
-  --ss-radius-window: 0;
-  --ss-radius-pill: 0;
-  --ss-shadow-hero: 0 0 0 1px var(--ss-text-strong);
+  /* Hairline rings instead of the kit's soft shadows: the page's panel
+     carries the one shadow. Unlayered, so they win over the kit's layered
+     values, in light and in dark (this rule also matches the dark stage). */
+  --ss-shadow-hero: 0 0 0 1px var(--ss-line), 0 1px 2px rgba(16, 20, 24, 0.06);
   --ss-shadow-ground: 0 0 0 1px var(--ss-line);
 
   --bd-pin: #8a5300;
@@ -47,7 +42,7 @@
   --bd-inactive-soft: #f1f2f4;
   --bd-swatch-red: #d4523f;
   --bd-swatch-blue: #3f7bd4;
-  --bd-swatch-gray: #737880;
+  --bd-swatch-gray: #6b7178;
   --bd-hover: #f1f2f4;
   --bd-bot: #e3e5e8;
   --bd-page: #ffffff;
@@ -65,10 +60,10 @@
   --ss-surface: #111511;
   --ss-chrome: #161a16;
   --ss-line: #232823;
-  --ss-text: #98a297;
-  --ss-text-strong: #e4e9e3;
-  --ss-text-faint: #6b746a;
-  --ss-icon: #98a297;
+  --ss-text: #a3aca2;
+  --ss-text-strong: #e8ece7;
+  --ss-text-faint: #7d867c;
+  --ss-icon: #a3aca2;
   --ss-icon-faint: #434a43;
   --ss-success: #3ddc84;
   --ss-success-soft: rgba(61, 220, 132, 0.14);
@@ -80,11 +75,11 @@
   --bd-pin-soft: rgba(242, 178, 62, 0.14);
   --bd-card-head: #161a16;
   --bd-code: #1c211c;
-  --bd-merged: #e4e9e3;
+  --bd-merged: #e8ece7;
   --bd-merged-text: #0b0d0b;
   --bd-open: #3ddc84;
   --bd-inactive-soft: #1c211c;
   --bd-hover: #1c211c;
   --bd-bot: #2a302a;
-  --bd-page: #0b0d0b;
+  --bd-page: #111511;
 }
