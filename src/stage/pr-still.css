@@ -5,13 +5,13 @@
   --ss-accent: #0a7a3a;
   --ss-accent-soft: rgba(10, 122, 58, 0.1);
   --ss-accent-text: #0a7a3a;
-  --ss-canvas: #f4f5f6;
+  --ss-canvas: #f6f7f8;
   --ss-surface: #ffffff;
-  --ss-chrome: #f4f5f6;
+  --ss-chrome: #f6f7f8;
   --ss-line: #e3e5e8;
-  --ss-text: #55595f;
-  --ss-text-strong: #16181b;
-  --ss-text-faint: #737880;
+  --ss-text: #4b5158;
+  --ss-text-strong: #111315;
+  --ss-text-faint: #6b7178;
   --ss-icon: #6b7078;
   --ss-icon-faint: #b4b8be;
   --ss-success: #0a7a3a;
@@ -19,29 +19,27 @@
   --ss-success-text: #0a7a3a;
   --ss-warning-soft: #fdf1d8;
   --ss-warning-text: #8a5300;
-  --ss-font: "IBM Plex Sans Variable", system-ui, -apple-system, "Segoe UI", sans-serif;
-  --ss-mono: "IBM Plex Mono", ui-monospace, "SF Mono", SFMono-Regular, Menlo, Consolas, monospace;
+  --ss-font: "Schibsted Grotesk Variable", system-ui, -apple-system, "Segoe UI", sans-serif;
+  --ss-mono: ui-monospace, "SF Mono", SFMono-Regular, Menlo, Consolas, monospace;
 
-  /* Square corners and a hairline ring instead of the kit's radii and soft
-     shadow. Unlayered, so they win over the kit's layered values, in light
-     and in dark (this rule also matches the dark stage). */
-  --ss-radius-sm: 0;
-  --ss-radius-md: 0;
-  --ss-radius-lg: 0;
-  --ss-radius-window: 0;
-  --ss-radius-pill: 0;
+  /* A hairline ring instead of the kit's soft shadow. Unlayered, so it wins
+     over the kit's layered values, in light and in dark (this rule also
+     matches the dark stage). */
   --ss-shadow-hero: 0 0 0 1px var(--ss-line);
 
-  --ps-well: #f4f5f6;
+  --ps-well: transparent;
   --ps-page: #ffffff;
   --ps-card-head: #f8f9fa;
   --ps-code: #f1f2f4;
   --ps-bot: #e3e5e8;
 
   overflow: hidden;
-  border-radius: 0;
+  border-radius: 16px;
   background: var(--ps-well);
   font-family: var(--ss-font);
+  /* The page runs off the bottom under a fade, so the crop never slices a
+     line of text */
+  mask-image: linear-gradient(to bottom, #000 calc(100% - 80px), transparent);
 }
 
 .ps .ss-stage[data-theme="dark"] {
@@ -52,10 +50,10 @@
   --ss-surface: #111511;
   --ss-chrome: #161a16;
   --ss-line: #232823;
-  --ss-text: #98a297;
-  --ss-text-strong: #e4e9e3;
-  --ss-text-faint: #6b746a;
-  --ss-icon: #98a297;
+  --ss-text: #a3aca2;
+  --ss-text-strong: #e8ece7;
+  --ss-text-faint: #7d867c;
+  --ss-icon: #a3aca2;
   --ss-icon-faint: #434a43;
   --ss-success: #3ddc84;
   --ss-success-soft: rgba(61, 220, 132, 0.14);
@@ -63,7 +61,7 @@
   --ss-warning-soft: rgba(242, 178, 62, 0.14);
   --ss-warning-text: #f2b23e;
 
-  --ps-well: #111511;
+  --ps-well: transparent;
   --ps-page: #111511;
   --ps-card-head: #161a16;
   --ps-code: #1c211c;
@@ -79,9 +77,9 @@
     right: var(--gutter);
     display: flex;
     flex-direction: column;
-    height: 640px;
+    height: 780px;
     padding: 0 24px;
-    border-radius: 0;
+    border-radius: 12px;
     background: var(--ps-page);
     box-shadow: var(--ss-shadow-hero);
     color: var(--ss-text-strong);
@@ -92,9 +90,9 @@
   }
 
   & [data-layout="compact"] .ps-page {
-    height: 700px;
+    height: 780px;
     padding: 0 14px;
-    border-radius: 0;
+    border-radius: 12px;
   }
 
   /* ---- Header ---- */
@@ -106,8 +104,10 @@
     border-bottom: 1px solid var(--ss-line);
   }
 
+  /* Compact: the header's text starts on the comment's text edge (the
+     card's border plus its head padding), so the two share one left edge */
   & [data-layout="compact"] .ps-head {
-    padding: 16px 0 14px;
+    padding: 16px 0 14px 13px;
   }
 
   .ps-crumb {
@@ -155,6 +155,41 @@
     align-items: center;
     gap: 8px;
     margin-top: 4px;
+  }
+
+  .ps-meta__text {
+    min-width: 0;
+    overflow: hidden;
+    color: var(--ss-text);
+    font-size: 13px;
+    line-height: 18px;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+  }
+
+  .ps-card__when {
+    margin-left: auto;
+    color: var(--ss-text);
+    font-size: 12.5px;
+    line-height: 18px;
+  }
+
+  .ps-merge__title {
+    color: var(--ss-text-strong);
+    font-size: 13px;
+    font-weight: 600;
+    line-height: 18px;
+  }
+
+  .ps-merge__sub {
+    color: var(--ss-text);
+    font-size: 12.5px;
+    line-height: 18px;
+  }
+
+  & [data-layout="compact"] .ps-merge__sub {
+    font-size: 12px;
+    line-height: 17px;
   }
 
   .ps-state {
@@ -207,7 +242,7 @@
 
   .ps-card {
     border: 1px solid var(--ss-line);
-    border-radius: 0;
+    border-radius: 10px;
     background: var(--ps-page);
     overflow: hidden;
   }
@@ -282,7 +317,7 @@
 
   .ps-svc {
     display: grid;
-    grid-template-columns: 68px 126px minmax(0, 1fr);
+    grid-template-columns: 64px 164px minmax(0, 1fr);
     align-items: center;
     column-gap: 12px;
     min-height: 34px;
@@ -303,11 +338,51 @@
     line-height: 17px;
   }
 
-  & [data-layout="compact"] .ps-link {
+  & [data-layout="compact"] .ps-svc > :last-child {
     grid-column: 1 / -1;
   }
 
-  .ps-svc__name,
+  & [data-layout="compact"] .ps-svc > :last-child:empty {
+    display: none;
+  }
+
+  /* The table's header row, as the code host renders a markdown table */
+  .ps-svc--head {
+    min-height: 28px;
+    background: var(--ps-card-head);
+    color: var(--ss-text-strong);
+    font-size: 12px;
+    font-weight: 600;
+  }
+
+  .ps-svc__ref {
+    display: inline-flex;
+    align-items: center;
+    gap: 6px;
+    min-width: 0;
+  }
+
+  .ps-code--pin {
+    background: var(--ss-warning-soft);
+    color: var(--ss-warning-text);
+  }
+
+  .ps-code--title {
+    font-size: 13px;
+  }
+
+  .ps-written {
+    padding-top: 8px;
+    color: var(--ss-text);
+    font-size: 12.5px;
+    line-height: 18px;
+  }
+
+  & [data-layout="compact"] .ps-written {
+    font-size: 12px;
+    line-height: 17px;
+  }
+
   .ps-code,
   .ps-deploy__env {
     font-family: var(--ss-mono);
@@ -315,8 +390,8 @@
 
   .ps-svc__name {
     color: var(--ss-text-strong);
-    font-size: 12px;
-    font-weight: 500;
+    font-size: 12.5px;
+    font-weight: 600;
   }
 
   & [data-layout="compact"] .ps-svc__name {
@@ -325,7 +400,7 @@
 
   .ps-code {
     padding: 1px 5px;
-    border-radius: 0;
+    border-radius: 5px;
     background: var(--ps-code);
     color: var(--ss-text-strong);
     font-size: 11.5px;
@@ -421,7 +496,7 @@
   .ps-merge {
     display: flex;
     flex-direction: column;
-    gap: 8px;
+    gap: 2px;
     padding: 18px 14px 40px;
   }
 

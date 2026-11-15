@@ -10,7 +10,7 @@
   --ss-raised: #ffffff;
   --fd-hub: #ffffff;
   --fd-route: #cfd3d8;
-  --fd-merged: #55595f;
+  --fd-merged: #4b5158;
   overflow: hidden;
   background: transparent;
   color: var(--ss-text-strong);
@@ -106,7 +106,7 @@
   display: flex;
   flex-direction: column;
   width: 296px;
-  border-radius: 0;
+  border-radius: 14px;
   background: var(--fd-hub);
   box-shadow: var(--ss-shadow-hero);
 }
@@ -172,7 +172,7 @@
   position: absolute;
   inset: 3px -8px 2px;
   z-index: -1;
-  border-radius: 0;
+  border-radius: 7px;
   background: var(--bd-pin-soft);
   opacity: 0;
   transition: opacity 0.7s ease;
@@ -217,7 +217,7 @@
 
 .fd-sha {
   padding: 2px 7px;
-  border-radius: 0;
+  border-radius: 6px;
   background: var(--bd-pin-soft);
   color: var(--bd-pin);
   font-weight: 600;
@@ -265,7 +265,7 @@
   gap: 6px;
   width: 244px;
   padding: 14px 16px;
-  border-radius: 0;
+  border-radius: 10px;
   background: var(--ss-raised);
   box-shadow: var(--ss-shadow-ground);
   font-size: 13px;
@@ -386,7 +386,7 @@
 }
 
 .fd-git .fd-node__line .fd-path {
-  border-radius: 0;
+  border-radius: 4px;
   box-shadow: 0 0 0 3px transparent;
   background: transparent;
   transition: color 0.25s ease, text-decoration-color 0.25s ease, background-color 0.6s ease, box-shadow 0.6s ease;

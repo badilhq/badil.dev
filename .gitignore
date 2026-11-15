@@ -2,3 +2,5 @@ node_modules
 dist
 shots
 .wrangler
+cook/
+PRODUCT.md
