@@ -79,11 +79,11 @@ typography:
     letterSpacing: "-0.005em"
   ui:
     fontFamily: "Schibsted Grotesk Variable, system-ui, -apple-system, Segoe UI, sans-serif"
-    fontSize: "13.5px"
+    fontSize: "13px"
     fontWeight: 400
   ui-small:
     fontFamily: "ui-monospace, SF Mono, SFMono-Regular, Menlo, Consolas, monospace"
-    fontSize: "12.5px"
+    fontSize: "12px"
     fontWeight: 400
   chip:
     fontFamily: "Schibsted Grotesk Variable, system-ui, -apple-system, Segoe UI, sans-serif"
@@ -106,14 +106,14 @@ components:
     backgroundColor: "{colors.ink}"
     textColor: "{colors.paper}"
     rounded: "{rounded.pill}"
-    padding: "0 22px"
+    padding: "0 24px"
     height: "46px"
   button-primary-hover:
     backgroundColor: "{colors.ink-hover}"
   button-quiet:
     textColor: "{colors.ink}"
     rounded: "{rounded.pill}"
-    padding: "0 6px"
+    padding: "0 8px"
     height: "46px"
   nav-link:
     textColor: "{colors.slate-text}"
@@ -132,14 +132,14 @@ components:
     textColor: "{colors.ink}"
     typography: "{typography.mono}"
     rounded: "{rounded.code}"
-    padding: "1px 5px"
+    padding: "2px 4px"
   file-card:
     backgroundColor: "{colors.paper}"
     rounded: "{rounded.panel}"
   evidence-card:
     backgroundColor: "{colors.paper}"
     rounded: "{rounded.panel}"
-    padding: "14px"
+    padding: "16px"
   status-chip:
     textColor: "{colors.status-green}"
     rounded: "{rounded.pill}"
@@ -148,7 +148,7 @@ components:
     backgroundColor: "{colors.pin-amber-soft}"
     textColor: "{colors.pin-amber}"
     rounded: "{rounded.code}"
-    padding: "0 6px"
+    padding: "0 8px"
   hero-panel:
     backgroundColor: "{colors.paper}"
     rounded: "{rounded.stage}"
@@ -213,11 +213,11 @@ The illustrations (`src/stage/tokens.css`, `src/stage/pr-still.css`) carry their
 - **Headline** (650, clamp(26px, 2.6vw, 36px), 1.12, -0.024em): one per section.
 - **Title** (600, 18px, 1.35, -0.01em): step titles, evidence terms, the comparison heading.
 - **Lede** (400, 20px; 18px on phones, 1.55): the hero sentence, max 36em.
-- **Body** (400, 17px, 1.6): all copy; measures held between 26em and 78ch.
+- **Body** (400, 17px, 1.6): all copy; measures held between 26em and 62ch.
 - **Label** (500, 15px): nav and footer links. Buttons use 600, 16px, -0.005em.
-- **Mono** (0.84em inline; 11.5-12.5px in panels): code, paths, SHAs. Inline identifiers never wrap.
+- **Mono** (0.84em inline; 12px in panels): code, paths, SHAs. Inline identifiers never wrap.
 
-The `wordmark` (19px), `wordmark-small` (16px) and `button` (16px) roles size the wordmark and buttons; `ui` (13.5px), `ui-small` (12.5px mono) and `chip` (12px) size the product fragments: the file panel, the evidence panels and the chips.
+The `wordmark` (19px), `wordmark-small` (16px) and `button` (16px) roles size the wordmark and buttons; `ui` (13px), `ui-small` (12px mono) and `chip` (12px) size the product fragments: the file panel, the evidence panels and the chips.
 
 ### Named Rules
 **The Mono Is Code Rule.** Mono is set only on text that is literally code or a git identifier. Headings, labels and UI chrome are always in the grotesk.
@@ -226,7 +226,7 @@ The `wordmark` (19px), `wordmark-small` (16px) and `button` (16px) roles size th
 
 A centred column of 1184px max with a 32px gutter (20px under 600px). Sections stack on a fluid rhythm (clamp(80px, 10vw, 136px) top and bottom), separated by hairlines or a full-bleed canvas tint.
 
-The working pattern is the split: heading and lead on the left (4fr, or 5fr when it carries the file card), content on the right (7fr), 56-72px apart; it collapses to one column at 960px. The evidence row is three equal columns (40px row, 32px column gaps), one column at 960px. The pull request section pairs copy with the still at its 680px design width, stacking at 1119px. The close is the one centred block.
+The working pattern is the split: heading and lead on the left (4fr, or 5fr when it carries the file card), content on the right (7fr), 56-72px apart; it collapses to one column at 960px. The evidence row is three equal columns (40px row, 32px column gaps), one column at 960px. The pull request section pairs copy, top-aligned, with the still at its 680px design width, stacking at 1119px. The close is the one centred block. Spacing steps are multiples of 4px; 2px is the hairline step of the theme control, the gap between wrapped illustration rows and the vertical padding of inline code.
 
 The hero is left-aligned copy above the live loop. At 1148px and wider the loop sits in the framed hero panel; below that the frame drops and the loop's tablet and phone designs sit on the page ground, edge to edge (16px gutter on phones so the 358px phone design shows at 1:1).
 
@@ -254,9 +254,9 @@ Rounded but disciplined, four radii. Pill (999px) for anything you press or that
 ### Buttons
 Plain and confident: one ink pill, one quiet text link.
 - **Shape:** full pill (999px), 46px tall.
-- **Primary:** ink fill, paper text (inverted in dark), 0 22px padding, 600 16px. One per section at most; it always points to the install guide.
+- **Primary:** ink fill, paper text (inverted in dark), 0 24px padding, 600 16px. One per section at most; it always points to the install guide.
 - **Hover / Focus:** fill lightens to `ink-hover` over 0.15s ease-out; press nudges down 1px. Focus is a 2px ink outline offset 3px with a 4px radius, shared by every focusable element.
-- **Quiet:** ink text, no fill, 0 6px padding; underlines on hover. Secondary destinations (GitHub, the essay).
+- **Quiet:** ink text, no fill, 0 8px padding; underlines on hover. Secondary destinations (GitHub, the essay).
 
 ### Chips
 - **Style:** pill, green text on a 12% green tint, 600 12px, 20px line. Used for the `preview` label in mockups.
@@ -266,7 +266,7 @@ Plain and confident: one ink pill, one quiet text link.
 - **Corner Style:** 10px.
 - **Background:** paper (dark: night canvas).
 - **Shadow Strategy:** none; a 1px hairline border.
-- **Internal Padding:** 14px. The file card adds a canvas path bar in 12.5px mono over 11.5/1.7 mono code.
+- **Internal Padding:** 16px. The file card adds a canvas path bar in 12px mono over 12px/1.7 mono code.
 
 ### Navigation
 Sticky 64px bar, paper at 92% with a saturate(1.4) blur(10px) backdrop and a hairline below. Wordmark left (mark + "badil", 650 19px); right, label-weight links in slate that go ink on hover, then the theme control: three 28px icon buttons in a hairline pill, the pressed one on the code well. On phones the wordmark shows the mark only.
@@ -275,7 +275,7 @@ Sticky 64px bar, paper at 92% with a saturate(1.4) blur(10px) backdrop and a hai
 A numbered list where the sequence carries meaning: each step is a row between hairlines, a faint 18px tabular numeral in a 36px column beside a title and its body.
 
 ### Evidence mockup
-Above each claim, a small 10px hairline panel (min 104px tall, 13.5px) recreating the artifact that proves it: PR rows with label chips, a CI row with a pinned SHA, a gitops commit and a healthy Application. Real names neutralised.
+Above each claim, a small 10px hairline panel (min 104px tall, 13px) recreating the artifact that proves it: PR rows with label chips, a CI row with a pinned SHA, a gitops commit and a healthy Application. Real names neutralised.
 
 ### Illustration stages
 The live loop and the pull request still are self-contained stages (`.ss-stage`) with their own `--ss-*` tokens that mirror the page palette in both themes; the loop's motion and layout are locked and not part of this system. The PR still renders badil's comment as a GitHub-flavoured markdown table (header row on the card-head tint, hairline rows, mono SHAs, green links).
