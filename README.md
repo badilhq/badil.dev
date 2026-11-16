@@ -28,6 +28,8 @@ npm run deploy           # builds, then wrangler deploy
 
 `wrangler.jsonc` declares the Worker. CI deploys from `main` with the `production` environment's `CLOUDFLARE_API_TOKEN` (built from the "Edit Cloudflare Workers" template, Account Resources limited to the badil.dev account, Zone Resources limited to the badil.dev zone) and `CLOUDFLARE_ACCOUNT_ID`. A local `npm run deploy` needs the same two variables, or `wrangler login` on that account.
 
+Production builds, including local previews of `dist/` (`npm run preview`, `npm run preview:worker`), load Cloudflare Web Analytics (cookie-less, no personal data) through a `vite.config.ts` plugin; the dev server does not.
+
 To roll back, revert the commit on `main`; CI redeploys the previous version.
 
 ## The illustrations
