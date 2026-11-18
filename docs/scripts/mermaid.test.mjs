@@ -1,15 +1,21 @@
 import assert from 'node:assert/strict';
 import { test } from 'node:test';
-import { renderMermaid } from '../lib/mermaid.mjs';
+import { fromMarkdown } from 'mdast-util-from-markdown';
+import { remarkMdxMermaid } from 'fumadocs-core/mdx-plugins';
 
-test('a flowchart renders to an SVG themed by Fumadocs, with no third-party font or script', () => {
-  const svg = renderMermaid('flowchart LR\n  a["writes previews/&lt;slug&gt;"] --> b[("gitops repo")]\n');
-  assert.match(svg, /^<svg /);
-  assert.match(svg, /--bg:var\(--color-fd-background\);--fg:var\(--color-fd-foreground\)/);
-  assert.match(svg, /previews\/&lt;slug&gt;/);
-  assert.doesNotMatch(svg, /@import|https?:\/\/(?!www\.w3\.org\/)|<script/);
-});
+const chart = 'flowchart LR\n  a["badil"] -->|write| b[("gitops repo")]';
 
-test('an invalid chart throws, so the component falls back to a code block', () => {
-  assert.throws(() => renderMermaid('not a diagram'), /Invalid mermaid header/);
+test('a mermaid fence becomes the Mermaid component, with the chart as its prop', () => {
+  const tree = fromMarkdown(`Intro.\n\n\`\`\`mermaid\n${chart}\n\`\`\`\n\n\`\`\`yaml\nkey: value\n\`\`\`\n`);
+  remarkMdxMermaid()(tree, {});
+  const [intro, diagram, yaml] = tree.children;
+  assert.equal(intro.type, 'paragraph');
+  assert.deepEqual(diagram, {
+    type: 'mdxJsxFlowElement',
+    name: 'Mermaid',
+    attributes: [{ type: 'mdxJsxAttribute', name: 'chart', value: chart }],
+    children: [],
+  });
+  assert.equal(yaml.type, 'code');
+  assert.equal(yaml.lang, 'yaml');
 });

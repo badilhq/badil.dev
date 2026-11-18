@@ -40,8 +40,8 @@ The root `npm run build` runs `npm run build` in `docs/`. Its content step (`doc
 
 - `GITHUB_TOKEN`, when set, authenticates the content step's GitHub API call (CI passes the workflow token; without it, the unauthenticated rate limit applies).
 - `BADIL_REF=<tag> npm run build` builds the docs at another tag, to try a release before pinning it; CI never sets it.
-- `mermaid` code blocks in badil's docs render as diagrams: inline SVG drawn at build time by `beautiful-mermaid` (`docs/components/mdx/mermaid.tsx`), no client-side Mermaid.
-- `npm test --prefix docs` runs the unit tests of the link rewriting and of the Mermaid rendering.
+- `mermaid` code blocks in badil's docs render as diagrams: `docs/components/mdx/mermaid.tsx` draws them in the browser with Mermaid, in the page's theme. Mermaid is a chunk under `/docs/_next/`, loaded only on pages with a diagram.
+- `npm test --prefix docs` runs the unit tests of the link rewriting and of the Mermaid code block conversion.
 - `npm run dev --prefix docs` runs the content step, then the docs alone with hot reload (served at `http://localhost:3000/docs`).
 
 Nothing updates the docs automatically: a badil release reaches the site only when someone bumps the pinned tag. To document a new release:
