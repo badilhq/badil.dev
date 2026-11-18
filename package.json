@@ -9,7 +9,7 @@
   },
   "scripts": {
     "dev": "vite",
-    "build": "tsc --noEmit -p . && vite build",
+    "build": "tsc --noEmit -p . && vite build && npm ci --prefix docs && npm run build --prefix docs && node docs/scripts/dist.mjs",
     "preview": "vite preview",
     "typecheck": "tsc --noEmit -p .",
     "preview:worker": "wrangler dev",

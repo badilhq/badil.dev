@@ -11,7 +11,7 @@ import kubernetesIcon from './logos/kubernetes-icon.svg'
 // (PrStill).
 
 const REPO = 'https://github.com/badilhq/badil'
-const INSTALL = 'https://github.com/badilhq/badil/blob/main/docs/INSTALL.md'
+const INSTALL = '/docs/install'
 const STORY = 'https://medium.com/@aminebenseddik/ai-writes-code-in-hours-it-still-takes-weeks-to-ship-7fb07f87cc07'
 const ADVISORY = 'https://github.com/badilhq/badil/security/advisories/new'
 
