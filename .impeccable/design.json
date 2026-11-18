@@ -1,6 +1,6 @@
 {
   "schemaVersion": 2,
-  "generatedAt": "2026-11-14T00:00:00Z",
+  "generatedAt": "2026-11-18T00:00:00Z",
   "title": "Design System: badil",
   "extensions": {
     "colorMeta": {
@@ -12,7 +12,7 @@
       "ink": { "role": "neutral", "displayName": "Ink", "canonical": "#111315", "darkCounterpart": "night-ink", "tonalRamp": ["#111315", "#2a2d31", "#4b5158", "#6b7178", "#9aa0a7", "#cfd3d8", "#e3e5e8", "#f6f7f8"] },
       "faint-slate": { "role": "neutral", "displayName": "Faint Slate", "canonical": "#6b7178", "darkCounterpart": "night-faint", "tonalRamp": ["#111315", "#2a2d31", "#4b5158", "#6b7178", "#9aa0a7", "#cfd3d8", "#e3e5e8", "#f6f7f8"] },
       "status-green": { "role": "primary", "displayName": "Status Green", "canonical": "#0a7a3a", "darkCounterpart": "terminal-green", "tonalRamp": ["#04301a", "#064d26", "#0a7a3a", "#1f9a52", "#3ddc84", "#8eeab7", "#c9f3da", "#e3f4ea"] },
-      "selection-green": { "role": "primary", "displayName": "Selection Green", "canonical": "rgba(10, 122, 58, 0.16)", "darkCounterpart": "rgba(61, 220, 132, 0.22)" },
+      "selection-green": { "role": "primary", "displayName": "Selection Green", "canonical": "rgba(10, 122, 58, 0.16)", "darkCounterpart": "night-selection-green" },
       "code-well": { "role": "neutral", "displayName": "Code Well", "canonical": "#f1f2f4", "darkCounterpart": "night-code-well", "tonalRamp": ["#1b1d20", "#33373b", "#4b5158", "#6b7178", "#9aa0a7", "#cfd3d8", "#e3e5e8", "#f1f2f4"] },
       "pin-amber": { "role": "secondary", "displayName": "Pin Amber", "canonical": "#8a5300", "darkCounterpart": "night-pin-amber", "tonalRamp": ["#3a2300", "#5e3800", "#8a5300", "#b87400", "#f2b23e", "#f7cf85", "#fbe5bd", "#fdf1d8"] },
       "pin-amber-soft": { "role": "secondary", "displayName": "Pin Amber Soft", "canonical": "#fdf1d8", "darkCounterpart": "rgba(242, 178, 62, 0.14)" },
@@ -26,7 +26,22 @@
       "night-faint": { "role": "neutral", "displayName": "Night Faint", "canonical": "#7d867c" },
       "terminal-green": { "role": "primary", "displayName": "Terminal Green", "canonical": "#3ddc84", "tonalRamp": ["#04301a", "#064d26", "#0a7a3a", "#1f9a52", "#3ddc84", "#8eeab7", "#c9f3da", "#e3f4ea"] },
       "night-code-well": { "role": "neutral", "displayName": "Night Code Well", "canonical": "#1c211c" },
-      "night-pin-amber": { "role": "secondary", "displayName": "Night Pin Amber", "canonical": "#f2b23e" }
+      "night-pin-amber": { "role": "secondary", "displayName": "Night Pin Amber", "canonical": "#f2b23e" },
+      "night-selection-green": { "role": "primary", "displayName": "Night Selection Green", "canonical": "rgba(61, 220, 132, 0.22)" },
+      "link-underline": { "role": "primary", "displayName": "Link Underline", "canonical": "rgba(10, 122, 58, 0.4)", "darkCounterpart": "night-link-underline" },
+      "night-link-underline": { "role": "primary", "displayName": "Night Link Underline", "canonical": "rgba(61, 220, 132, 0.4)" },
+      "overlay": { "role": "neutral", "displayName": "Overlay", "canonical": "rgba(17, 19, 21, 0.24)", "darkCounterpart": "night-overlay" },
+      "night-overlay": { "role": "neutral", "displayName": "Night Overlay", "canonical": "rgba(0, 0, 0, 0.5)" },
+      "diff-add": { "role": "primary", "displayName": "Diff Add", "canonical": "rgba(10, 122, 58, 0.1)" },
+      "diff-remove": { "role": "neutral", "displayName": "Diff Remove", "canonical": "rgba(17, 19, 21, 0.06)" },
+      "code-string": { "role": "tertiary", "displayName": "Syntax Rose", "canonical": "#a3245e", "darkCounterpart": "night-code-string", "tonalRamp": ["#310b1c", "#52122f", "#721942", "#a3245e", "#bf668e", "#d69cb7", "#e8c8d7", "#f6e9ef"] },
+      "code-command": { "role": "tertiary", "displayName": "Syntax Blue", "canonical": "#1f5aa6", "darkCounterpart": "night-code-command", "tonalRamp": ["#091b32", "#102d53", "#163f74", "#1f5aa6", "#628cc1", "#9ab5d7", "#c7d6e9", "#e9eef6"] },
+      "code-constant": { "role": "tertiary", "displayName": "Syntax Violet", "canonical": "#6941c6", "darkCounterpart": "night-code-constant", "tonalRamp": ["#20143b", "#342063", "#4a2e8b", "#6941c6", "#967ad7", "#bcaae5", "#dad0f1", "#f0ecf9"] },
+      "night-code-text": { "role": "neutral", "displayName": "Night Code Text", "canonical": "#b4bdb3", "tonalRamp": ["#363936", "#5a5e5a", "#7e847d", "#b4bdb3", "#cad1ca", "#dde1dd", "#eceeec", "#f8f8f7"] },
+      "night-code-faint": { "role": "neutral", "displayName": "Night Code Faint", "canonical": "#848d83", "tonalRamp": ["#282a27", "#424642", "#5c635c", "#848d83", "#a9afa8", "#c8ccc7", "#e0e2e0", "#f3f4f3"] },
+      "night-code-string": { "role": "tertiary", "displayName": "Night Syntax Rose", "canonical": "#f28ab4", "tonalRamp": ["#492936", "#79455a", "#a9617e", "#f28ab4", "#f6adca", "#f9cadd", "#fce2ec", "#fef3f8"] },
+      "night-code-command": { "role": "tertiary", "displayName": "Night Syntax Blue", "canonical": "#7fb4ff", "tonalRamp": ["#26364d", "#405a80", "#597eb2", "#7fb4ff", "#a5caff", "#c5ddff", "#dfecff", "#f2f8ff"] },
+      "night-code-constant": { "role": "tertiary", "displayName": "Night Syntax Violet", "canonical": "#b9a3ff", "tonalRamp": ["#38314d", "#5c5280", "#8272b2", "#b9a3ff", "#cebfff", "#e0d6ff", "#eee8ff", "#f8f6ff"] }
     },
     "typographyMeta": {
       "display": { "displayName": "Display", "purpose": "The hero headline only; max 30ch, balanced wrap." },
@@ -35,13 +50,29 @@
       "lede": { "displayName": "Lede", "purpose": "The hero sentence; 18px on phones." },
       "body": { "displayName": "Body", "purpose": "All copy; measures between 26em and 62ch." },
       "label": { "displayName": "Label", "purpose": "Nav and footer links." },
-      "mono": { "displayName": "Mono", "purpose": "Code, paths and SHAs only; inline identifiers never wrap." },
+      "mono": { "displayName": "Mono", "purpose": "Code, paths and SHAs only; inline identifiers never wrap (in the docs, only a long command or message may wrap at its spaces)." },
       "wordmark": { "displayName": "Wordmark", "purpose": "The wordmark in the nav." },
       "wordmark-small": { "displayName": "Wordmark Small", "purpose": "The small wordmark." },
       "button": { "displayName": "Button", "purpose": "Buttons." },
       "ui": { "displayName": "UI", "purpose": "The evidence panel." },
       "ui-small": { "displayName": "UI Small", "purpose": "The file path and the evidence code, in mono." },
-      "chip": { "displayName": "Chip", "purpose": "The status chip." }
+      "chip": { "displayName": "Chip", "purpose": "The status chip." },
+      "docs-title": { "displayName": "Docs Title", "purpose": "The docs page H1, balanced wrap." },
+      "docs-heading": { "displayName": "Docs Heading", "purpose": "H2 in docs pages." },
+      "docs-subheading": { "displayName": "Docs Subheading", "purpose": "H3 in docs pages." },
+      "docs-lead": { "displayName": "Docs Lead", "purpose": "The first paragraph of a docs page; 17px on phones." },
+      "docs-body": { "displayName": "Docs Body", "purpose": "All docs page text, held to a 35rem measure; 16px on phones." },
+      "docs-card-title": { "displayName": "Docs Card Title", "purpose": "The install card title and the map node names." },
+      "docs-button": { "displayName": "Docs Button", "purpose": "The docs pill." },
+      "docs-table": { "displayName": "Docs Table", "purpose": "Table cells and the install card description." },
+      "docs-sidebar": { "displayName": "Docs Sidebar", "purpose": "Sidebar page rows and Install steps." },
+      "docs-small": { "displayName": "Docs Small", "purpose": "The search pill, map node text, map links and notes." },
+      "docs-toc": { "displayName": "Docs TOC", "purpose": "The On this page rail and the map in-node return line." },
+      "docs-meta": { "displayName": "Docs Meta", "purpose": "The Copy pill, map edge and side labels, step numerals." },
+      "docs-lane": { "displayName": "Docs Lane", "purpose": "The map lane labels and wide-row edge labels." },
+      "docs-kbd": { "displayName": "Docs Kbd", "purpose": "The search shortcut and the code bar language label." },
+      "code-block": { "displayName": "Code Block", "purpose": "Code in the docs code frame." },
+      "code-title": { "displayName": "Code Title", "purpose": "The code frame bar title." }
     },
     "shadows": [
       { "name": "product-panel", "value": "0 1px 2px rgba(16, 20, 24, 0.04), 0 24px 48px -28px rgba(16, 20, 24, 0.22)", "purpose": "The hero's product panel only, at 1148px and up. The page's one shadow." },
@@ -49,16 +80,21 @@
       { "name": "hairline-ring", "value": "0 0 0 1px var(--ss-line)", "purpose": "Illustration windows and cards, instead of soft shadows." }
     ],
     "motion": [
-      { "name": "hover", "value": "0.15s ease-out", "purpose": "Color and background changes on links, buttons and the theme control; the page's only motion outside the illustrations. Removed under prefers-reduced-motion." },
-      { "name": "press", "value": "translateY(1px)", "purpose": "Button :active nudge." }
+      { "name": "hover", "value": "0.15s ease-out", "purpose": "Color, border and background changes on links, buttons, pills and the theme control, on the landing and in the docs; the only motion outside the illustrations. The landing removes it under prefers-reduced-motion." },
+      { "name": "press", "value": "translateY(1px)", "purpose": "Button :active nudge (the landing's primary button and the docs pill)." }
     ],
     "breakpoints": [
       { "name": "hero-frame", "value": "1148px", "purpose": "The hero panel's frame applies at this width and up." },
       { "name": "pr-stack", "value": "1119px", "purpose": "The pull request section stacks below this." },
       { "name": "split-stack", "value": "960px", "purpose": "Splits and the evidence row collapse to one column below this." },
-      { "name": "phone", "value": "599px", "purpose": "20px gutter, mark-only wordmark in the nav, 18px lede." }
+      { "name": "phone", "value": "599px", "purpose": "20px gutter, mark-only wordmark in the nav, 18px lede." },
+      { "name": "docs-wide", "value": "80rem", "purpose": "Docs column padding 44px/64px; the On this page rail replaces the top bar." },
+      { "name": "docs-tabs", "value": "64rem", "purpose": "Docs tab bar and header links show at this width and up." },
+      { "name": "docs-search", "value": "48rem", "purpose": "Docs header side padding 32px and the full search pill at this width and up." },
+      { "name": "docs-phone", "value": "40rem", "purpose": "Docs body 16px, lead 17px, install card pill full width below this." },
+      { "name": "docs-map-row", "value": "900px", "purpose": "Container query: the architecture map is a row at this container width and up, a column below." }
     ],
-    "focus": { "value": "outline: 2px solid var(--text-strong); outline-offset: 3px; border-radius: 4px", "purpose": "Every focusable element." }
+    "focus": { "value": "outline: 2px solid var(--text-strong); outline-offset: 3px; border-radius: 4px", "purpose": "Every focusable element. The docs use the same ring (var(--ink)); a code frame carries the ring for its focused code, and the narrow On this page bar draws it 3px inside." }
   },
   "components": [
     {
@@ -124,21 +160,63 @@
       "description": "The frame around the live loop at 1148px and up; the page's only shadow. Below that width the loop sits unframed on the ground.",
       "html": "<div class=\"ds-hero-panel\"><div class=\"ds-hero-stage\">live preview loop</div></div>",
       "css": ".ds-hero-panel { padding: 28px 0; border: 1px solid var(--line, #e3e5e8); border-radius: 16px; background: var(--panel, #fff); box-shadow: var(--panel-shadow, 0 1px 2px rgba(16,20,24,0.04), 0 24px 48px -28px rgba(16,20,24,0.22)); } .ds-hero-stage { display: grid; place-items: center; min-height: 160px; color: var(--text-faint, #6b7178); font: 15px 'Schibsted Grotesk Variable', system-ui, sans-serif; } @media (max-width: 1147px) { .ds-hero-panel { padding: 0; border: 0; border-radius: 0; background: none; box-shadow: none; } }"
+    },
+    {
+      "name": "Docs Pill",
+      "kind": "button",
+      "refersTo": "docs-pill",
+      "description": "The docs primary action, one per page at most.",
+      "html": "<a class=\"ds-docs-pill\" href=\"#\">Read Install <svg viewBox=\"0 0 16 16\" width=\"15\" height=\"15\" fill=\"none\" stroke=\"currentColor\" stroke-width=\"1.6\" stroke-linecap=\"round\" stroke-linejoin=\"round\" aria-hidden=\"true\"><path d=\"M3 8h10M9 4l4 4-4 4\"/></svg></a>",
+      "css": ".ds-docs-pill { display: inline-flex; align-items: center; gap: 8px; height: 42px; padding: 0 20px; border-radius: 999px; background: #111315; color: #ffffff; font: 600 15px \"Schibsted Grotesk Variable\", system-ui, sans-serif; letter-spacing: -0.005em; text-decoration: none; transition: background-color 0.15s ease-out, transform 0.15s ease-out; } .ds-docs-pill:hover { background: #2a2d31; } .ds-docs-pill:active { transform: translateY(1px); } .ds-docs-pill:focus-visible { outline: 2px solid #111315; outline-offset: 3px; }"
+    },
+    {
+      "name": "Search Pill",
+      "kind": "input",
+      "refersTo": "search-pill",
+      "description": "Opens docs search from the header.",
+      "html": "<button class=\"ds-search-pill\" type=\"button\"><svg viewBox=\"0 0 16 16\" width=\"15\" height=\"15\" fill=\"none\" stroke=\"currentColor\" stroke-width=\"1.6\" aria-hidden=\"true\"><circle cx=\"7\" cy=\"7\" r=\"4.8\"/><path d=\"m10.6 10.6 3.4 3.4\" stroke-linecap=\"round\"/></svg><span class=\"ds-search-pill__label\">Search docs</span><kbd class=\"ds-search-pill__kbd\">⌘K</kbd></button>",
+      "css": ".ds-search-pill { display: flex; align-items: center; gap: 8px; width: 320px; height: 36px; padding: 0 6px 0 14px; border: 1px solid #e3e5e8; border-radius: 999px; background: #f6f7f8; color: #6b7178; font: 400 14px \"Schibsted Grotesk Variable\", system-ui, sans-serif; cursor: pointer; transition: border-color 0.15s ease-out, color 0.15s ease-out; } .ds-search-pill:hover { border-color: #cfd3d8; color: #4b5158; } .ds-search-pill:focus-visible { outline: 2px solid #111315; outline-offset: 3px; } .ds-search-pill__label { flex: 1; text-align: start; } .ds-search-pill__kbd { padding: 0 8px; border: 1px solid #e3e5e8; border-radius: 999px; background: #ffffff; color: #6b7178; font: 500 12px/20px \"Schibsted Grotesk Variable\", system-ui, sans-serif; }"
+    },
+    {
+      "name": "Sidebar Item",
+      "kind": "nav",
+      "refersTo": "sidebar-item",
+      "description": "Docs sidebar page rows; the active one in status green on the canvas tint.",
+      "html": "<nav class=\"ds-side\"><a class=\"ds-side-item\" href=\"#\">Architecture</a><a class=\"ds-side-item\" data-active=\"true\" href=\"#\">Install</a><a class=\"ds-side-item\" href=\"#\">Preview contract</a></nav>",
+      "css": ".ds-side { display: flex; flex-direction: column; width: 240px; font: 400 14.5px/1.35 \"Schibsted Grotesk Variable\", system-ui, sans-serif; } .ds-side-item { display: flex; align-items: center; min-height: 34px; padding: 6px 12px; border-radius: 999px; color: #4b5158; text-decoration: none; transition: color 0.15s ease-out; } .ds-side-item:hover { color: #111315; } .ds-side-item[data-active=\"true\"] { background: #f6f7f8; color: #0a7a3a; font-weight: 500; } .ds-side-item:focus-visible { outline: 2px solid #111315; outline-offset: 3px; }"
+    },
+    {
+      "name": "Code Frame",
+      "kind": "card",
+      "refersTo": "code-frame",
+      "description": "The docs code block: a 10px panel with a file bar and a pill Copy button.",
+      "html": "<figure class=\"ds-code\"><div class=\"ds-code__bar\"><span class=\"ds-code__title\">badil.yaml <span class=\"ds-code__lang\">yaml</span></span><button class=\"ds-code__copy\" type=\"button\">Copy</button></div><pre class=\"ds-code__pre\"><span style=\"color:#111315\">services</span><span style=\"color:#6b7178\">:</span>\n  <span style=\"color:#111315\">api</span><span style=\"color:#6b7178\">:</span>\n    <span style=\"color:#111315\">image</span><span style=\"color:#6b7178\">:</span> <span style=\"color:#a3245e\">\"ghcr.io/acme/api\"</span></pre></figure>",
+      "css": ".ds-code { margin: 0; border: 1px solid #e3e5e8; border-radius: 10px; background: #ffffff; overflow: hidden; } .ds-code__bar { display: flex; align-items: center; justify-content: space-between; gap: 12px; height: 40px; padding: 0 6px 0 14px; border-bottom: 1px solid #e3e5e8; background: #f6f7f8; } .ds-code__title { color: #111315; font: 400 12.5px ui-monospace, \"SF Mono\", Menlo, monospace; } .ds-code__lang { margin-left: 8px; color: #6b7178; font: 500 12px \"Schibsted Grotesk Variable\", system-ui, sans-serif; } .ds-code__copy { height: 28px; padding: 0 12px 0 10px; border: 1px solid #e3e5e8; border-radius: 999px; background: #ffffff; color: #111315; font: 500 13px \"Schibsted Grotesk Variable\", system-ui, sans-serif; cursor: pointer; transition: border-color 0.15s ease-out; } .ds-code__copy:hover { border-color: #cfd3d8; } .ds-code__copy:focus-visible { outline: 2px solid #111315; outline-offset: 3px; } .ds-code__pre { margin: 0; padding: 14px 16px; color: #4b5158; font: 400 13px/1.7 ui-monospace, \"SF Mono\", Menlo, monospace; overflow-x: auto; }"
+    },
+    {
+      "name": "Map Node",
+      "kind": "custom",
+      "refersTo": "map-node",
+      "description": "A node of the docs home architecture map, with links to its pages.",
+      "html": "<div class=\"ds-map\"><div class=\"ds-map-node\"><h3>badil</h3><p><code>badil serve</code> writes the preview file.</p><ul><li><a href=\"#\">HTTP API <span aria-hidden=\"true\">→</span></a></li></ul></div></div>",
+      "css": ".ds-map { padding: 16px; border: 1px solid #e3e5e8; border-radius: 16px; background: #f6f7f8; } .ds-map-node { padding: 14px 16px; border: 1px solid #e3e5e8; border-radius: 10px; background: #ffffff; font-family: \"Schibsted Grotesk Variable\", system-ui, sans-serif; } .ds-map-node h3 { margin: 0; color: #111315; font-size: 17px; font-weight: 600; line-height: 1.3; letter-spacing: -0.01em; } .ds-map-node p { margin: 4px 0 0; color: #4b5158; font-size: 14px; line-height: 1.5; } .ds-map-node code { padding: 2px 4px; border-radius: 5px; background: #f1f2f4; color: #111315; font: 400 0.84em ui-monospace, \"SF Mono\", Menlo, monospace; white-space: nowrap; } .ds-map-node ul { margin: 14px 0 0; padding: 10px 0 0; border-top: 1px solid #e3e5e8; list-style: none; } .ds-map-node a { display: flex; justify-content: space-between; padding: 4px 0; color: #111315; font-size: 14px; font-weight: 500; text-decoration: none; transition: color 0.15s ease-out; } .ds-map-node a:hover { color: #0a7a3a; } .ds-map-node a span { color: #6b7178; }"
     }
   ],
   "narrative": {
     "northStar": "The Category Standard",
-    "overview": "badil's site is a product page at the craft of the infrastructure tools its readers already trust: white ground, ink type, hairline borders, and the product itself shown at real scale. The page is the quiet frame; the illustrations (the live preview loop and the pull request still) are where the product's colour and detail live. Nothing on the page dresses up as a terminal or a dashboard: there is no mono costume, no grid background, no numbered panels.\n\nDensity is generous. Sections breathe on a large vertical rhythm, one idea per section, with a heading and its lead on the left and the evidence on the right. Depth is almost absent: everything is flat and separated by 1px hairlines, with one soft shadow reserved for the product panel in the hero.\n\nLight and dark are equal citizens. Light is neutral gray on white; dark is green-tinted near-black, so the terminal green reads as native to the ground. A three-way theme control (System, Light, Dark) switches the page and every illustration together.",
+    "overview": "badil's site is a product page at the craft of the infrastructure tools its readers already trust: white ground, ink type, hairline borders, and the product itself shown at real scale. The page is the quiet frame; the illustrations (the live preview loop and the pull request still) are where the product's colour and detail live. Nothing on the page dresses up as a terminal or a dashboard: there is no mono costume, no grid background, no numbered panels.\n\nDensity is generous. Sections breathe on a large vertical rhythm, one idea per section, with a heading and its lead on the left and the evidence on the right. Depth is almost absent: everything is flat and separated by 1px hairlines, with one soft shadow reserved for the product panel in the hero.\n\nLight and dark are equal citizens. Light is neutral gray on white; dark is green-tinted near-black, so the terminal green reads as native to the ground. A three-way theme control (System, Light, Dark) switches the page and every illustration together.\n\nThe docs at `/docs` carry the same world into a reading frame. Pages are sorted by what they are for, under three tabs (Guide, Concepts, Reference), each with a short sidebar; the column holds a 560px measure beside an \"On this page\" rail. Code is where the docs spend their colour: framed panels with a file bar, a pill Copy button and three quiet syntax hues. The docs home is the architecture map, the flow from GitHub to the preview namespace drawn as hairline nodes on a canvas stage. The docs share the landing's theme choice (`badil-theme`), so switching on one switches both.",
     "keyCharacteristics": [
       "White ground (dark: green-tinted near-black), ink text, 1px hairlines.",
       "One green, meaning live/healthy/ready; one amber, meaning a pinned commit.",
       "One face, Schibsted Grotesk, for all text; the system mono for code only.",
       "Pill buttons and chips, 10px panels, a 16px stage frame.",
-      "Flat everywhere except the hero's product panel."
+      "Flat everywhere except the hero's product panel.",
+      "Docs: tabs by content type, a 560px reading measure, framed code with three syntax hues kept inside the frame."
     ],
     "rules": [
       { "name": "The Product Owns the Green Rule", "body": "Green is a status, not a brand fill. It appears where the product would show it (ready, healthy, labelled, linked) and on the mark's dashed twin (the preview, the double of production); it never fills a button, a section or a heading.", "section": "colors" },
       { "name": "The Amber Means Pinned Rule", "body": "Amber marks a pinned commit and nothing else. No warnings, no highlights.", "section": "colors" },
+      { "name": "The Syntax Stays In The Frame Rule", "body": "The three syntax hues colour code inside a code frame and nothing else. Status green and pin amber never colour code; inline code is ink on the code well.", "section": "colors" },
       { "name": "The Mono Is Code Rule", "body": "Mono is set only on text that is literally code or a git identifier. Headings, labels and UI chrome are always in the grotesk.", "section": "typography" },
       { "name": "The One Shadow Rule", "body": "The hero's product panel carries the page's only shadow. Every other surface is flat, bordered by a hairline.", "section": "elevation" }
     ],
@@ -147,13 +225,18 @@
       "Do use green only for live, healthy, ready, labelled or linked states, and amber only for pinned commits.",
       "Do use the ink pill for the single primary action and a quiet text link beside it.",
       "Do set every text in Schibsted Grotesk and reserve mono for code, paths and SHAs.",
-      "Do switch the page and every illustration together when the theme changes."
+      "Do switch the page and every illustration together when the theme changes.",
+      "Do frame every docs code block with its bar and Copy pill, and keep the syntax hues inside that frame.",
+      "Do hold docs body text to the 35rem measure; let tables, code and diagrams scroll inside their frames rather than the page.",
+      "Do keep the docs' active page and links in status green, and every other docs chrome in ink, slate and faint."
     ],
     "donts": [
       "Don't add a second shadow; the hero product panel owns the only one.",
       "Don't fill buttons, sections or headings with green.",
       "Don't put eyebrows or kickers above headings, grid backgrounds, numbered decorative panels, or mono-set UI chrome.",
-      "Don't frame the loop below 1148px; the smaller designs sit on the page ground."
+      "Don't frame the loop below 1148px; the smaller designs sit on the page ground.",
+      "Don't colour code with status green or pin amber, or use a syntax hue outside a code frame.",
+      "Don't let an identifier in inline code wrap."
     ]
   }
 }
