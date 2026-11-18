@@ -6,3 +6,10 @@ cook/
 PRODUCT.md
 .env
 .env.*
+docs/content/docs/
+docs/.badil-ref
+docs/.next/
+docs/out/
+docs/.source/
+docs/node_modules/
+docs/next-env.d.ts
