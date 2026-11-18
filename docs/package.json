@@ -7,9 +7,10 @@
   "scripts": {
     "dev": "node scripts/content.mjs && next dev",
     "build": "node scripts/content.mjs && next build",
-    "test": "node --test scripts/links.test.mjs"
+    "test": "node --test scripts/links.test.mjs scripts/mermaid.test.mjs"
   },
   "dependencies": {
+    "beautiful-mermaid": "1.1.3",
     "fumadocs-core": "16.19.4",
     "fumadocs-mdx": "15.6.3",
     "fumadocs-ui": "npm:@fumadocs/base-ui@16.19.4",
