@@ -1,6 +1,6 @@
 import type { Metadata } from 'next';
 import { notFound } from 'next/navigation';
-import { DocsBody, DocsPage, DocsTitle } from 'fumadocs-ui/layouts/docs/page';
+import { DocsBody, DocsPage, DocsTitle } from 'fumadocs-ui/layouts/notebook/page';
 import { getMDXComponents } from '@/components/mdx';
 import { source } from '@/lib/source';
 
@@ -13,9 +13,9 @@ export default async function Page({ params }: Props) {
   const MDX = page.data.body;
 
   return (
-    <DocsPage toc={page.data.toc} full={page.data.full}>
-      <DocsTitle>{page.data.title}</DocsTitle>
-      <DocsBody>
+    <DocsPage toc={page.data.toc} full={page.data.full} breadcrumb={{ enabled: false }}>
+      <DocsTitle className="docs-title">{page.data.title}</DocsTitle>
+      <DocsBody className="docs-body">
         <MDX components={getMDXComponents()} />
       </DocsBody>
     </DocsPage>
@@ -27,8 +27,10 @@ export function generateStaticParams() {
 }
 
 export async function generateMetadata({ params }: Props): Promise<Metadata> {
-  const page = source.getPage((await params).slug);
+  const slug = (await params).slug;
+  const page = source.getPage(slug);
   if (!page) notFound();
 
-  return { title: page.data.title, description: page.data.description };
+  // The home's tab reads "badil docs" (its page title is Overview); the other pages read "<title> | badil".
+  return { title: slug?.length ? page.data.title : { absolute: 'badil docs' }, description: page.data.description };
 }

@@ -1,6 +1,8 @@
 import type { Metadata } from 'next';
 import type { ReactNode } from 'react';
 import { Provider } from '@/components/provider';
+// Schibsted Grotesk, self-hosted from the package the landing uses: bundled under /docs/_next/.
+import '@fontsource-variable/schibsted-grotesk';
 import './global.css';
 
 export const metadata: Metadata = {

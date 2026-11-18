@@ -1,7 +1,7 @@
 'use client';
 
 import { use, useId, useSyncExternalStore } from 'react';
-import { CodeBlock, Pre } from 'fumadocs-ui/components/codeblock';
+import { CodeFrame } from '@/components/mdx/code-frame';
 import { useTheme } from 'fumadocs-ui/provider/base';
 
 // Fumadocs' official Mermaid renderer: mermaid is imported only when a page renders a diagram,
@@ -18,6 +18,43 @@ export function Mermaid({ chart }: { chart: string }) {
   return <MermaidContent chart={chart} />;
 }
 
+// The site palette (DESIGN.md) as Mermaid's `base` theme variables, which take literal colours only.
+const FONT = "'Schibsted Grotesk Variable', system-ui, -apple-system, 'Segoe UI', sans-serif";
+const THEME_VARIABLES = {
+  light: {
+    darkMode: false,
+    fontFamily: FONT,
+    background: '#ffffff',
+    primaryColor: '#ffffff',
+    primaryTextColor: '#111315',
+    primaryBorderColor: '#cfd3d8',
+    secondaryColor: '#f6f7f8',
+    tertiaryColor: '#f6f7f8',
+    lineColor: '#4b5158',
+    textColor: '#111315',
+    clusterBkg: '#f6f7f8',
+    clusterBorder: '#cfd3d8',
+    edgeLabelBackground: '#ffffff',
+    titleColor: '#111315',
+  },
+  dark: {
+    darkMode: true,
+    fontFamily: FONT,
+    background: '#0b0d0b',
+    primaryColor: '#111511',
+    primaryTextColor: '#e8ece7',
+    primaryBorderColor: '#343a34',
+    secondaryColor: '#111511',
+    tertiaryColor: '#111511',
+    lineColor: '#a3aca2',
+    textColor: '#e8ece7',
+    clusterBkg: '#0b0d0b',
+    clusterBorder: '#343a34',
+    edgeLabelBackground: '#0b0d0b',
+    titleColor: '#e8ece7',
+  },
+};
+
 const cache = new Map<string, Promise<unknown>>();
 
 function cachePromise<T>(key: string, setPromise: () => Promise<T>): Promise<T> {
@@ -32,14 +69,15 @@ function cachePromise<T>(key: string, setPromise: () => Promise<T>): Promise<T> 
 function MermaidContent({ chart }: { chart: string }) {
   const id = useId();
   const { resolvedTheme } = useTheme();
-  const theme = resolvedTheme === 'dark' ? 'dark' : 'default';
+  const theme = resolvedTheme === 'dark' ? 'dark' : 'light';
   const { default: mermaid } = use(cachePromise('mermaid', () => import('mermaid')));
 
   mermaid.initialize({
     startOnLoad: false,
     securityLevel: 'strict',
     fontFamily: 'inherit',
-    theme,
+    theme: 'base',
+    themeVariables: THEME_VARIABLES[theme],
   });
 
   const svg = use(
@@ -53,9 +91,9 @@ function MermaidContent({ chart }: { chart: string }) {
 
   if (svg === null) {
     return (
-      <CodeBlock title="Mermaid">
-        <Pre>{chart}</Pre>
-      </CodeBlock>
+      <CodeFrame title="Mermaid">
+        <code>{chart}</code>
+      </CodeFrame>
     );
   }
 
