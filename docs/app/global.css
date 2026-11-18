@@ -1,3 +1,1231 @@
 @import 'tailwindcss';
-@import 'fumadocs-ui/css/neutral.css';
 @import 'fumadocs-ui/css/preset.css';
+
+/* badil's landing system (DESIGN.md) carried into the docs: ink on paper, green-tinted night in dark,
+   1px hairlines, status green for links and the active marker only. The --color-fd-* names are
+   Fumadocs' theme variables (fumadocs.dev/docs/ui/theme); this file replaces its neutral palette. */
+@theme {
+  --font-sans: 'Schibsted Grotesk Variable', system-ui, -apple-system, 'Segoe UI', sans-serif;
+  --font-mono: ui-monospace, 'SF Mono', SFMono-Regular, Menlo, Consolas, monospace;
+
+  --color-fd-background: #ffffff;
+  --color-fd-foreground: #111315;
+  --color-fd-muted: #f6f7f8;
+  --color-fd-muted-foreground: #4b5158;
+  --color-fd-popover: #ffffff;
+  --color-fd-popover-foreground: #111315;
+  --color-fd-card: #ffffff;
+  --color-fd-card-foreground: #111315;
+  --color-fd-border: #e3e5e8;
+  --color-fd-primary: #0a7a3a;
+  --color-fd-primary-foreground: #ffffff;
+  --color-fd-secondary: #f6f7f8;
+  --color-fd-secondary-foreground: #111315;
+  --color-fd-accent: #f1f2f4;
+  --color-fd-accent-foreground: #111315;
+  --color-fd-ring: #0a7a3a;
+  --color-fd-overlay: rgba(17, 19, 21, 0.24);
+}
+
+/* Callouts in the same restrained palette: green for success only, ink for warnings and errors. */
+@theme static {
+  --color-fd-info: #6b7178;
+  --color-fd-warning: #111315;
+  --color-fd-error: #111315;
+  --color-fd-success: #0a7a3a;
+  --color-fd-idea: #6b7178;
+  --color-fd-diff-remove: rgba(17, 19, 21, 0.06);
+  --color-fd-diff-remove-symbol: #6b7178;
+  --color-fd-diff-add: rgba(10, 122, 58, 0.1);
+  --color-fd-diff-add-symbol: #0a7a3a;
+}
+
+:root {
+  --paper: #ffffff;
+  --canvas: #f6f7f8;
+  --line: #e3e5e8;
+  --line-strong: #cfd3d8;
+  --text: #4b5158;
+  --ink: #111315;
+  --faint: #6b7178;
+  --green: #0a7a3a;
+  --select: rgba(10, 122, 58, 0.16);
+  --well: #f1f2f4;
+  --ink-btn: #111315;
+  --ink-btn-hover: #2a2d31;
+  --on-ink: #ffffff;
+  --panel: #ffffff;
+  --code-bar: #f6f7f8;
+  --link-line: rgba(10, 122, 58, 0.4);
+  color-scheme: light;
+}
+
+.dark {
+  --color-fd-background: #0b0d0b;
+  --color-fd-foreground: #e8ece7;
+  --color-fd-muted: #111511;
+  --color-fd-muted-foreground: #a3aca2;
+  --color-fd-popover: #111511;
+  --color-fd-popover-foreground: #e8ece7;
+  --color-fd-card: #111511;
+  --color-fd-card-foreground: #e8ece7;
+  --color-fd-border: #232823;
+  --color-fd-primary: #3ddc84;
+  --color-fd-primary-foreground: #0b0d0b;
+  --color-fd-secondary: #111511;
+  --color-fd-secondary-foreground: #e8ece7;
+  --color-fd-accent: #1c211c;
+  --color-fd-accent-foreground: #e8ece7;
+  --color-fd-ring: #3ddc84;
+  --color-fd-overlay: rgba(0, 0, 0, 0.5);
+  --color-fd-info: #7d867c;
+  --color-fd-warning: #e8ece7;
+  --color-fd-error: #e8ece7;
+  --color-fd-success: #3ddc84;
+  --color-fd-idea: #7d867c;
+
+  --paper: #0b0d0b;
+  --canvas: #111511;
+  --line: #232823;
+  --line-strong: #343a34;
+  --text: #a3aca2;
+  --ink: #e8ece7;
+  --faint: #7d867c;
+  --green: #3ddc84;
+  --select: rgba(61, 220, 132, 0.22);
+  --well: #1c211c;
+  --ink-btn: #e8ece7;
+  --ink-btn-hover: #ffffff;
+  --on-ink: #0b0d0b;
+  --panel: #111511;
+  --code-bar: #111511;
+  --link-line: rgba(61, 220, 132, 0.4);
+  color-scheme: dark;
+}
+
+/* ---- Browser surfaces ---- */
+
+html {
+  scrollbar-color: var(--line-strong) var(--paper);
+}
+
+body {
+  font-family: var(--font-sans);
+  caret-color: var(--green);
+  -webkit-font-smoothing: antialiased;
+}
+
+::selection {
+  background: var(--select);
+  color: var(--ink);
+}
+
+:focus-visible {
+  outline: 2px solid var(--ink);
+  outline-offset: 3px;
+  border-radius: 4px;
+}
+
+/* ---- Header: 64px bar, then the 46px tab bar (lg and up) ---- */
+
+#nd-notebook-layout {
+  --fd-header-height: 64px !important;
+}
+
+@media (min-width: 64rem) {
+  #nd-notebook-layout {
+    --fd-header-height: 111px !important;
+  }
+}
+
+#nd-subnav {
+  background: color-mix(in oklab, var(--paper) 92%, transparent);
+  backdrop-filter: saturate(1.4) blur(10px);
+}
+
+#nd-subnav [data-header-body] {
+  height: 64px;
+  gap: 16px;
+  border-color: var(--line);
+}
+
+@media (min-width: 48rem) {
+  #nd-subnav [data-header-body] {
+    padding-inline: 32px;
+  }
+}
+
+.nav-title {
+  display: inline-flex;
+  align-items: center;
+  gap: 12px;
+}
+
+.nav-title__wordmark {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.4em;
+  color: var(--ink);
+  font-size: 19px;
+  font-weight: 650;
+  letter-spacing: -0.02em;
+}
+
+.mark {
+  flex: none;
+  width: auto;
+  height: 1.3em;
+}
+
+.mark__prod {
+  fill: currentColor;
+}
+
+.mark__knock {
+  fill: var(--paper);
+  stroke: var(--paper);
+  stroke-width: 52;
+  stroke-linejoin: round;
+}
+
+.mark__twin {
+  fill: none;
+  stroke: var(--green);
+  stroke-width: 30;
+  stroke-linecap: round;
+  stroke-dasharray: 58 44;
+}
+
+.nav-title__rule {
+  width: 1px;
+  height: 18px;
+  background: var(--line-strong);
+}
+
+.nav-title__docs {
+  color: var(--ink);
+  font-size: 15px;
+  font-weight: 500;
+}
+
+.search-pill {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  width: 100%;
+  max-width: 320px;
+  height: 36px;
+  margin-block: auto;
+  padding: 0 6px 0 14px;
+  border: 1px solid var(--line);
+  border-radius: 999px;
+  background: var(--canvas);
+  color: var(--faint);
+  font-size: 14px;
+  cursor: pointer;
+  transition: border-color 0.15s ease-out, color 0.15s ease-out;
+}
+
+.search-pill:hover {
+  border-color: var(--line-strong);
+  color: var(--text);
+}
+
+.search-pill svg {
+  width: 15px;
+  height: 15px;
+  flex: none;
+}
+
+.search-pill__label {
+  flex: 1;
+  text-align: start;
+}
+
+.search-pill__kbd {
+  display: inline-flex;
+  gap: 1px;
+  padding: 0 8px;
+  border: 1px solid var(--line);
+  border-radius: 999px;
+  background: var(--paper);
+  color: var(--faint);
+  font: 500 12px/20px var(--font-sans);
+}
+
+@media (max-width: 47.99rem) {
+  .search-pill {
+    display: none;
+  }
+}
+
+.nav-link {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  color: var(--text);
+  font-size: 15px;
+  font-weight: 500;
+  transition: color 0.15s ease-out;
+}
+
+.nav-link:hover {
+  color: var(--ink);
+}
+
+.github-icon {
+  width: 16px;
+  height: 16px;
+}
+
+/* In the phone drawer, the two links sit as rows above the page list. */
+#nd-sidebar .nav-link,
+[data-state] > div > .nav-link {
+  padding: 8px 10px;
+}
+
+.theme-control {
+  display: flex;
+  gap: 2px;
+  padding: 2px;
+  border: 1px solid var(--line);
+  border-radius: 999px;
+}
+
+.theme-control__btn {
+  display: grid;
+  place-items: center;
+  width: 28px;
+  height: 28px;
+  padding: 0;
+  border-radius: 999px;
+  color: var(--faint);
+  cursor: pointer;
+  transition: color 0.15s ease-out, background-color 0.15s ease-out;
+}
+
+.theme-control__btn:hover {
+  color: var(--ink);
+}
+
+.theme-control__btn[aria-pressed='true'] {
+  background: var(--well);
+  color: var(--ink);
+}
+
+.theme-control__btn svg {
+  width: 15px;
+  height: 15px;
+}
+
+/* Tab bar: Guide / Concepts / Reference, the active one with an ink underline. */
+#nd-subnav [data-header-tabs] {
+  height: 47px;
+  gap: 28px;
+  padding-inline: 32px;
+  align-items: stretch;
+  border-color: var(--line);
+}
+
+#nd-subnav [data-header-tabs] a {
+  position: relative;
+  padding: 0;
+  border: 0;
+  color: var(--text);
+  font-size: 15px;
+  font-weight: 500;
+  transition: color 0.15s ease-out;
+}
+
+#nd-subnav [data-header-tabs] a:hover {
+  color: var(--ink);
+}
+
+#nd-subnav [data-header-tabs] a.border-fd-primary {
+  color: var(--ink);
+}
+
+#nd-subnav [data-header-tabs] a.border-fd-primary::after {
+  content: '';
+  position: absolute;
+  inset-inline: 0;
+  bottom: -1px;
+  height: 2px;
+  border-radius: 2px;
+  background: var(--ink);
+}
+
+/* ---- Sidebar ---- */
+
+#nd-sidebar {
+  border-inline-end: 1px solid var(--line);
+  font-size: 14.5px;
+}
+
+#nd-sidebar [data-radix-scroll-area-viewport],
+#nd-sidebar > div {
+  padding-top: 12px;
+}
+
+.side-item {
+  display: flex;
+  align-items: center;
+  min-height: 34px;
+  padding: 6px 12px;
+  border-radius: 999px;
+  color: var(--text);
+  line-height: 1.35;
+  transition: color 0.15s ease-out, background-color 0.15s ease-out;
+}
+
+.side-item:hover {
+  color: var(--ink);
+}
+
+.side-item[data-active='true'] {
+  background: var(--canvas);
+  color: var(--green);
+  font-weight: 500;
+}
+
+.side-steps {
+  margin: 4px 0 8px;
+  padding: 0;
+  list-style: none;
+}
+
+.side-steps__link {
+  display: grid;
+  grid-template-columns: 26px 1fr;
+  align-items: baseline;
+  padding: 5px 12px;
+  border-radius: 999px;
+  color: var(--text);
+  line-height: 1.4;
+  transition: color 0.15s ease-out;
+}
+
+.side-steps__link:hover {
+  color: var(--ink);
+}
+
+.side-steps__n {
+  color: var(--faint);
+  font-size: 13px;
+  font-variant-numeric: tabular-nums;
+}
+
+.side-steps__opt {
+  margin-inline-start: 6px;
+  color: var(--faint);
+  font-size: 13px;
+}
+
+/* ---- Page column ---- */
+
+#nd-page {
+  gap: 0;
+}
+
+@media (min-width: 80rem) {
+  #nd-page {
+    padding-top: 44px;
+    padding-inline: 64px;
+  }
+}
+
+.docs-title {
+  margin: 0;
+  color: var(--ink);
+  font-size: clamp(32px, 3.2vw, 40px);
+  font-weight: 650;
+  line-height: 1.08;
+  letter-spacing: -0.03em;
+  text-wrap: balance;
+}
+
+.docs-body.prose {
+  --tw-prose-body: var(--text);
+  --tw-prose-headings: var(--ink);
+  --tw-prose-bold: var(--ink);
+  --tw-prose-links: var(--green);
+  --tw-prose-counters: var(--faint);
+  --tw-prose-bullets: var(--line-strong);
+  --tw-prose-hr: var(--line);
+  --tw-prose-quotes: var(--text);
+  --tw-prose-quote-borders: var(--line);
+  --tw-prose-th-borders: var(--line);
+  --tw-prose-td-borders: var(--line);
+  margin-top: 14px;
+  font-size: 17px;
+  line-height: 1.65;
+}
+
+/* The reading measure: about 70 characters of 17px text. Set in rem, not ch: Schibsted Grotesk's 0 is
+   wide, so 65ch ran to about 90 characters. Tables, code and figures may use the full column. */
+.docs-body > :where(p, ul, ol, h2, h3, h4, blockquote, dl) {
+  max-width: 35rem;
+}
+
+.docs-body > p:first-child {
+  font-size: 19px;
+  line-height: 1.55;
+}
+
+.docs-body :where(h2) {
+  margin-top: 2.2em;
+  margin-bottom: 0.6em;
+  font-size: 24px;
+  font-weight: 650;
+  line-height: 1.25;
+  letter-spacing: -0.02em;
+}
+
+.docs-body :where(h3) {
+  margin-top: 1.9em;
+  margin-bottom: 0.5em;
+  font-size: 19px;
+  font-weight: 600;
+  line-height: 1.35;
+  letter-spacing: -0.01em;
+}
+
+.docs-body :where(strong) {
+  font-weight: 600;
+}
+
+.docs-body :where(ul > li)::marker {
+  color: var(--line-strong);
+}
+
+.docs-body a:not([data-card]):not(.map *, .install-card *) {
+  color: var(--green);
+  font-weight: inherit;
+  text-decoration: underline;
+  text-decoration-color: var(--link-line);
+  text-decoration-thickness: 1px;
+  text-underline-offset: 3px;
+  transition: text-decoration-color 0.15s ease-out;
+}
+
+.docs-body a:not([data-card]):not(.map *, .install-card *):hover {
+  opacity: 1;
+  text-decoration-color: currentColor;
+}
+
+/* Inline code on the code well, ink text (DESIGN.md: inline-code). Identifiers never wrap; a command or
+   a message is marked data-wrap (components/mdx.tsx) and wraps at its spaces, breaking a word only when it
+   cannot fit a line. break-word, unlike anywhere, leaves table columns as wide as their longest word. */
+.docs-body :not(pre) > code,
+.map code,
+.install-card code {
+  padding: 2px 4px;
+  border: 0;
+  border-radius: 5px;
+  background: var(--well);
+  color: var(--ink);
+  font-family: var(--font-mono);
+  font-size: 0.84em;
+  font-weight: 400;
+  white-space: nowrap;
+}
+
+.docs-body :not(pre) > code[data-wrap] {
+  white-space: normal;
+  overflow-wrap: break-word;
+}
+
+.docs-body a :not(pre) > code,
+.docs-body a > code {
+  color: inherit;
+}
+
+.docs-body :where(h2, h3) code {
+  font-size: 0.84em;
+}
+
+/* Tables: hairlines and a canvas header row. */
+.docs-body table {
+  margin: 0;
+  border-collapse: separate;
+  border-spacing: 0;
+  border: 1px solid var(--line);
+  border-radius: 10px;
+  background: var(--paper);
+  font-size: 15px;
+  line-height: 1.5;
+  overflow: hidden;
+}
+
+.docs-body thead th {
+  padding: 10px 14px;
+  border-bottom: 1px solid var(--line);
+  border-inline-start: 0;
+  background: var(--canvas);
+  color: var(--ink);
+  font-size: 14px;
+  font-weight: 600;
+  text-align: start;
+  vertical-align: bottom;
+}
+
+.docs-body tbody td {
+  padding: 10px 14px;
+  border-inline-start: 0;
+  border-bottom: 1px solid var(--line);
+  vertical-align: top;
+}
+
+.docs-body tbody tr:last-child td {
+  border-bottom: 0;
+}
+
+.docs-body thead th:first-child,
+.docs-body tbody td:first-child {
+  padding-inline-start: 14px;
+}
+
+.docs-body thead th:last-child,
+.docs-body tbody td:last-child {
+  padding-inline-end: 14px;
+}
+
+.docs-body blockquote {
+  padding-inline-start: 16px;
+  border-inline-start: 1px solid var(--line-strong);
+  font-style: normal;
+}
+
+/* ---- Code frames ---- */
+
+.code-frame {
+  position: relative;
+  margin: 20px 0;
+  border: 1px solid var(--line);
+  border-radius: 10px;
+  background: var(--panel);
+  overflow: hidden;
+}
+
+.code-frame__bar {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 12px;
+  height: 40px;
+  padding: 0 6px 0 14px;
+  border-bottom: 1px solid var(--line);
+  background: var(--code-bar);
+}
+
+.code-frame__title {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  min-width: 0;
+  color: var(--ink);
+  font: 400 12.5px var(--font-mono);
+}
+
+.code-frame__title svg {
+  width: 14px;
+  height: 14px;
+  flex: none;
+  color: var(--faint);
+}
+
+.code-frame__name {
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.code-frame__lang {
+  color: var(--faint);
+  font-family: var(--font-sans);
+  font-size: 12px;
+  font-weight: 500;
+}
+
+.code-frame:not([data-labelled]) .code-frame__bar {
+  height: 36px;
+  background: var(--panel);
+  border-bottom-color: transparent;
+}
+
+.code-frame__copy {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  height: 28px;
+  padding: 0 12px 0 10px;
+  border: 1px solid var(--line);
+  border-radius: 999px;
+  background: var(--paper);
+  color: var(--ink);
+  font: 500 13px var(--font-sans);
+  cursor: pointer;
+  transition: border-color 0.15s ease-out, color 0.15s ease-out;
+}
+
+.code-frame__copy:hover {
+  border-color: var(--line-strong);
+}
+
+.code-frame__copy[data-copied] {
+  color: var(--green);
+}
+
+.code-frame__copy svg {
+  width: 13px;
+  height: 13px;
+}
+
+.code-frame__pre {
+  margin: 0;
+  padding: 14px 0;
+  overflow-x: auto;
+  background: transparent !important;
+  font: 400 13px/1.7 var(--font-mono);
+  tab-size: 2;
+}
+
+.code-frame:not([data-labelled]) .code-frame__pre {
+  padding-top: 0;
+}
+
+/* The pre fills the frame, whose overflow clips an outline drawn outside it: the frame carries the ring. */
+.code-frame__pre:focus-visible {
+  outline: none;
+}
+
+.code-frame:has(> .code-frame__pre:focus-visible) {
+  outline: 2px solid var(--ink);
+  outline-offset: 3px;
+}
+
+/* A Mermaid diagram keeps its labels at 12px or more (75% of its natural size, set as --mermaid-min by
+   components/mdx/mermaid.tsx): a wider diagram scrolls sideways in its frame. */
+.mermaid-frame svg {
+  min-width: var(--mermaid-min, 0);
+}
+
+.code-frame__pre > code {
+  display: flex;
+  flex-direction: column;
+  min-width: 100%;
+  width: max-content;
+  font: inherit;
+}
+
+.code-frame__pre .line {
+  padding-inline: 16px;
+}
+
+/* Shiki's dual themes: Fumadocs maps colour and font style; the weight follows the same switch. */
+.code-frame__pre span {
+  font-weight: var(--shiki-light-font-weight, inherit);
+}
+
+.dark .code-frame__pre span {
+  font-weight: var(--shiki-dark-font-weight, inherit);
+}
+
+/* ---- Callouts and the page footer ---- */
+
+.docs-body [class*='bg-fd-card'][class*='rounded-xl'] {
+  border-radius: 10px;
+  border-color: var(--line);
+  background: var(--canvas);
+}
+
+#nd-page > [class*='@container'] a {
+  border-color: var(--line);
+  border-radius: 10px;
+}
+
+#nd-page > [class*='@container'] {
+  margin-top: 56px;
+}
+
+/* ---- On this page ---- */
+
+#nd-toc {
+  padding-top: 44px;
+  font-size: 13.5px;
+}
+
+#toc-title {
+  margin-bottom: 8px;
+  color: var(--ink);
+  font-size: 13.5px;
+  font-weight: 600;
+}
+
+#toc-title svg {
+  display: none;
+}
+
+/* The narrow "On this page" bar spans the column to the viewport edge: its ring is drawn inside it. */
+[data-toc-popover-trigger]:focus-visible {
+  outline-offset: -3px;
+}
+
+#nd-toc a.prose {
+  font-size: 13.5px;
+  line-height: 1.4;
+}
+
+/* ---- Docs home ---- */
+
+.install-card {
+  display: flex;
+  align-items: center;
+  gap: 16px;
+  margin-top: 28px;
+  padding: 14px 14px 14px 18px;
+  border: 1px solid var(--line);
+  border-radius: 10px;
+  background: var(--paper);
+}
+
+.install-card__icon {
+  display: grid;
+  place-items: center;
+  flex: none;
+  width: 34px;
+  height: 34px;
+  border-radius: 999px;
+  background: var(--well);
+  color: var(--ink);
+}
+
+.install-card__icon svg {
+  width: 16px;
+  height: 16px;
+}
+
+.install-card__text {
+  flex: 1;
+  min-width: 0;
+}
+
+.install-card__title {
+  margin: 0;
+  color: var(--ink);
+  font-size: 17px;
+  font-weight: 600;
+  line-height: 1.3;
+  letter-spacing: -0.01em;
+}
+
+.install-card__desc {
+  margin: 2px 0 0;
+  color: var(--text);
+  font-size: 15px;
+  line-height: 1.5;
+}
+
+.ink-pill {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  flex: none;
+  height: 42px;
+  padding: 0 20px;
+  border-radius: 999px;
+  background: var(--ink-btn);
+  color: var(--on-ink);
+  font-size: 15px;
+  font-weight: 600;
+  letter-spacing: -0.005em;
+  transition: background-color 0.15s ease-out, transform 0.15s ease-out;
+}
+
+.ink-pill:hover {
+  background: var(--ink-btn-hover);
+}
+
+.ink-pill:active {
+  transform: translateY(1px);
+}
+
+.ink-pill .arrow-icon {
+  width: 15px;
+  height: 15px;
+}
+
+@media (max-width: 39.99rem) {
+  .install-card {
+    flex-wrap: wrap;
+  }
+
+  .install-card .ink-pill {
+    width: 100%;
+    justify-content: center;
+  }
+}
+
+/* The architecture map: a row of five nodes at wide sizes, a column when the page is narrow. */
+.map {
+  --c: 64px;
+  --w: calc((100% - 4 * var(--c)) / 5);
+  container-type: inline-size;
+  margin: 28px 0 0;
+}
+
+.map__stage {
+  padding: 16px;
+  border: 1px solid var(--line);
+  border-radius: 16px;
+  background: var(--canvas);
+}
+
+.map-node {
+  display: flex;
+  flex-direction: column;
+  min-width: 0;
+  padding: 14px 16px;
+  border: 1px solid var(--line);
+  border-radius: 10px;
+  background: var(--paper);
+}
+
+.dark .map-node {
+  background: var(--paper);
+}
+
+.map-node__name {
+  margin: 0;
+  color: var(--ink);
+  font-size: 17px;
+  font-weight: 600;
+  line-height: 1.3;
+  letter-spacing: -0.01em;
+}
+
+.map-node__body {
+  margin: 4px 0 0;
+  color: var(--text);
+  font-size: 14px;
+  line-height: 1.5;
+}
+
+.map-node__body code[data-path] {
+  white-space: normal;
+  overflow-wrap: normal;
+}
+
+.map-node__back {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  margin: 10px 0 0;
+  color: var(--text);
+  font-size: 13.5px;
+}
+
+.map-node__back-icon {
+  width: 15px;
+  height: 15px;
+  flex: none;
+  color: var(--faint);
+}
+
+.map-faint {
+  color: var(--faint);
+}
+
+.map-node__links {
+  margin: auto 0 0;
+  padding: 10px 0 0;
+  list-style: none;
+}
+
+.map-node__body + .map-node__links,
+.map-node__back + .map-node__links {
+  margin-top: 14px;
+  border-top: 1px solid var(--line);
+}
+
+.map-node__links a {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 10px;
+  padding: 4px 0;
+  color: var(--ink);
+  font-size: 14px;
+  font-weight: 500;
+  line-height: 1.35;
+  transition: color 0.15s ease-out;
+}
+
+.map-node__links a:hover {
+  color: var(--green);
+}
+
+.map-node__links .arrow-icon {
+  width: 14px;
+  height: 14px;
+  flex: none;
+  color: var(--faint);
+}
+
+.map-edge {
+  position: relative;
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  color: var(--text);
+  font-size: 13px;
+  font-weight: 500;
+}
+
+.map-edge__line {
+  position: relative;
+  background: var(--ink);
+}
+
+.map-edge__line::after {
+  content: '';
+  position: absolute;
+  background: var(--ink);
+  clip-path: polygon(0 0, 100% 50%, 0 100%);
+}
+
+.map__side {
+  position: relative;
+}
+
+.map__side-label {
+  color: var(--faint);
+  font-size: 13px;
+  font-weight: 500;
+}
+
+.map__notes {
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+  margin: 18px 0 0;
+  padding: 0;
+  list-style: none;
+  color: var(--faint);
+  font-size: 14px;
+  line-height: 1.5;
+}
+
+.map__notes li {
+  display: flex;
+  gap: 8px;
+}
+
+.map__notes li::before {
+  content: '';
+  flex: none;
+  width: 4px;
+  height: 4px;
+  margin-top: 0.62em;
+  border-radius: 50%;
+  background: var(--line-strong);
+}
+
+.map__notes a {
+  color: var(--green);
+  text-decoration: underline;
+  text-decoration-color: var(--link-line);
+  text-underline-offset: 3px;
+}
+
+/* Stacked (narrow): one column, edges point down, the side is a dashed box, returns are lines in the nodes. */
+@container (max-width: 899px) {
+  .map__flow {
+    display: flex;
+    flex-direction: column;
+  }
+
+  .map-edge {
+    height: 44px;
+    padding-inline-start: 28px;
+  }
+
+  .map-edge__line {
+    order: -1;
+    width: 1px;
+    height: 30px;
+  }
+
+  .map-edge__line::after {
+    left: 50%;
+    bottom: -6px;
+    width: 9px;
+    height: 7px;
+    transform: translateX(-50%);
+    clip-path: polygon(0 0, 100% 0, 50% 100%);
+  }
+
+  .map__side {
+    display: flex;
+    flex-direction: column;
+    padding: 34px 10px 10px;
+    border: 1px dashed var(--line-strong);
+    border-radius: 16px;
+  }
+
+  .map__side-label {
+    position: absolute;
+    top: 8px;
+    right: 14px;
+  }
+
+  .map__returns {
+    display: none;
+  }
+}
+
+/* Row (wide): five equal columns with fixed edge columns; the returns are dashed lanes under the row. */
+@container (min-width: 900px) {
+  .map__stage {
+    padding: 52px 20px 20px;
+  }
+
+  .map__flow {
+    position: relative;
+    display: grid;
+    grid-template-columns: 1fr var(--c) 1fr var(--c) 1fr var(--c) 1fr var(--c) 1fr;
+    align-items: stretch;
+  }
+
+  .map__side,
+  .map__step {
+    display: contents;
+  }
+
+  /* "Your side": the dashed box around badil to the preview namespace. */
+  .map__flow::before {
+    content: '';
+    position: absolute;
+    top: -36px;
+    bottom: -10px;
+    left: calc(var(--w) + var(--c) - 10px);
+    right: -10px;
+    border: 1px dashed var(--line-strong);
+    border-radius: 16px;
+    pointer-events: none;
+  }
+
+  .map__side-label {
+    position: absolute;
+    top: -30px;
+    right: 4px;
+  }
+
+  .map-edge {
+    flex-direction: column;
+    justify-content: flex-start;
+    gap: 2px;
+    padding-top: 14px;
+  }
+
+  .map-edge__label {
+    font-size: 12.5px;
+    margin-inline-end: 10px;
+  }
+
+  .map-node {
+    padding: 14px 14px;
+  }
+
+  .map-edge__line {
+    width: calc(100% - 10px);
+    height: 1px;
+    margin-inline-end: 10px;
+  }
+
+  .map-edge__line::after {
+    right: -8px;
+    top: 50%;
+    width: 8px;
+    height: 9px;
+    transform: translateY(-50%);
+  }
+
+  /* The row draws the returns as lanes, which are aria-hidden: the in-node line stays for screen readers. */
+  .map-node__back {
+    position: absolute;
+    width: 1px;
+    height: 1px;
+    margin: -1px;
+    padding: 0;
+    overflow: hidden;
+    clip-path: inset(50%);
+    white-space: nowrap;
+  }
+
+  .map__returns {
+    position: relative;
+    height: 72px;
+  }
+
+  .map__lane {
+    position: absolute;
+    top: 0;
+    border: 1px dashed var(--faint);
+    border-top: 0;
+    border-radius: 0 0 5px 5px;
+  }
+
+  /* Arrowhead into the GitHub node. */
+  .map__lane::before {
+    content: '';
+    position: absolute;
+    top: -1px;
+    left: -5.5px;
+    width: 10px;
+    height: 8px;
+    background: var(--faint);
+    clip-path: polygon(50% 0, 100% 100%, 0 100%);
+  }
+
+  .map__lane--comment {
+    left: calc(var(--w) / 2 + 10px);
+    width: calc(var(--w) + var(--c) - 10px);
+    height: 26px;
+  }
+
+  .map__lane--status {
+    left: calc(var(--w) / 2 - 10px);
+    width: calc(3 * (var(--w) + var(--c)) + 10px);
+    height: 56px;
+  }
+
+  .map__lane-label {
+    position: absolute;
+    left: 50%;
+    bottom: 0;
+    padding: 0 8px;
+    transform: translate(-50%, 50%);
+    background: var(--canvas);
+    color: var(--text);
+    font-size: 12.5px;
+    font-weight: 500;
+    white-space: nowrap;
+  }
+}
+
+/* ---- Phones ---- */
+
+@media (max-width: 39.99rem) {
+  .docs-body.prose {
+    font-size: 16px;
+  }
+
+  .docs-body > p:first-child {
+    font-size: 17px;
+  }
+
+  .code-frame {
+    margin-inline: 0;
+  }
+}

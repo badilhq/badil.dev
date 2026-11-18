@@ -1,10 +1,20 @@
 import type { Metadata } from 'next';
 import type { ReactNode } from 'react';
 import { Provider } from '@/components/provider';
+// Schibsted Grotesk, self-hosted from the package the landing uses: bundled under /docs/_next/.
+import '@fontsource-variable/schibsted-grotesk';
 import './global.css';
 
 export const metadata: Metadata = {
   title: { default: 'badil docs', template: '%s | badil' },
+  // The landing's icons, served at the site root by the badil.dev Worker.
+  icons: {
+    icon: [
+      { url: '/favicon.svg', type: 'image/svg+xml' },
+      { url: '/favicon-32.png', type: 'image/png', sizes: '32x32' },
+    ],
+    apple: '/apple-touch-icon.png',
+  },
 };
 
 export default function Layout({ children }: { children: ReactNode }) {
