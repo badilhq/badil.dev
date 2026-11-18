@@ -24,8 +24,14 @@ jobs:
         with:
           node-version: '26'
           cache: npm
+          cache-dependency-path: |
+            package-lock.json
+            docs/package-lock.json
       - run: npm ci
       - run: npm run build
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+      - run: npm test --prefix docs
       - name: wrangler deploy --dry-run
         run: npx wrangler deploy --dry-run --outdir "$RUNNER_TEMP/wrangler-dry-run"
         env:
@@ -104,9 +110,13 @@ jobs:
         with:
           node-version: '26'
           cache: npm
+          cache-dependency-path: |
+            package-lock.json
+            docs/package-lock.json
       - run: npm ci
       - run: npm run deploy
         env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
           CLOUDFLARE_API_TOKEN: ${{ secrets.CLOUDFLARE_API_TOKEN }}
           CLOUDFLARE_ACCOUNT_ID: ${{ secrets.CLOUDFLARE_ACCOUNT_ID }}
           WRANGLER_SEND_METRICS: "false"
