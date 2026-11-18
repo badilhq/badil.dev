@@ -44,11 +44,9 @@ The root `npm run build` runs `npm run build` in `docs/`. Its content step (`doc
 - `npm test --prefix docs` runs the unit tests of the link rewriting and of the Mermaid code block conversion.
 - `npm run dev --prefix docs` runs the content step, then the docs alone with hot reload (served at `http://localhost:3000/docs`).
 
-Nothing updates the docs automatically: a badil release reaches the site only when someone bumps the pinned tag. To document a new release:
+Each badil release updates the docs: after its charts are published, the `docs` job of badil's Release workflow writes the tag to `docs/badil-version` and pushes it to `main` as `chore(docs): show badil vX.Y.Z`, through the `badil-release` GitHub App. That push runs CI and deploys. Don't edit `docs/badil-version` by hand.
 
-1. Edit `docs/badil-version` to the new badil release tag.
-2. Open a pull request: CI builds the docs at that tag, runs the unit test and the rehearsal.
-3. Merge it: the push to `main` deploys.
+To preview an unreleased badil docs change locally, `BADIL_DEV_REF=<branch> npm run dev --prefix docs` reads badil's docs at that branch; a build refuses it.
 
 ## The illustrations
 
