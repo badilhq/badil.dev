@@ -1,7 +1,8 @@
 // Shiki themes for the code frames, built from the landing palette (DESIGN.md) rather than a stock pair:
-// ink keys, slate text, faint comments and punctuation, status green for quoted strings, and two
-// quiet hues (blue for commands and functions, violet for constants and variables) so YAML and shell
-// read at a glance. Every colour clears 4.5:1 on its ground: paper (#ffffff) and night canvas (#111511).
+// ink keys, slate text, faint comments and punctuation, and three quiet hues (rose for quoted strings,
+// blue for commands and functions, violet for constants and variables) so YAML and shell read at a
+// glance. Status green and pin amber keep their one meaning each and never colour code. Every colour
+// clears 4.5:1 on its ground: paper (#ffffff) and night canvas (#111511).
 
 type Palette = {
   ground: string;
@@ -26,7 +27,7 @@ function theme(name: string, type: 'light' | 'dark', p: Palette) {
         scope: ['string', 'punctuation.definition.string', 'string.quoted', 'string.template'],
         settings: { foreground: p.string },
       },
-      // YAML plain scalars and shell arguments stay text: green is kept for quoted strings.
+      // YAML plain scalars and shell arguments stay text: the string hue is kept for quoted strings.
       {
         scope: ['string.unquoted.plain.out.yaml', 'string.unquoted.plain.in.yaml', 'string.unquoted.argument.shell'],
         settings: { foreground: p.text },
@@ -62,7 +63,7 @@ export const codeLight = theme('badil-light', 'light', {
   text: '#4b5158',
   strong: '#111315',
   faint: '#6b7178',
-  string: '#0a7a3a',
+  string: '#a3245e',
   command: '#1f5aa6',
   constant: '#6941c6',
 });
@@ -72,7 +73,7 @@ export const codeDark = theme('badil-dark', 'dark', {
   text: '#b4bdb3',
   strong: '#e8ece7',
   faint: '#848d83',
-  string: '#3ddc84',
+  string: '#f28ab4',
   command: '#7fb4ff',
   constant: '#b9a3ff',
 });

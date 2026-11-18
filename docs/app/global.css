@@ -2,7 +2,7 @@
 @import 'fumadocs-ui/css/preset.css';
 
 /* badil's landing system (DESIGN.md) carried into the docs: ink on paper, green-tinted night in dark,
-   1px hairlines, status green for links, the active marker and focus only. The --color-fd-* names are
+   1px hairlines, status green for links and the active marker only. The --color-fd-* names are
    Fumadocs' theme variables (fumadocs.dev/docs/ui/theme); this file replaces its neutral palette. */
 @theme {
   --font-sans: 'Schibsted Grotesk Variable', system-ui, -apple-system, 'Segoe UI', sans-serif;
@@ -121,8 +121,8 @@ body {
 }
 
 :focus-visible {
-  outline: 2px solid var(--green);
-  outline-offset: 2px;
+  outline: 2px solid var(--ink);
+  outline-offset: 3px;
   border-radius: 4px;
 }
 
@@ -461,9 +461,10 @@ body {
   line-height: 1.65;
 }
 
-/* The reading measure: text at about 65ch; tables, code and figures may use the full column. */
+/* The reading measure: about 70 characters of 17px text. Set in rem, not ch: Schibsted Grotesk's 0 is
+   wide, so 65ch ran to about 90 characters. Tables, code and figures may use the full column. */
 .docs-body > :where(p, ul, ol, h2, h3, h4, blockquote, dl) {
-  max-width: 68ch;
+  max-width: 35rem;
 }
 
 .docs-body > p:first-child {
@@ -512,7 +513,9 @@ body {
   text-decoration-color: currentColor;
 }
 
-/* Inline code on the code well, ink text (DESIGN.md: inline-code). */
+/* Inline code on the code well, ink text (DESIGN.md: inline-code). Identifiers never wrap; a command or
+   a message is marked data-wrap (components/mdx.tsx) and wraps at its spaces, breaking a word only when it
+   cannot fit a line. break-word, unlike anywhere, leaves table columns as wide as their longest word. */
 .docs-body :not(pre) > code,
 .map code,
 .install-card code {
@@ -524,7 +527,12 @@ body {
   font-family: var(--font-mono);
   font-size: 0.84em;
   font-weight: 400;
-  overflow-wrap: anywhere;
+  white-space: nowrap;
+}
+
+.docs-body :not(pre) > code[data-wrap] {
+  white-space: normal;
+  overflow-wrap: break-word;
 }
 
 .docs-body a :not(pre) > code,
@@ -536,7 +544,7 @@ body {
   font-size: 0.84em;
 }
 
-/* Tables: hairlines, a canvas header row, numerals aligned. */
+/* Tables: hairlines and a canvas header row. */
 .docs-body table {
   margin: 0;
   border-collapse: separate;
@@ -546,7 +554,6 @@ body {
   background: var(--paper);
   font-size: 15px;
   line-height: 1.5;
-  font-variant-numeric: tabular-nums;
   overflow: hidden;
 }
 
@@ -581,11 +588,6 @@ body {
 .docs-body thead th:last-child,
 .docs-body tbody td:last-child {
   padding-inline-end: 14px;
-}
-
-.docs-body td code {
-  overflow-wrap: normal;
-  white-space: nowrap;
 }
 
 .docs-body blockquote {
@@ -692,6 +694,22 @@ body {
   padding-top: 0;
 }
 
+/* The pre fills the frame, whose overflow clips an outline drawn outside it: the frame carries the ring. */
+.code-frame__pre:focus-visible {
+  outline: none;
+}
+
+.code-frame:has(> .code-frame__pre:focus-visible) {
+  outline: 2px solid var(--ink);
+  outline-offset: 3px;
+}
+
+/* A Mermaid diagram keeps its labels at 12px or more (75% of its natural size, set as --mermaid-min by
+   components/mdx/mermaid.tsx): a wider diagram scrolls sideways in its frame. */
+.mermaid-frame svg {
+  min-width: var(--mermaid-min, 0);
+}
+
 .code-frame__pre > code {
   display: flex;
   flex-direction: column;
@@ -746,6 +764,11 @@ body {
 
 #toc-title svg {
   display: none;
+}
+
+/* The narrow "On this page" bar spans the column to the viewport edge: its ring is drawn inside it. */
+[data-toc-popover-trigger]:focus-visible {
+  outline-offset: -3px;
 }
 
 #nd-toc a.prose {
@@ -888,7 +911,8 @@ body {
   line-height: 1.5;
 }
 
-.map-node__body code {
+.map-node__body code[data-path] {
+  white-space: normal;
   overflow-wrap: normal;
 }
 
@@ -1028,7 +1052,7 @@ body {
 
   .map-edge__line {
     order: -1;
-    width: 1.5px;
+    width: 1px;
     height: 30px;
   }
 
@@ -1045,8 +1069,8 @@ body {
     display: flex;
     flex-direction: column;
     padding: 34px 10px 10px;
-    border: 1.5px dashed var(--line-strong);
-    border-radius: 14px;
+    border: 1px dashed var(--line-strong);
+    border-radius: 16px;
   }
 
   .map__side-label {
@@ -1086,8 +1110,8 @@ body {
     bottom: -10px;
     left: calc(var(--w) + var(--c) - 10px);
     right: -10px;
-    border: 1.5px dashed var(--line-strong);
-    border-radius: 14px;
+    border: 1px dashed var(--line-strong);
+    border-radius: 16px;
     pointer-events: none;
   }
 
@@ -1115,7 +1139,7 @@ body {
 
   .map-edge__line {
     width: calc(100% - 10px);
-    height: 1.5px;
+    height: 1px;
     margin-inline-end: 10px;
   }
 
@@ -1127,8 +1151,16 @@ body {
     transform: translateY(-50%);
   }
 
+  /* The row draws the returns as lanes, which are aria-hidden: the in-node line stays for screen readers. */
   .map-node__back {
-    display: none;
+    position: absolute;
+    width: 1px;
+    height: 1px;
+    margin: -1px;
+    padding: 0;
+    overflow: hidden;
+    clip-path: inset(50%);
+    white-space: nowrap;
   }
 
   .map__returns {
@@ -1139,9 +1171,9 @@ body {
   .map__lane {
     position: absolute;
     top: 0;
-    border: 1.5px dashed var(--faint);
+    border: 1px dashed var(--faint);
     border-top: 0;
-    border-radius: 0 0 6px 6px;
+    border-radius: 0 0 5px 5px;
   }
 
   /* Arrowhead into the GitHub node. */
@@ -1149,7 +1181,7 @@ body {
     content: '';
     position: absolute;
     top: -1px;
-    left: -5.75px;
+    left: -5.5px;
     width: 10px;
     height: 8px;
     background: var(--faint);

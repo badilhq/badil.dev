@@ -32,7 +32,9 @@ export function InstallCard({ href, children }: { href: string; children: ReactN
   );
 }
 
-type MapNode = { name: string; body: ReactNode; pages: string[]; side?: boolean };
+// A node's page slugs, each with the heading of badil's Architecture page that covers it at a release
+// without that page: v0.23.0 ships only Install, Architecture and Preview contract.
+type MapNode = { name: string; body: ReactNode; pages: [slug: string, section?: string][]; side?: boolean };
 
 const NODES: MapNode[] = [
   {
@@ -42,7 +44,7 @@ const NODES: MapNode[] = [
         Pull request labelled <code>preview</code>
       </>
     ),
-    pages: ['install'],
+    pages: [['install']],
   },
   {
     name: 'badil',
@@ -51,7 +53,7 @@ const NODES: MapNode[] = [
         <code>badil serve</code> receives your GitHub App’s webhooks
       </>
     ),
-    pages: ['events', 'api'],
+    pages: [['events'], ['api', '#http-api']],
     side: true,
   },
   {
@@ -59,7 +61,7 @@ const NODES: MapNode[] = [
     body: (
       <>
         {/* Break points after the slashes, so the path wraps at a segment in a narrow node. */}
-        <code>
+        <code data-path="">
           previews/<wbr />
           &lt;slug&gt;/<wbr />
           values.yaml
@@ -67,7 +69,7 @@ const NODES: MapNode[] = [
         , one file per preview
       </>
     ),
-    pages: ['contract', 'configuration'],
+    pages: [['contract'], ['configuration']],
     side: true,
   },
   {
@@ -77,18 +79,27 @@ const NODES: MapNode[] = [
         An ApplicationSet on <code>previews/*</code> renders the <code>preview-apps</code> chart
       </>
     ),
-    pages: ['services', 'cleanup'],
+    pages: [
+      ['services', '#service-repo-contract'],
+      ['cleanup', '#cleanup-sweep'],
+    ],
     side: true,
   },
   {
     name: 'Preview namespace',
     body: 'One Application per service and one per dependency',
-    pages: ['operations'],
+    pages: [['operations', '#preview-limits']],
     side: true,
   },
 ];
 
-const EDGES = ['webhook', 'write', 'watch', 'deploy'];
+// Each edge's label, and the sentence a screen reader hears in its place.
+const EDGES = [
+  { label: 'webhook', spoken: 'GitHub sends badil a webhook.' },
+  { label: 'write', spoken: 'badil writes to the gitops repo.' },
+  { label: 'watch', spoken: 'Argo CD watches the gitops repo.' },
+  { label: 'deploy', spoken: 'Argo CD deploys to the preview namespace.' },
+];
 
 // What goes back to GitHub, from which node: drawn as lanes under the row, or as a line in the node when stacked.
 const RETURNS: Record<string, { label: string; optional?: boolean }> = {
@@ -96,19 +107,23 @@ const RETURNS: Record<string, { label: string; optional?: boolean }> = {
   'Argo CD': { label: 'deployment status', optional: true },
 };
 
-function NodeLinks({ slugs }: { slugs: string[] }) {
-  // A link shows only when the page exists at the badil ref the docs are built from.
-  const pages = slugs.flatMap((slug) => {
+function NodeLinks({ pages }: { pages: MapNode['pages'] }) {
+  // A page links when it exists at the badil ref the docs are built from; otherwise its section of the
+  // Architecture page does, when that heading exists there.
+  const architecture = source.getPage(['architecture']);
+  const links = pages.flatMap(([slug, section]) => {
     const page = source.getPage([slug]);
-    return page ? [page] : [];
+    if (page) return [{ href: page.url, title: page.data.title as ReactNode }];
+    const heading = section && architecture?.data.toc.find((item) => item.url === section);
+    return architecture && heading ? [{ href: `${architecture.url}${section}`, title: heading.title }] : [];
   });
-  if (pages.length === 0) return null;
+  if (links.length === 0) return null;
   return (
     <ul className="map-node__links">
-      {pages.map((page) => (
-        <li key={page.url}>
-          <Link href={page.url}>
-            {page.data.title}
+      {links.map((link) => (
+        <li key={link.href}>
+          <Link href={link.href}>
+            {link.title}
             <Arrow />
           </Link>
         </li>
@@ -140,16 +155,19 @@ function Node({ node }: { node: MapNode }) {
           </span>
         </p>
       )}
-      <NodeLinks slugs={node.pages} />
+      <NodeLinks pages={node.pages} />
     </div>
   );
 }
 
-function Edge({ label }: { label: string }) {
+function Edge({ edge }: { edge: (typeof EDGES)[number] }) {
   return (
-    <div className="map-edge" aria-hidden="true">
-      <span className="map-edge__label">{label}</span>
-      <span className="map-edge__line" />
+    <div className="map-edge">
+      <span className="sr-only">{edge.spoken}</span>
+      <span className="map-edge__label" aria-hidden="true">
+        {edge.label}
+      </span>
+      <span className="map-edge__line" aria-hidden="true" />
     </div>
   );
 }
@@ -158,16 +176,19 @@ export function ArchitectureMap() {
   const [github, ...side] = NODES;
   const architecture = source.getPage(['architecture']);
   return (
-    <figure className="map not-prose" aria-label="How a preview flows from GitHub to the preview namespace">
+    <figure className="map not-prose" aria-labelledby="map-title">
+      <h2 id="map-title" className="sr-only">
+        How a preview flows from GitHub to the preview namespace
+      </h2>
       <div className="map__stage">
         <div className="map__flow">
           <Node node={github} />
-          <Edge label={EDGES[0]} />
+          <Edge edge={EDGES[0]} />
           <div className="map__side">
             <span className="map__side-label">Your side</span>
             {side.map((node, i) => (
               <div className="map__step" key={node.name}>
-                {i > 0 && <Edge label={EDGES[i]} />}
+                {i > 0 && <Edge edge={EDGES[i]} />}
                 <Node node={node} />
               </div>
             ))}
@@ -186,7 +207,7 @@ export function ArchitectureMap() {
       </div>
       <ul className="map__notes">
         <li>Each service repo’s CI builds and pushes its images, and makes no deploy call.</li>
-        <li>badil never talks to the cluster or to Argo CD. Argo CD does every deploy and deletion.</li>
+        <li>badil never calls the Kubernetes API or Argo CD. Argo CD does every deploy and deletion.</li>
         {architecture && (
           <li>
             <span>

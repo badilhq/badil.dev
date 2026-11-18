@@ -7,6 +7,14 @@ import './global.css';
 
 export const metadata: Metadata = {
   title: { default: 'badil docs', template: '%s | badil' },
+  // The landing's icons, served at the site root by the badil.dev Worker.
+  icons: {
+    icon: [
+      { url: '/favicon.svg', type: 'image/svg+xml' },
+      { url: '/favicon-32.png', type: 'image/png', sizes: '32x32' },
+    ],
+    apple: '/apple-touch-icon.png',
+  },
 };
 
 export default function Layout({ children }: { children: ReactNode }) {

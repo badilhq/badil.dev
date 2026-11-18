@@ -20,7 +20,8 @@ const DEV_REF = /^[A-Za-z0-9._/-]+$/;
 
 // Site-owned text of the docs home. Facts: badil docs/ARCHITECTURE.md.
 const HOME_TITLE = 'Overview';
-const HOME_DESCRIPTION = 'Install, run and integrate badil, the preview environments for Kubernetes and Argo CD.';
+const HOME_DESCRIPTION =
+  'How to install and run badil, which writes a preview environment for each labelled pull request to your gitops repo for Argo CD to deploy.';
 const HOME_INTRO =
   'badil turns a labelled pull request into a preview environment: it writes the preview to your gitops repo, and Argo CD deploys it.';
 const INSTALL_SUMMARY = 'From an empty cluster to a first preview: the gitops repo, Argo CD, the GitHub App and the `badil` chart.';

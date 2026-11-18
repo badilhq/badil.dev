@@ -1,6 +1,6 @@
 'use client';
 
-import { use, useId, useSyncExternalStore } from 'react';
+import { use, useId, useSyncExternalStore, type CSSProperties } from 'react';
 import { CodeFrame } from '@/components/mdx/code-frame';
 import { useTheme } from 'fumadocs-ui/provider/base';
 
@@ -55,6 +55,9 @@ const THEME_VARIABLES = {
   },
 };
 
+// The rendered SVG's width: the third number of its viewBox.
+const VIEWBOX = /viewBox="[-\d.]+ [-\d.]+ ([\d.]+) [\d.]+"/;
+
 const cache = new Map<string, Promise<unknown>>();
 
 function cachePromise<T>(key: string, setPromise: () => Promise<T>): Promise<T> {
@@ -97,8 +100,15 @@ function MermaidContent({ chart }: { chart: string }) {
     );
   }
 
-  // mermaid sizes the SVG to the column (width 100%, max-width its natural width), so it never overflows it.
+  // mermaid sizes the SVG to the column (width 100%, max-width its natural width). Shrunk below 75% of
+  // that width its 16px labels drop under 12px, so the frame holds it there and scrolls sideways instead.
+  const natural = Number(VIEWBOX.exec(svg)?.[1]);
+  const style = natural > 0 ? ({ '--mermaid-min': `${Math.round(natural * 0.75)}px` } as CSSProperties) : undefined;
   return (
-    <div className="my-6 overflow-x-auto [&_svg]:mx-auto" dangerouslySetInnerHTML={{ __html: svg }} />
+    <div
+      className="mermaid-frame my-6 overflow-x-auto [&_svg]:mx-auto"
+      style={style}
+      dangerouslySetInnerHTML={{ __html: svg }}
+    />
   );
 }
