@@ -4,7 +4,7 @@
 
 /** The tabs in display order, and the pages each one lists first, in reading order. */
 export const TABS = [
-  { id: 'guide', title: 'Guide', pages: ['install'] },
+  { id: 'guide', title: 'Guide', pages: ['quickstart', 'install'] },
   { id: 'concepts', title: 'Concepts', pages: ['architecture', 'contract'] },
   {
     id: 'reference',

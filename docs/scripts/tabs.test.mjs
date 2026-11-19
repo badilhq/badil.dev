@@ -20,6 +20,13 @@ test('the restructured pages land in their tabs in reading order', () => {
   });
 });
 
+test('the quickstart page leads Guide, before install, and stays out of Reference', () => {
+  const slugs = ['api', 'architecture', 'cleanup', 'configuration', 'contract', 'events', 'install', 'operations', 'quickstart', 'services'];
+  const tabs = pages(groupPages(slugs));
+  assert.deepEqual(tabs['(guide)'], ['quickstart', 'install']);
+  assert.ok(!tabs['(reference)'].includes('quickstart'));
+});
+
 test('a page no tab lists falls into Reference, after the listed ones, sorted', () => {
   const tabs = groupPages(['install', 'zeta', 'api', 'alpha']);
   assert.deepEqual(pages(tabs), { '(guide)': ['install'], '(reference)': ['api', 'alpha', 'zeta'] });
