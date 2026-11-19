@@ -1,6 +1,9 @@
 // Content step: writes content/docs/ from badil's docs/*.md at the tag pinned in docs/badil-version
 // (or BADIL_REF), and the tag to .badil-ref. Run by `npm run build` before `next build`.
 //
+// The quickstart page, /docs/quickstart, is badilhq/quickstart's README.md at the commit pinned in
+// docs/quickstart-version; a docs/QUICKSTART.md at the badil ref is skipped.
+//
 // Layout written: one root folder per tab, `(guide)/`, `(concepts)/`, `(reference)/` (scripts/tabs.mjs),
 // each with a `meta.json` holding `root: true`; the parentheses keep pages at /docs/<slug>. The docs
 // home, index.mdx, is site-owned text.
@@ -15,6 +18,12 @@ import { groupPages } from './tabs.mjs';
 
 const root = fileURLToPath(new URL('..', import.meta.url));
 const VERSION_FILE = 'docs/badil-version';
+const QUICKSTART_VERSION_FILE = 'docs/quickstart-version';
+const BADIL = 'badilhq/badil';
+const QUICKSTART = 'badilhq/quickstart';
+const QUICKSTART_SLUG = 'quickstart';
+const QUICKSTART_TITLE = 'Quickstart';
+const SHA = /^[0-9a-f]{40}$/;
 const TAG = /^v[0-9]+\.[0-9]+\.[0-9]+$/;
 const DEV_REF = /^[A-Za-z0-9._/-]+$/;
 
@@ -52,22 +61,44 @@ async function resolveRef() {
   return pinned;
 }
 
-async function fetchTree(tag) {
-  const url = `https://api.github.com/repos/badilhq/badil/git/trees/${tag}?recursive=1`;
+async function quickstartCommit() {
+  let pinned;
+  try {
+    pinned = (await readFile(`${root}quickstart-version`, 'utf8')).trim();
+  } catch (error) {
+    throw new Error(`${QUICKSTART_VERSION_FILE} cannot be read: ${error.message}`);
+  }
+  if (!SHA.test(pinned)) {
+    throw new Error(`${QUICKSTART_VERSION_FILE} holds "${pinned}", not a badilhq/quickstart commit (40 lowercase hex)`);
+  }
+  return pinned;
+}
+
+async function fetchTree(repo, tag) {
+  const url = `https://api.github.com/repos/${repo}/git/trees/${tag}?recursive=1`;
   const headers = { Accept: 'application/vnd.github+json', 'User-Agent': 'badil.dev-docs' };
   if (process.env.GITHUB_TOKEN) headers.Authorization = `Bearer ${process.env.GITHUB_TOKEN}`;
   const response = await fetch(url, { headers });
-  if (response.status !== 200) throw new Error(`badilhq/badil tree at ${tag}: HTTP ${response.status} (${url})`);
+  if (response.status !== 200) throw new Error(`${repo} tree at ${tag}: HTTP ${response.status} (${url})`);
   const body = await response.json();
-  if (body.truncated) throw new Error(`badilhq/badil tree at ${tag} is truncated (${url})`);
+  if (body.truncated) throw new Error(`${repo} tree at ${tag} is truncated (${url})`);
   return body.tree.map(({ path, type }) => ({ path, type }));
 }
 
-async function fetchDoc(tag, path) {
-  const url = `https://raw.githubusercontent.com/badilhq/badil/${tag}/${path}`;
+async function fetchDoc(repo, tag, path) {
+  const url = `https://raw.githubusercontent.com/${repo}/${tag}/${path}`;
   const response = await fetch(url);
-  if (response.status !== 200) throw new Error(`${path} at ${tag}: HTTP ${response.status} (${url})`);
+  if (response.status !== 200) throw new Error(`${repo} ${path} at ${tag}: HTTP ${response.status} (${url})`);
   return response.text();
+}
+
+/** Splits a doc into its "# " H1 title, which must be its first line, and the rest. */
+function splitTitle(markdown, where) {
+  const newline = markdown.indexOf('\n');
+  const first = newline === -1 ? markdown : markdown.slice(0, newline);
+  const h1 = /^# (.+)$/.exec(first.trimEnd());
+  if (!h1) throw new Error(`${where}: the first line is not a "# " H1 title`);
+  return { title: h1[1].trim(), rest: newline === -1 ? '' : markdown.slice(newline + 1) };
 }
 
 const frontmatter = (fields) =>
@@ -77,8 +108,12 @@ const frontmatter = (fields) =>
 const json = (value) => `${JSON.stringify(value, null, 2)}\n`;
 
 const tag = await resolveRef();
-const tree = await fetchTree(tag);
-const files = tree.filter((e) => e.type === 'blob' && /^docs\/[^/]+\.md$/.test(e.path)).map((e) => e.path);
+const sha = await quickstartCommit();
+const tree = await fetchTree(BADIL, tag);
+const files = tree
+  .filter((e) => e.type === 'blob' && /^docs\/[^/]+\.md$/.test(e.path))
+  .map((e) => e.path)
+  .filter((path) => slugOf(path.slice('docs/'.length)) !== QUICKSTART_SLUG);
 
 const outDir = `${root}content/docs/`;
 await rm(outDir, { recursive: true, force: true });
@@ -86,16 +121,18 @@ await mkdir(outDir, { recursive: true });
 
 const pages = new Map();
 for (const path of files) {
-  const markdown = await fetchDoc(tag, path);
-  const newline = markdown.indexOf('\n');
-  const first = newline === -1 ? markdown : markdown.slice(0, newline);
-  const h1 = /^# (.+)$/.exec(first.trimEnd());
-  if (!h1) throw new Error(`${path} at ${tag}: the first line is not a "# " H1 title`);
-
+  const { title, rest } = splitTitle(await fetchDoc(BADIL, tag, path), `${path} at ${tag}`);
   const slug = slugOf(path.slice('docs/'.length));
-  const body = rewriteLinks(newline === -1 ? '' : markdown.slice(newline + 1), { file: path, tag, tree });
-  pages.set(slug, { title: h1[1].trim(), body });
+  pages.set(slug, { title, body: rewriteLinks(rest, { file: path, tag, tree }) });
 }
+
+// The quickstart README's own H1 is dropped: the page title is site-owned.
+const quickstartTree = await fetchTree(QUICKSTART, sha);
+const readme = splitTitle(await fetchDoc(QUICKSTART, sha, 'README.md'), `${QUICKSTART} README.md at ${sha}`);
+pages.set(QUICKSTART_SLUG, {
+  title: QUICKSTART_TITLE,
+  body: rewriteLinks(readme.rest, { repo: QUICKSTART, file: 'README.md', tag: sha, tree: quickstartTree }),
+});
 
 const tabs = groupPages([...pages.keys()]);
 for (const tab of tabs) {
@@ -124,3 +161,4 @@ await writeFile(
 
 await writeFile(`${root}.badil-ref`, `${tag}\n`);
 console.log(`content: ${pages.size} pages in ${tabs.length} tabs from badilhq/badil ${tag}`);
+console.log(`content: quickstart from ${QUICKSTART} ${sha}`);

@@ -51,3 +51,38 @@ test('a relative target missing from the tree fails, naming the file and the lin
     (error) => error.message.includes(file) && error.message.includes('../charts/preview-env'),
   );
 });
+
+// badilhq/quickstart's README, read at a commit: links resolve against that repository's tree.
+const sha = 'e91e995e329385344da5b74d0d9eabc71c72ccc6';
+const quickstart = (markdown) =>
+  rewriteLinks(markdown, {
+    repo: 'badilhq/quickstart',
+    file: 'README.md',
+    tag: sha,
+    tree: [
+      { path: 'README.md', type: 'blob' },
+      { path: 'LICENSE', type: 'blob' },
+      { path: 'up.sh', type: 'blob' },
+    ],
+  });
+
+test('quickstart: an anchor-only link is kept', () => {
+  const markdown = 'Run the [walkthrough](#walkthrough).\n';
+  assert.equal(quickstart(markdown), markdown);
+});
+
+test('quickstart: an absolute URL is kept', () => {
+  const markdown = 'Then [install badil](https://badil.dev/docs/install).\n';
+  assert.equal(quickstart(markdown), markdown);
+});
+
+test('quickstart: a repo file becomes a blob URL of badilhq/quickstart pinned to the commit', () => {
+  assert.equal(quickstart('[LICENSE](LICENSE)\n'), `[LICENSE](https://github.com/badilhq/quickstart/blob/${sha}/LICENSE)\n`);
+});
+
+test('quickstart: a relative target missing from the tree fails, naming the repository', () => {
+  assert.throws(
+    () => quickstart('[docs](docs/GUIDE.md)\n'),
+    (error) => error.message.includes('docs/GUIDE.md') && error.message.includes('badilhq/quickstart'),
+  );
+});
